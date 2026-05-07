@@ -90,7 +90,7 @@ const CapabilitiesCards = () => {
           <div style={{ fontSize: '12px', color: 'var(--dark-slate)' }}>
             <strong>Bias Metrics Detected:</strong>
             <ul style={{ paddingLeft: '16px', marginTop: '4px', listStyleType: 'disc' }}>
-              <li>Disparate Impact: <span style={{color: 'var(--risk-red)'}}>0.87</span></li>
+              <li>Disparate Impact: <span style={{ color: 'var(--risk-red)' }}>0.87</span></li>
               <li>Equal Opportunity: 0.92</li>
               <li>Label Disparity: 0.89</li>
             </ul>
@@ -113,9 +113,9 @@ const CapabilitiesCards = () => {
         description="Physical barrier in your CI/CD pipeline. One API endpoint (/go_live_decision). Approved with signed compliance certificate or Blocked with specific reasons."
         interactiveContent={
           <div style={{ fontSize: '11px', fontFamily: 'monospace', color: 'var(--primary-blue)', background: '#E2E8F0', padding: '8px', borderRadius: '4px' }}>
-            POST /go_live_decision<br/>
-            {`{"model_id": "credit_model_v2"}`}<br/>
-            <span style={{color: 'var(--success-green)'}}>{"{status: 'APPROVED'}"}</span>
+            POST /go_live_decision<br />
+            {`{"model_id": "credit_model_v2"}`}<br />
+            <span style={{ color: 'var(--success-green)' }}>{"{status: 'APPROVED'}"}</span>
           </div>
         }
       />
@@ -125,7 +125,7 @@ const CapabilitiesCards = () => {
         description="Monitor production models continuously. Track drift. Alert before failure. Immutable audit trail. Cryptographically signed evidence for regulatory audits 5 years from now."
         interactiveContent={
           <div style={{ fontSize: '12px', color: 'var(--dark-slate)' }}>
-            <strong>Drift Alert:</strong><br/>
+            <strong>Drift Alert:</strong><br />
             Disparate Impact dropped by 4% in the last 30 days. Automated audit logged.
           </div>
         }

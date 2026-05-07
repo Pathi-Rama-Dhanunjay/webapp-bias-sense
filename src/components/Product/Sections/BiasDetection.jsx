@@ -30,7 +30,7 @@ const MetricExplanation = ({ title, whatItMeasures, whyItMatters, example, techD
             <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', margin: 0, lineHeight: 1.6 }}>
               <strong>Example:</strong> {example}
             </p>
-            
+
             <AnimatePresence>
               {view === 'technical' && (
                 <motion.div
@@ -74,7 +74,7 @@ const BiasDetection = () => {
         gap: '48px',
         alignItems: 'start'
       }}>
-        
+
         {/* Left Column: Visual */}
         <div style={{ position: 'sticky', top: '100px' }}>
           <BiasDetectionMetricsVisualization />
@@ -86,12 +86,12 @@ const BiasDetection = () => {
             Comprehensive Fairness Metrics
           </h2>
           <p className="body-large" style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '40px' }}>
-            BiasSense measures 8 dimensions of algorithmic fairness across 
+            BiasSense measures 8 dimensions of algorithmic fairness across
             every protected attribute in your dataset. No group goes unmeasured.
           </p>
 
           <div>
-            <MetricExplanation 
+            <MetricExplanation
               title="Metric 1: Disparate Impact"
               whatItMeasures="Are certain demographic groups receiving favorable outcomes at significantly lower rates than others?"
               whyItMatters="In legal frameworks (EEOC, CFPB), a Disparate Impact score < 0.8 (80%) is considered legally significant discrimination."
@@ -100,7 +100,7 @@ const BiasDetection = () => {
               defaultVisible={true}
             />
 
-            <MetricExplanation 
+            <MetricExplanation
               title="Metric 2: Equal Opportunity Ratio"
               whatItMeasures="Are true positive rates (correct positive predictions) consistent across groups? Or is the model 'right' more often for some groups than others?"
               whyItMatters="A model can have the same approval rates across groups but systematically misclassify one group. Equal Opportunity catches this."
@@ -109,7 +109,7 @@ const BiasDetection = () => {
               defaultVisible={true}
             />
 
-            <MetricExplanation 
+            <MetricExplanation
               title="Metric 3: Representation Ratio"
               whatItMeasures="Are minority groups even present in sufficient numbers in your training data?"
               whyItMatters="A model trained on 95% majority group and 5% minority group cannot make fair predictions about the minority."
@@ -118,7 +118,7 @@ const BiasDetection = () => {
               defaultVisible={false}
             />
 
-            <MetricExplanation 
+            <MetricExplanation
               title="Metric 4: Label Disparity"
               whatItMeasures="Are outcomes (approvals, rejections) distributed fairly across demographic groups?"
               whyItMatters="Even if approval rates are equal, if denials are concentrated in one group, something is wrong."
