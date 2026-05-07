@@ -101,7 +101,7 @@ const NavBar = () => {
                 height: '100%',
                 width: 'auto',
                 objectFit: 'contain',
-                mixBlendMode: isDarkText ? 'multiply' : 'normal',
+                mixBlendMode: 'multiply',
                 filter: 'none',
                 transition: 'filter 0.3s, mix-blend-mode 0.3s'
               }}
