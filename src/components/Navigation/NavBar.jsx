@@ -1,0 +1,244 @@
+import React, { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import logoImg from '../../assets/biassenselogo.png';
+
+const NavBar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isDarkText, setIsDarkText] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 50);
+
+      const lightSections = document.querySelectorAll('.light-section');
+      const navCenter = 40; // Approx Y center of navbar
+      let foundLight = false;
+      lightSections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= navCenter && rect.bottom >= navCenter) {
+          foundLight = true;
+        }
+      });
+      setIsDarkText(foundLight);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: 'Product', href: '#' },
+    { name: 'Solutions', href: '#' },
+    { name: 'Pricing', href: '#' },
+    { name: 'Company', href: '#' }
+  ];
+
+  return (
+    <motion.div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, display: 'flex', justifyContent: 'center', pointerEvents: 'none' }}>
+      <motion.nav
+        aria-label="Main Navigation"
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+        style={{
+          pointerEvents: 'auto',
+          marginTop: isScrolled ? '0px' : '24px',
+          width: isScrolled ? '100%' : '95%',
+          maxWidth: isScrolled ? '100%' : '1200px',
+          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          background: isScrolled ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.3)',
+          backdropFilter: 'blur(32px) saturate(200%)',
+          WebkitBackdropFilter: 'blur(32px) saturate(200%)',
+          border: isScrolled ? 'none' : '1px solid rgba(255, 255, 255, 0.2)',
+          borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: isScrolled ? '0 16px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4)' : '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+          borderRadius: isScrolled ? '0px' : '40px',
+          padding: isScrolled ? '12px 24px' : '8px 24px',
+        }}
+      >
+        <div className="container" style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          {/* Logo */}
+          <a
+            href="/"
+            aria-label="BiasSense Home"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              cursor: 'pointer',
+              textDecoration: 'none',
+              height: '40px'
+            }}
+          >
+            <img
+              src={logoImg}
+              alt="BiasSense Logo"
+              style={{
+                height: '100%',
+                width: 'auto',
+                objectFit: 'contain',
+                mixBlendMode: isDarkText ? 'multiply' : 'screen',
+                filter: isDarkText ? 'none' : 'invert(1) brightness(1.5)',
+                transition: 'filter 0.3s, mix-blend-mode 0.3s'
+              }}
+            />
+          </a>
+
+          {/* Desktop Nav */}
+          <div className="desktop-nav" role="menubar" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            {navLinks.map((link) => (
+              <motion.a
+                key={link.name}
+                href={link.href}
+                role="menuitem"
+                tabIndex={0}
+                aria-label={link.name}
+                whileHover={{
+                  backgroundColor: isDarkText ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)',
+                  color: isDarkText ? 'var(--dark-slate)' : 'white',
+                  textShadow: isDarkText ? 'none' : '0 0 12px rgba(255,255,255,0.4)'
+                }}
+                style={{
+                  color: isDarkText ? 'var(--text-gray)' : 'rgba(255,255,255,0.85)',
+                  textDecoration: 'none',
+                  fontSize: '15px',
+                  fontWeight: 600,
+                  padding: '8px 16px',
+                  borderRadius: '20px',
+                  transition: 'all 0.3s',
+                  outline: 'none'
+                }}
+                onFocus={(e) => {
+                  e.target.style.boxShadow = '0 0 0 2px rgba(255, 255, 255, 0.6)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.boxShadow = 'none';
+                }}
+              >
+                {link.name}
+              </motion.a>
+            ))}
+          </div>
+
+          {/* Desktop CTA */}
+          <div className="desktop-nav" style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+            <motion.button
+              whileHover={{ backgroundColor: isDarkText ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.1)' }}
+              style={{
+                color: isDarkText ? 'var(--dark-slate)' : 'white',
+                fontSize: '15px',
+                fontWeight: 600,
+                padding: '8px 16px',
+                borderRadius: '20px',
+                transition: 'color 0.3s'
+              }}
+            >
+              Log In
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => window.location.href = '/contact'}
+              style={{
+                background: 'linear-gradient(135deg, rgba(0, 169, 157, 0.8), rgba(99, 102, 241, 0.8))',
+                color: 'white',
+                padding: '10px 24px',
+                borderRadius: '20px',
+                fontSize: '15px',
+                fontWeight: 600,
+                border: '1px solid rgba(255,255,255,0.3)',
+                boxShadow: '0 4px 16px rgba(0, 169, 157, 0.3), inset 0 1px 0 rgba(255,255,255,0.2)'
+              }}
+            >
+              Book a Demo
+            </motion.button>
+          </div>
+
+          {/* Mobile Toggle */}
+          <div className="mobile-toggle" style={{ display: 'none' }}>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              style={{ color: isDarkText ? 'var(--dark-slate)' : 'white', padding: '4px', transition: 'color 0.3s' }}
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu - Glassy */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              style={{
+                position: 'absolute',
+                top: 'calc(100% + 8px)',
+                left: '16px',
+                right: '16px',
+                background: 'rgba(255, 255, 255, 0.15)',
+                backdropFilter: 'blur(24px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+                padding: '24px',
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '24px',
+                boxShadow: '0 16px 40px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.4)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px'
+              }}>
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  style={{
+                    color: 'white',
+                    textDecoration: 'none',
+                    fontSize: '16px',
+                    fontWeight: 500
+                  }}
+                >
+                  {link.name}
+                </a>
+              ))}
+              <div style={{ height: '1px', background: 'rgba(255,255,255,0.1)', margin: '8px 0' }}></div>
+              <button style={{ color: 'white', fontSize: '16px', fontWeight: 500, textAlign: 'left' }}>Log In</button>
+              <button
+                onClick={() => window.location.href = '/contact'}
+                style={{
+                  background: 'linear-gradient(135deg, rgba(0, 169, 157, 0.8), rgba(99, 102, 241, 0.8))',
+                  color: 'white',
+                  padding: '14px',
+                  borderRadius: '16px',
+                  fontSize: '16px',
+                  fontWeight: 600,
+                  border: '1px solid rgba(255,255,255,0.3)',
+                  width: '100%',
+                  boxShadow: '0 4px 16px rgba(0, 169, 157, 0.3)'
+                }}
+              >
+                Book a Demo
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <style>{`
+        @media (max-width: 768px) {
+          .desktop-nav { display: none !important; }
+          .mobile-toggle { display: block !important; }
+        }
+      `}</style>
+      </motion.nav>
+    </motion.div>
+  );
+};
+
+export default NavBar;
