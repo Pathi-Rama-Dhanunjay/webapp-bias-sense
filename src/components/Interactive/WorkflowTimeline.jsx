@@ -35,7 +35,7 @@ const TimelineStep = ({ number, title, description, icon: Icon, position, isExpa
           <p style={{ color: 'var(--text-gray)', fontSize: '16px' }}>{description}</p>
           
           <AnimatePresence>
-            {isExpanded && (
+            {isExpanded && interactiveContent && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
@@ -107,11 +107,6 @@ const WorkflowTimeline = () => {
         position="left"
         isExpanded={expandedStep === 1}
         onToggle={() => setExpandedStep(expandedStep === 1 ? null : 1)}
-        interactiveContent={
-          <div style={{ border: '2px dashed var(--primary-teal)', padding: '20px', textAlign: 'center', borderRadius: '8px', color: 'var(--primary-teal)', fontWeight: 500 }}>
-            Drop files here
-          </div>
-        }
       />
       <TimelineStep
         number={2}

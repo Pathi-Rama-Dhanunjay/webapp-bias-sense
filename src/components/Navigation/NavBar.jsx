@@ -231,13 +231,13 @@ const NavBar = () => {
                 top: 'calc(100% + 8px)',
                 left: '16px',
                 right: '16px',
-                background: 'rgba(255, 255, 255, 0.15)',
-                backdropFilter: 'blur(24px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+                background: '#FFFFFF',
+                backdropFilter: 'none',
+                WebkitBackdropFilter: 'none',
                 padding: '24px',
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid #E2E8F0',
                 borderRadius: '24px',
-                boxShadow: '0 16px 40px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.4)',
+                boxShadow: '0 16px 40px rgba(0,0,0,0.12)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '16px'
@@ -247,7 +247,7 @@ const NavBar = () => {
                   key={link.name}
                   href={link.href}
                   style={{
-                    color: 'white',
+                    color: 'var(--dark-slate)',
                     textDecoration: 'none',
                     fontSize: '16px',
                     fontWeight: 500
@@ -256,8 +256,8 @@ const NavBar = () => {
                   {link.name}
                 </a>
               ))}
-              <div style={{ height: '1px', background: 'rgba(255,255,255,0.1)', margin: '8px 0' }}></div>
-              <button style={{ color: 'white', fontSize: '16px', fontWeight: 500, textAlign: 'left' }}>Log In</button>
+              <div style={{ height: '1px', background: '#E2E8F0', margin: '8px 0' }}></div>
+              <button style={{ color: 'var(--dark-slate)', fontSize: '16px', fontWeight: 500, textAlign: 'left' }}>Log In</button>
               <button
                 onClick={() => window.location.href = '/contact'}
                 style={{

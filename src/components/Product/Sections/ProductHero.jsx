@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Download } from 'lucide-react';
 import ViewToggle from '../Interactive/ViewToggle';
 
 const ProductHero = () => {
@@ -96,29 +95,6 @@ const ProductHero = () => {
             Schedule Technical Demo
           </motion.button>
 
-          <motion.button
-            whileHover={{ background: '#00A99D', color: 'white' }}
-            style={{
-              background: 'transparent',
-              border: '2px solid #00A99D',
-              color: '#00A99D',
-              padding: '14px 30px',
-              fontSize: '16px',
-              fontWeight: 600,
-              borderRadius: '8px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              flex: '1 1 auto',
-              maxWidth: '300px',
-              transition: 'all 0.3s'
-            }}
-          >
-            <Download size={18} />
-            Download the SDK
-          </motion.button>
         </div>
       </div>
     </section>
