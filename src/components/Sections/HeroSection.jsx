@@ -195,19 +195,9 @@ const HeroSection = () => {
 
           <motion.h1
             className="hero-title"
-            style={{ marginBottom: '20px', color: '#1E293B', fontWeight: 900, position: 'relative', zIndex: 10 }}
+            style={{ marginBottom: '20px', color: 'black', fontWeight: 900, position: 'relative', zIndex: 10 }}
           >
-            The Only AI Platform That{' '}
-            <span style={{
-              background: 'linear-gradient(135deg, #0D9488, #4F46E5, #0D9488)',
-              backgroundSize: '200% 200%',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              animation: 'gradientShift 4s ease infinite',
-            }}>
-              Proves
-            </span>
-            {' '}Your Model Is Fair, Not Just Fast
+            The Only AI Platform That Proves Your Model Is Fair, Not Just Fast
           </motion.h1>
 
           <motion.p
@@ -348,7 +338,7 @@ const HeroSection = () => {
         .hero-title {
           font-size: clamp(32px, 4.5vw, 64px);
           line-height: 1.15;
-          color: #1E293B !important;
+          color: black !important;
           font-weight: 900;
           opacity: 1 !important;
           visibility: visible !important;
