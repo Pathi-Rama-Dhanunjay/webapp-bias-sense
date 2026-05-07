@@ -106,7 +106,7 @@ const NavBar = () => {
                 height: '100%',
                 width: 'auto',
                 objectFit: 'contain',
-                transform: 'scaleX(1.35) scaleY(1.05)',
+                transform: 'scaleX(1.1) scaleY(0.97)',
                 transformOrigin: 'left center',
                 mixBlendMode: 'multiply',
                 filter: 'none',

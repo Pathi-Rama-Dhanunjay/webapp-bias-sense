@@ -142,7 +142,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="mesh-bg hero-section" style={{
+    <section className="hero-section light-section" style={{
       height: '100vh',
       display: 'flex',
       flexDirection: 'column',
@@ -153,19 +153,10 @@ const HeroSection = () => {
       paddingRight: '24px',
       position: 'relative',
       overflow: 'hidden',
-      boxSizing: 'border-box'
+      boxSizing: 'border-box',
+      background: '#FFFFFF',
     }}>
-      {/* Animated Background Elements */}
-      <GridLines />
-      <ParticleField />
-
-      {/* Floating Orbs */}
-      <FloatingOrb size="300px" color="rgba(0, 169, 157, 0.15)" top="-5%" left="10%" delay={0} duration={14} />
-      <FloatingOrb size="200px" color="rgba(99, 102, 241, 0.12)" top="60%" left="75%" delay={2} duration={16} />
-      <FloatingOrb size="250px" color="rgba(15, 76, 140, 0.12)" top="30%" left="-5%" delay={4} duration={18} />
-      <FloatingOrb size="180px" color="rgba(0, 169, 157, 0.1)" top="70%" left="40%" delay={1} duration={12} />
-
-      <div className="container hero-grid" style={{ position: 'relative', zIndex: 2 }}>
+      <div className="container hero-grid" style={{ position: 'relative', zIndex: 10 }}>
         <div className="hero-content">
           {/* Accent Badge */}
           <motion.div
@@ -177,14 +168,14 @@ const HeroSection = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              background: 'rgba(0, 169, 157, 0.15)',
-              border: '1px solid rgba(0, 169, 157, 0.3)',
+              background: '#F0FDFA',
+              border: '1px solid #CCFBF1',
               padding: '6px 16px',
               borderRadius: '20px',
               marginBottom: '20px',
               fontSize: '13px',
               fontWeight: 600,
-              color: '#2DD4BF',
+              color: '#0D9488',
               letterSpacing: '0.5px',
             }}
           >
@@ -195,7 +186,7 @@ const HeroSection = () => {
                 width: '6px',
                 height: '6px',
                 borderRadius: '50%',
-                background: '#2DD4BF',
+                background: '#0D9488',
                 display: 'inline-block',
               }}
             />
@@ -203,16 +194,12 @@ const HeroSection = () => {
           </motion.div>
 
           <motion.h1
-            custom={1}
-            initial="hidden"
-            animate="visible"
-            variants={textReveal}
             className="hero-title"
-            style={{ marginBottom: '20px' }}
+            style={{ marginBottom: '20px', color: '#1E293B', fontWeight: 900, position: 'relative', zIndex: 10 }}
           >
             The Only AI Platform That{' '}
             <span style={{
-              background: 'linear-gradient(135deg, #2DD4BF, #6366F1, #00A99D)',
+              background: 'linear-gradient(135deg, #0D9488, #4F46E5, #0D9488)',
               backgroundSize: '200% 200%',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -224,12 +211,8 @@ const HeroSection = () => {
           </motion.h1>
 
           <motion.p
-            custom={2}
-            initial="hidden"
-            animate="visible"
-            variants={textReveal}
             className="hero-subtitle body-large"
-            style={{ color: 'rgba(255,255,255,0.85)', marginBottom: '20px', maxWidth: '600px', fontSize: '18px' }}
+            style={{ color: '#1E293B', marginBottom: '20px', maxWidth: '600px', fontSize: '18px', opacity: 1 }}
           >
             Data health + Bias detection + Evidence = One system. One scorecard. One defensible answer.
           </motion.p>
@@ -266,15 +249,15 @@ const HeroSection = () => {
                 <span style={{
                   fontSize: '20px',
                   fontWeight: 800,
-                  color: 'white',
+                  color: '#1E293B',
                   letterSpacing: '-0.02em',
                 }}>
                   {stat.value}
                 </span>
                 <span style={{
                   fontSize: '11px',
-                  color: 'rgba(255,255,255,0.5)',
-                  fontWeight: 500,
+                  color: '#1E293B',
+                  fontWeight: 600,
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px',
                 }}>
@@ -297,21 +280,19 @@ const HeroSection = () => {
               whileHover={{
                 y: -4,
                 scale: 1.03,
-                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.5)',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.05)',
               }}
               whileTap={{ scale: 0.97 }}
               style={{
-                background: 'rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(24px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-                color: 'white',
+                background: '#F1F5F9',
+                color: '#1E293B',
                 padding: '12px 24px 12px 14px',
                 fontSize: '15px',
                 fontWeight: 700,
                 borderRadius: '32px',
-                border: '1px solid rgba(255,255,255,0.3)',
-                boxShadow: '0 16px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.4)',
-                transition: 'background 0.3s',
+                border: '1px solid #E2E8F0',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+                transition: 'all 0.3s',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
@@ -367,6 +348,10 @@ const HeroSection = () => {
         .hero-title {
           font-size: clamp(32px, 4.5vw, 64px);
           line-height: 1.15;
+          color: #1E293B !important;
+          font-weight: 900;
+          opacity: 1 !important;
+          visibility: visible !important;
         }
         .hero-subtitle {
           font-size: clamp(15px, 1.8vw, 20px);

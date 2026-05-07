@@ -38,15 +38,14 @@ const MetricCard = ({ label, targetValue, color, delay, icon: Icon }) => {
         boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)',
       }}
       style={{
-        background: 'rgba(255, 255, 255, 0.06)',
-        backdropFilter: 'blur(16px)',
+        background: '#FFFFFF',
         borderRadius: '12px',
         padding: '14px',
         display: 'flex',
         flexDirection: 'column',
         gap: '8px',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
-        boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+        border: '1px solid #E2E8F0',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
         position: 'relative',
         overflow: 'hidden',
         cursor: 'default',
@@ -79,7 +78,7 @@ const MetricCard = ({ label, targetValue, color, delay, icon: Icon }) => {
           }}>
             <Icon size={14} style={{ color }} />
           </div>
-          <span style={{ color: 'rgba(255,255,255,0.7)', fontWeight: 500, fontSize: '12px' }}>{label}</span>
+          <span style={{ color: '#1E293B', fontWeight: 600, fontSize: '12px' }}>{label}</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
           <motion.span
@@ -109,7 +108,7 @@ const MetricCard = ({ label, targetValue, color, delay, icon: Icon }) => {
       {/* Progress bar */}
       <div style={{
         height: '3px',
-        background: 'rgba(255,255,255,0.08)',
+        background: '#E2E8F0',
         borderRadius: '2px',
         overflow: 'hidden',
       }}>
@@ -145,7 +144,7 @@ const StatusPulse = ({ status, label }) => (
         background: status === 'active' ? '#2DD4BF' : status === 'warning' ? '#FBBF24' : '#64748B',
       }}
     />
-    <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>{label}</span>
+    <span style={{ fontSize: '11px', color: '#1E293B', fontWeight: 600 }}>{label}</span>
   </div>
 );
 
@@ -182,17 +181,15 @@ const HeroVisualization = () => {
         margin: '0 auto',
       }}
     >
-      {/* Dashboard Header */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.6 }}
         style={{
-          background: 'rgba(255, 255, 255, 0.04)',
-          backdropFilter: 'blur(16px)',
+          background: '#FFFFFF',
           borderRadius: '12px',
           padding: '12px 16px',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          border: '1px solid #E2E8F0',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -203,7 +200,7 @@ const HeroVisualization = () => {
             width: '28px',
             height: '28px',
             borderRadius: '8px',
-            background: 'linear-gradient(135deg, #00A99D, #6366F1)',
+            background: '#6366F1',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -211,8 +208,8 @@ const HeroVisualization = () => {
             <Shield size={16} style={{ color: 'white' }} />
           </div>
           <div>
-            <div style={{ fontSize: '12px', fontWeight: 600, color: 'white' }}>BiasSense Dashboard</div>
-            <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)' }}>Real-time Analysis</div>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: '#1E293B' }}>BiasSense Dashboard</div>
+            <div style={{ fontSize: '10px', color: '#1E293B', opacity: 0.8 }}>Real-time Analysis</div>
           </div>
         </div>
         <div style={{ display: 'flex', gap: '12px' }}>
@@ -221,20 +218,19 @@ const HeroVisualization = () => {
         </div>
       </motion.div>
 
-      {/* Scan Progress */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
         style={{
-          background: 'rgba(255, 255, 255, 0.04)',
+          background: '#F8FAFC',
           borderRadius: '10px',
           padding: '10px 14px',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
+          border: '1px solid #E2E8F0',
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-          <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>
+          <span style={{ fontSize: '11px', color: '#475569', fontWeight: 500 }}>
             <Activity size={10} style={{ marginRight: '4px', verticalAlign: 'middle' }} />
             Model Scan Progress
           </span>
@@ -242,7 +238,7 @@ const HeroVisualization = () => {
         </div>
         <div style={{
           height: '3px',
-          background: 'rgba(255,255,255,0.06)',
+          background: '#E2E8F0',
           borderRadius: '2px',
           overflow: 'hidden',
         }}>
@@ -251,31 +247,28 @@ const HeroVisualization = () => {
             transition={{ duration: 0.1 }}
             style={{
               height: '100%',
-              background: 'linear-gradient(90deg, #00A99D, #2DD4BF)',
+              background: '#2DD4BF',
               borderRadius: '2px',
-              boxShadow: '0 0 12px rgba(0,169,157,0.4)',
             }}
           />
         </div>
       </motion.div>
 
-      {/* Metric Cards */}
       <div key={key} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
         <MetricCard label="Disparate Impact" targetValue={87} color="#00A99D" delay={800} icon={BarChart3} />
         <MetricCard label="Equal Opportunity" targetValue={92} color="#6366F1" delay={1200} icon={TrendingUp} />
         <MetricCard label="Data Health Score" targetValue={94} color="#0F4C8C" delay={1600} icon={Shield} />
       </div>
 
-      {/* Bottom Status Bar */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2.2, duration: 0.5 }}
         style={{
-          background: 'rgba(45, 212, 191, 0.08)',
+          background: '#F8FAFC',
           borderRadius: '10px',
           padding: '10px 14px',
-          border: '1px solid rgba(45, 212, 191, 0.15)',
+          border: '1px solid #CBD5E1',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -283,11 +276,11 @@ const HeroVisualization = () => {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <CheckCircle2 size={14} style={{ color: '#2DD4BF' }} />
-          <span style={{ fontSize: '12px', color: '#2DD4BF', fontWeight: 600 }}>
+          <span style={{ fontSize: '11px', color: '#1E293B', fontWeight: 600 }}>
             Model passes all fairness thresholds
           </span>
         </div>
-        <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)', fontFamily: 'monospace' }}>
+        <span style={{ fontSize: '10px', color: '#64748B', fontFamily: 'monospace' }}>
           v2.4.1
         </span>
       </motion.div>
