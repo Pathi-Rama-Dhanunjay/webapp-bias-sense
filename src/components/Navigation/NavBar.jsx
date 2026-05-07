@@ -35,6 +35,14 @@ const NavBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Force re-evaluation of navbar style on route change
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.dispatchEvent(new Event('scroll'));
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [location]);
+
   const navLinks = [
     { name: 'Product', href: '/product' },
     { name: 'Solutions', href: '/#solutions' },
