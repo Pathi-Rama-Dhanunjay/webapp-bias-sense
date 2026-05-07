@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate, useLocation } from 'react-router-dom';
 import logoImg from '../../assets/biassenselogo.png';
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkText, setIsDarkText] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +32,7 @@ const NavBar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Product', href: '#' },
+    { name: 'Product', href: '/product' },
     { name: 'Solutions', href: '#' },
     { name: 'Pricing', href: '#' },
     { name: 'Company', href: '#' }
@@ -66,6 +69,10 @@ const NavBar = () => {
           {/* Logo */}
           <a
             href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/');
+            }}
             aria-label="BiasSense Home"
             style={{
               display: 'flex',
@@ -95,6 +102,12 @@ const NavBar = () => {
               <motion.a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => {
+                  if (link.href.startsWith('/')) {
+                    e.preventDefault();
+                    navigate(link.href);
+                  }
+                }}
                 role="menuitem"
                 tabIndex={0}
                 aria-label={link.name}

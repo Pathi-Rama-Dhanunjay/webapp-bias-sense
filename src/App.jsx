@@ -1,15 +1,9 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/Navigation/NavBar';
-import HeroSection from './components/Sections/HeroSection';
-import ProblemSection from './components/Sections/ProblemSection';
-import SolutionSection from './components/Sections/SolutionSection';
-import CapabilitiesSection from './components/Sections/CapabilitiesSection';
-import WorkflowSection from './components/Sections/WorkflowSection';
-import ProofSection from './components/Sections/ProofSection';
-import BenchmarkSection from './components/Sections/BenchmarkSection';
-import PricingSection from './components/Sections/PricingSection';
-import TrustSection from './components/Sections/TrustSection';
-import CTASection from './components/Sections/CTASection';
+import Home from './pages/Home';
+import ProductOverview from './pages/ProductOverview';
+import { ViewProvider } from './context/ViewContext';
 
 function App() {
   // Mock GA Scroll Tracking
@@ -26,19 +20,17 @@ function App() {
   }, []);
 
   return (
-    <div className="app-container" style={{ overflowX: 'hidden', width: '100%', maxWidth: '100vw' }}>
-      <NavBar />
-      <HeroSection />
-      <ProblemSection />
-      <SolutionSection />
-      <CapabilitiesSection />
-      <WorkflowSection />
-      <ProofSection />
-      <BenchmarkSection />
-      <PricingSection />
-      <TrustSection />
-      <CTASection />
-    </div>
+    <Router>
+      <div className="app-container" style={{ overflowX: 'hidden', width: '100%', maxWidth: '100vw' }}>
+        <NavBar />
+        <ViewProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/product" element={<ProductOverview />} />
+          </Routes>
+        </ViewProvider>
+      </div>
+    </Router>
   );
 }
 
