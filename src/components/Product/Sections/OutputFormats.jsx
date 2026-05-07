@@ -7,7 +7,7 @@ const OutputFormats = () => {
   const { view } = useView();
 
   return (
-    <section style={{
+    <section className="light-section" style={{
       width: '100%',
       background: '#FFFFFF',
       padding: '96px 24px',

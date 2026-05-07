@@ -10,9 +10,9 @@ const ProductHero = () => {
   };
 
   return (
-    <section style={{
+    <section className="light-section" style={{
       minHeight: 'auto',
-      padding: '120px 24px 96px',
+      padding: '150px 24px 96px',
       background: '#F8FAFC',
       display: 'flex',
       flexDirection: 'column',

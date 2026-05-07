@@ -17,7 +17,6 @@ const ProductOverview = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      style={{ paddingTop: '80px' }} // To clear the fixed navbar
     >
       <ProductHero />
       <DataHealth />

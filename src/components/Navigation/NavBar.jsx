@@ -27,15 +27,19 @@ const NavBar = () => {
       });
       setIsDarkText(foundLight);
     };
+    
+    // Call once to set initial state
+    handleScroll();
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
     { name: 'Product', href: '/product' },
-    { name: 'Solutions', href: '#' },
-    { name: 'Pricing', href: '#' },
-    { name: 'Company', href: '#' }
+    { name: 'Solutions', href: '/#solutions' },
+    { name: 'Pricing', href: '/#pricing' },
+    { name: 'Company', href: '/#company' }
   ];
 
   return (
@@ -103,9 +107,28 @@ const NavBar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => {
-                  if (link.href.startsWith('/')) {
-                    e.preventDefault();
-                    navigate(link.href);
+                  e.preventDefault();
+                  if (link.href === '/product') {
+                    navigate('/product');
+                    window.scrollTo(0, 0);
+                  } else if (link.href.startsWith('/#')) {
+                    const targetId = link.href.split('#')[1];
+                    if (location.pathname === '/') {
+                      // Already on home, just scroll
+                      const element = document.getElementById(targetId);
+                      if (element) {
+                        const navHeight = 80; // approximate height of navbar
+                        const elementPosition = element.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+                        window.scrollTo({
+                          top: offsetPosition,
+                          behavior: "smooth"
+                        });
+                      }
+                    } else {
+                      // Navigate to home then browser handles hash
+                      navigate(link.href);
+                    }
                   }
                 }}
                 role="menuitem"

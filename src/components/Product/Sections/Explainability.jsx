@@ -7,7 +7,7 @@ const Explainability = () => {
   const { view } = useView();
 
   return (
-    <section style={{
+    <section className="light-section" style={{
       width: '100%',
       background: '#F8FAFC',
       padding: '96px 24px',
