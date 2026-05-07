@@ -74,7 +74,7 @@ const NavBar = () => {
             ? '0 16px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4)' 
             : '0 12px 40px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3)',
           borderRadius: isScrolled ? '0px' : '50px',
-          padding: isScrolled ? '12px 24px' : '10px 32px',
+          padding: isScrolled ? '10px 24px' : '10px 32px',
         }}
       >
         <div className="container" style={{
@@ -105,6 +105,8 @@ const NavBar = () => {
                 height: '100%',
                 width: 'auto',
                 objectFit: 'contain',
+                transform: 'scaleX(1.7) scaleY(1.05)',
+                transformOrigin: 'left center',
                 mixBlendMode: 'multiply',
                 filter: 'none',
                 transition: 'filter 0.3s, mix-blend-mode 0.3s'
@@ -175,19 +177,7 @@ const NavBar = () => {
 
           {/* Desktop CTA */}
           <div className="desktop-nav" style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-            <motion.button
-              whileHover={{ backgroundColor: isDarkText ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.1)' }}
-              style={{
-                color: isDarkText ? 'var(--dark-slate)' : 'white',
-                fontSize: '15px',
-                fontWeight: 600,
-                padding: '8px 16px',
-                borderRadius: '20px',
-                transition: 'color 0.3s'
-              }}
-            >
-              Log In
-            </motion.button>
+
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -257,7 +247,6 @@ const NavBar = () => {
                 </a>
               ))}
               <div style={{ height: '1px', background: '#E2E8F0', margin: '8px 0' }}></div>
-              <button style={{ color: 'var(--dark-slate)', fontSize: '16px', fontWeight: 500, textAlign: 'left' }}>Log In</button>
               <button
                 onClick={() => window.location.href = '/contact'}
                 style={{
