@@ -1,104 +1,297 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Shield, Activity, BarChart3, CheckCircle2, AlertTriangle, TrendingUp } from 'lucide-react';
 
-const MetricCard = ({ label, targetValue, color, delay }) => {
+const MetricCard = ({ label, targetValue, color, delay, icon: Icon }) => {
   const [value, setValue] = useState(0);
 
   useEffect(() => {
     let current = 0;
-    const intervalTime = 100;
-    const totalSteps = 20; // 2 seconds / 100ms
+    const totalSteps = 30;
     const stepValue = targetValue / totalSteps;
 
     const timeout = setTimeout(() => {
       const interval = setInterval(() => {
-        current += stepValue + (Math.random() * 2); // some randomness
+        current += stepValue + (Math.random() * 1.5);
         if (current >= targetValue) {
           current = targetValue;
           clearInterval(interval);
         }
         setValue(Math.floor(current));
-      }, intervalTime);
+      }, 70);
 
-      // Loop behavior
-      const loopTimeout = setTimeout(() => {
-        setValue(0);
-        // We rely on a higher level loop or we can just let it stay for now.
-        // For simplicity, let's just count once, or use a recurring interval if needed.
-      }, 8000);
-
-      return () => {
-        clearInterval(interval);
-        clearTimeout(loopTimeout);
-      };
+      return () => clearInterval(interval);
     }, delay);
 
     return () => clearTimeout(timeout);
   }, [targetValue, delay]);
 
+  const isGood = value >= 80;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: delay / 1000, duration: 0.5 }}
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay: delay / 1000, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{
+        scale: 1.02,
+        boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)',
+      }}
       style={{
-        background: 'rgba(255, 255, 255, 0.1)',
-        backdropFilter: 'blur(10px)',
+        background: 'rgba(255, 255, 255, 0.06)',
+        backdropFilter: 'blur(16px)',
         borderRadius: '12px',
-        padding: '24px',
-        minHeight: '100px',
+        padding: '14px',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        border: '1px solid rgba(255, 255, 255, 0.2)'
+        gap: '8px',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+        position: 'relative',
+        overflow: 'hidden',
+        cursor: 'default',
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
-        <span style={{ color: 'white', fontWeight: 500 }}>{label}</span>
-        <span style={{ color: color, fontWeight: 700, fontSize: '20px' }}>{value}%</span>
+      {/* Background glow */}
+      <div style={{
+        position: 'absolute',
+        top: '-20px',
+        right: '-20px',
+        width: '60px',
+        height: '60px',
+        borderRadius: '50%',
+        background: color,
+        opacity: 0.08,
+        filter: 'blur(20px)',
+        pointerEvents: 'none',
+      }} />
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            background: `${color}22`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <Icon size={14} style={{ color }} />
+          </div>
+          <span style={{ color: 'rgba(255,255,255,0.7)', fontWeight: 500, fontSize: '12px' }}>{label}</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <motion.span
+            key={value}
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{ color, fontWeight: 700, fontSize: '16px', fontFamily: 'monospace' }}
+          >
+            {value}%
+          </motion.span>
+          {value >= targetValue && (
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', stiffness: 400 }}
+            >
+              {isGood ? (
+                <CheckCircle2 size={14} style={{ color: '#2DD4BF' }} />
+              ) : (
+                <AlertTriangle size={14} style={{ color: '#FBBF24' }} />
+              )}
+            </motion.div>
+          )}
+        </div>
       </div>
-      <div style={{ height: '6px', background: 'rgba(255,255,255,0.2)', borderRadius: '3px', overflow: 'hidden' }}>
+
+      {/* Progress bar */}
+      <div style={{
+        height: '3px',
+        background: 'rgba(255,255,255,0.08)',
+        borderRadius: '2px',
+        overflow: 'hidden',
+      }}>
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${value}%` }}
-          transition={{ duration: 0.3 }}
-          style={{ height: '100%', background: color, borderRadius: '3px' }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+          style={{
+            height: '100%',
+            background: `linear-gradient(90deg, ${color}, ${color}AA)`,
+            borderRadius: '2px',
+            boxShadow: `0 0 8px ${color}44`,
+          }}
         />
       </div>
     </motion.div>
   );
 };
 
+const StatusPulse = ({ status, label }) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+    <motion.div
+      animate={{
+        boxShadow: status === 'active'
+          ? ['0 0 0 0 rgba(45, 212, 191, 0.4)', '0 0 0 6px rgba(45, 212, 191, 0)', '0 0 0 0 rgba(45, 212, 191, 0.4)']
+          : 'none',
+      }}
+      transition={{ duration: 2, repeat: Infinity }}
+      style={{
+        width: '6px',
+        height: '6px',
+        borderRadius: '50%',
+        background: status === 'active' ? '#2DD4BF' : status === 'warning' ? '#FBBF24' : '#64748B',
+      }}
+    />
+    <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>{label}</span>
+  </div>
+);
+
 const HeroVisualization = () => {
-  const [isPlaying, setIsPlaying] = useState(true);
   const [key, setKey] = useState(0);
+  const [scanProgress, setScanProgress] = useState(0);
 
   useEffect(() => {
-    if (!isPlaying) return;
     const interval = setInterval(() => {
-      setKey(prev => prev + 1); // Reset and restart animation
-    }, 11000); // 2s anim + 3s pause + reset
-
+      setKey(prev => prev + 1);
+      setScanProgress(0);
+    }, 14000);
     return () => clearInterval(interval);
-  }, [isPlaying]);
+  }, []);
+
+  useEffect(() => {
+    const scanInterval = setInterval(() => {
+      setScanProgress(prev => {
+        if (prev >= 100) return 100;
+        return prev + 2;
+      });
+    }, 120);
+    return () => clearInterval(scanInterval);
+  }, [key]);
 
   return (
-    <div 
-      onClick={() => setIsPlaying(!isPlaying)} 
-      style={{ 
-        display: 'grid', 
-        gap: '20px', 
-        width: '100%', 
-        cursor: 'pointer' 
+    <motion.div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+        width: '100%',
+        maxWidth: '400px',
+        margin: '0 auto',
       }}
-      title="Click to pause/resume"
     >
-      <div key={key} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <MetricCard label="Disparate Impact" targetValue={87} color="#00A99D" delay={100} />
-        <MetricCard label="Equal Opportunity" targetValue={92} color="#6366F1" delay={200} />
-        <MetricCard label="Data Health" targetValue={94} color="#0F4C8C" delay={300} />
+      {/* Dashboard Header */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+        style={{
+          background: 'rgba(255, 255, 255, 0.04)',
+          backdropFilter: 'blur(16px)',
+          borderRadius: '12px',
+          padding: '12px 16px',
+          border: '1px solid rgba(255, 255, 255, 0.08)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{
+            width: '28px',
+            height: '28px',
+            borderRadius: '8px',
+            background: 'linear-gradient(135deg, #00A99D, #6366F1)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <Shield size={16} style={{ color: 'white' }} />
+          </div>
+          <div>
+            <div style={{ fontSize: '12px', fontWeight: 600, color: 'white' }}>BiasSense Dashboard</div>
+            <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)' }}>Real-time Analysis</div>
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <StatusPulse status="active" label="Live" />
+          <StatusPulse status="warning" label="1 Alert" />
+        </div>
+      </motion.div>
+
+      {/* Scan Progress */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 }}
+        style={{
+          background: 'rgba(255, 255, 255, 0.04)',
+          borderRadius: '10px',
+          padding: '10px 14px',
+          border: '1px solid rgba(255, 255, 255, 0.06)',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+          <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>
+            <Activity size={10} style={{ marginRight: '4px', verticalAlign: 'middle' }} />
+            Model Scan Progress
+          </span>
+          <span style={{ fontSize: '11px', color: '#2DD4BF', fontFamily: 'monospace' }}>{Math.min(scanProgress, 100)}%</span>
+        </div>
+        <div style={{
+          height: '3px',
+          background: 'rgba(255,255,255,0.06)',
+          borderRadius: '2px',
+          overflow: 'hidden',
+        }}>
+          <motion.div
+            animate={{ width: `${Math.min(scanProgress, 100)}%` }}
+            transition={{ duration: 0.1 }}
+            style={{
+              height: '100%',
+              background: 'linear-gradient(90deg, #00A99D, #2DD4BF)',
+              borderRadius: '2px',
+              boxShadow: '0 0 12px rgba(0,169,157,0.4)',
+            }}
+          />
+        </div>
+      </motion.div>
+
+      {/* Metric Cards */}
+      <div key={key} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <MetricCard label="Disparate Impact" targetValue={87} color="#00A99D" delay={800} icon={BarChart3} />
+        <MetricCard label="Equal Opportunity" targetValue={92} color="#6366F1" delay={1200} icon={TrendingUp} />
+        <MetricCard label="Data Health Score" targetValue={94} color="#0F4C8C" delay={1600} icon={Shield} />
       </div>
-    </div>
+
+      {/* Bottom Status Bar */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.2, duration: 0.5 }}
+        style={{
+          background: 'rgba(45, 212, 191, 0.08)',
+          borderRadius: '10px',
+          padding: '10px 14px',
+          border: '1px solid rgba(45, 212, 191, 0.15)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <CheckCircle2 size={14} style={{ color: '#2DD4BF' }} />
+          <span style={{ fontSize: '12px', color: '#2DD4BF', fontWeight: 600 }}>
+            Model passes all fairness thresholds
+          </span>
+        </div>
+        <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)', fontFamily: 'monospace' }}>
+          v2.4.1
+        </span>
+      </motion.div>
+    </motion.div>
   );
 };
 

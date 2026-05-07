@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import logoImg from '../../assets/biassenselogo.png';
 
+
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkText, setIsDarkText] = useState(false);
@@ -74,7 +75,7 @@ const NavBar = () => {
             ? '0 16px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4)' 
             : '0 12px 40px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3)',
           borderRadius: isScrolled ? '0px' : '50px',
-          padding: isScrolled ? '10px 24px' : '10px 32px',
+          padding: isScrolled ? '8px 24px' : '8px 32px',
         }}
       >
         <div className="container" style={{
@@ -105,7 +106,7 @@ const NavBar = () => {
                 height: '100%',
                 width: 'auto',
                 objectFit: 'contain',
-                transform: 'scaleX(1.7) scaleY(1.05)',
+                transform: 'scaleX(1.35) scaleY(1.05)',
                 transformOrigin: 'left center',
                 mixBlendMode: 'multiply',
                 filter: 'none',

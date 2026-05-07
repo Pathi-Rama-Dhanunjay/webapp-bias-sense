@@ -1,62 +1,321 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import HeroVisualization from '../Interactive/HeroVisualization';
-import { MonitorPlay } from 'lucide-react';
+import { MonitorPlay, ArrowRight } from 'lucide-react';
+
+const FloatingOrb = ({ size, color, top, left, delay, duration }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0 }}
+    animate={{
+      opacity: [0, 0.6, 0.3, 0.6, 0],
+      scale: [0.8, 1.2, 1, 1.1, 0.8],
+      x: [0, 30, -20, 10, 0],
+      y: [0, -40, 20, -10, 0],
+    }}
+    transition={{
+      duration: duration || 12,
+      delay: delay || 0,
+      repeat: Infinity,
+      ease: 'easeInOut',
+    }}
+    style={{
+      position: 'absolute',
+      width: size,
+      height: size,
+      borderRadius: '50%',
+      background: color,
+      filter: `blur(${parseInt(size) / 3}px)`,
+      top,
+      left,
+      pointerEvents: 'none',
+      zIndex: 0,
+    }}
+  />
+);
+
+const GridLines = () => (
+  <div style={{
+    position: 'absolute',
+    inset: 0,
+    overflow: 'hidden',
+    pointerEvents: 'none',
+    zIndex: 0,
+    opacity: 0.06,
+  }}>
+    {/* Horizontal lines */}
+    {Array.from({ length: 12 }).map((_, i) => (
+      <motion.div
+        key={`h-${i}`}
+        initial={{ opacity: 0, scaleX: 0 }}
+        animate={{ opacity: 1, scaleX: 1 }}
+        transition={{ delay: i * 0.08, duration: 1.2, ease: 'easeOut' }}
+        style={{
+          position: 'absolute',
+          top: `${(i + 1) * 8}%`,
+          left: 0,
+          right: 0,
+          height: '1px',
+          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)',
+          transformOrigin: 'left',
+        }}
+      />
+    ))}
+    {/* Vertical lines */}
+    {Array.from({ length: 16 }).map((_, i) => (
+      <motion.div
+        key={`v-${i}`}
+        initial={{ opacity: 0, scaleY: 0 }}
+        animate={{ opacity: 1, scaleY: 1 }}
+        transition={{ delay: i * 0.06, duration: 1.2, ease: 'easeOut' }}
+        style={{
+          position: 'absolute',
+          left: `${(i + 1) * 6}%`,
+          top: 0,
+          bottom: 0,
+          width: '1px',
+          background: 'linear-gradient(180deg, transparent, rgba(255,255,255,0.4), transparent)',
+          transformOrigin: 'top',
+        }}
+      />
+    ))}
+  </div>
+);
+
+const ParticleField = () => {
+  const particles = Array.from({ length: 25 }).map((_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 3 + 1,
+    duration: Math.random() * 8 + 6,
+    delay: Math.random() * 4,
+  }));
+
+  return (
+    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }}>
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: [0, 0.8, 0.3, 0.7, 0],
+            y: [0, -60, -30, -80],
+          }}
+          transition={{
+            duration: p.duration,
+            delay: p.delay,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          style={{
+            position: 'absolute',
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            width: p.size,
+            height: p.size,
+            borderRadius: '50%',
+            background: 'white',
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+const textReveal = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.3 + i * 0.15,
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  }),
+};
 
 const HeroSection = () => {
   const handleDemoClick = () => {
-    // Mock GA event
     console.log("GA Event: hero_cta_click", { button_name: 'book_demo', section: 'hero', page: 'home' });
     window.location.href = '/contact';
   };
 
-
   return (
-    <section className="mesh-bg" style={{
-      minHeight: '100vh',
+    <section className="mesh-bg hero-section" style={{
+      height: '100vh',
       display: 'flex',
-      alignItems: 'center',
-      padding: '100px 24px 60px',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      paddingTop: '100px',
+      paddingBottom: '24px',
+      paddingLeft: '24px',
+      paddingRight: '24px',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      boxSizing: 'border-box'
     }}>
-      <div className="container hero-grid">
-        <div className="hero-content">
-          <h1 className="hero-title" style={{ marginBottom: '24px' }}>
-            The Only AI Platform That Proves Your Model Is Fair, Not Just Fast
-          </h1>
-          <p className="hero-subtitle body-large" style={{ color: 'rgba(255,255,255,0.85)', marginBottom: '40px', maxWidth: '600px', fontSize: '20px' }}>
-            Data health + Bias detection + Evidence = One system. One scorecard. One defensible answer.
-          </p>
+      {/* Animated Background Elements */}
+      <GridLines />
+      <ParticleField />
 
-          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-            <button
+      {/* Floating Orbs */}
+      <FloatingOrb size="300px" color="rgba(0, 169, 157, 0.15)" top="-5%" left="10%" delay={0} duration={14} />
+      <FloatingOrb size="200px" color="rgba(99, 102, 241, 0.12)" top="60%" left="75%" delay={2} duration={16} />
+      <FloatingOrb size="250px" color="rgba(15, 76, 140, 0.12)" top="30%" left="-5%" delay={4} duration={18} />
+      <FloatingOrb size="180px" color="rgba(0, 169, 157, 0.1)" top="70%" left="40%" delay={1} duration={12} />
+
+      <div className="container hero-grid" style={{ position: 'relative', zIndex: 2 }}>
+        <div className="hero-content">
+          {/* Accent Badge */}
+          <motion.div
+            custom={0}
+            initial="hidden"
+            animate="visible"
+            variants={textReveal}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(0, 169, 157, 0.15)',
+              border: '1px solid rgba(0, 169, 157, 0.3)',
+              padding: '6px 16px',
+              borderRadius: '20px',
+              marginBottom: '20px',
+              fontSize: '13px',
+              fontWeight: 600,
+              color: '#2DD4BF',
+              letterSpacing: '0.5px',
+            }}
+          >
+            <motion.span
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                background: '#2DD4BF',
+                display: 'inline-block',
+              }}
+            />
+            AI Fairness Platform
+          </motion.div>
+
+          <motion.h1
+            custom={1}
+            initial="hidden"
+            animate="visible"
+            variants={textReveal}
+            className="hero-title"
+            style={{ marginBottom: '20px' }}
+          >
+            The Only AI Platform That{' '}
+            <span style={{
+              background: 'linear-gradient(135deg, #2DD4BF, #6366F1, #00A99D)',
+              backgroundSize: '200% 200%',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              animation: 'gradientShift 4s ease infinite',
+            }}>
+              Proves
+            </span>
+            {' '}Your Model Is Fair, Not Just Fast
+          </motion.h1>
+
+          <motion.p
+            custom={2}
+            initial="hidden"
+            animate="visible"
+            variants={textReveal}
+            className="hero-subtitle body-large"
+            style={{ color: 'rgba(255,255,255,0.85)', marginBottom: '20px', maxWidth: '600px', fontSize: '18px' }}
+          >
+            Data health + Bias detection + Evidence = One system. One scorecard. One defensible answer.
+          </motion.p>
+
+          {/* Trust Badges - Above CTA */}
+          <motion.div
+            custom={3}
+            initial="hidden"
+            animate="visible"
+            variants={textReveal}
+            style={{
+              display: 'flex',
+              gap: '24px',
+              marginBottom: '20px',
+              flexWrap: 'wrap',
+            }}
+          >
+            {[
+              { value: '99.2%', label: 'Detection Accuracy' },
+              { value: '<200ms', label: 'Avg Latency' },
+              { value: '50+', label: 'Enterprise Clients' },
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.0 + i * 0.15, duration: 0.6 }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '2px',
+                }}
+              >
+                <span style={{
+                  fontSize: '20px',
+                  fontWeight: 800,
+                  color: 'white',
+                  letterSpacing: '-0.02em',
+                }}>
+                  {stat.value}
+                </span>
+                <span style={{
+                  fontSize: '11px',
+                  color: 'rgba(255,255,255,0.5)',
+                  fontWeight: 500,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                }}>
+                  {stat.label}
+                </span>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* CTA Button */}
+          <motion.div
+            custom={4}
+            initial="hidden"
+            animate="visible"
+            variants={textReveal}
+            style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}
+          >
+            <motion.button
               onClick={handleDemoClick}
+              whileHover={{
+                y: -4,
+                scale: 1.03,
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.5)',
+              }}
+              whileTap={{ scale: 0.97 }}
               style={{
                 background: 'rgba(255, 255, 255, 0.1)',
                 backdropFilter: 'blur(24px) saturate(180%)',
                 WebkitBackdropFilter: 'blur(24px) saturate(180%)',
                 color: 'white',
-                padding: '8px 24px 8px 12px',
-                fontSize: '16px',
+                padding: '12px 24px 12px 14px',
+                fontSize: '15px',
                 fontWeight: 700,
                 borderRadius: '32px',
                 border: '1px solid rgba(255,255,255,0.3)',
                 boxShadow: '0 16px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.4)',
-                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                transition: 'background 0.3s',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
                 cursor: 'pointer'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px) scale(1.02)';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.5)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-                e.currentTarget.style.boxShadow = '0 16px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.4)';
               }}
             >
               <div style={{
@@ -72,26 +331,54 @@ const HeroSection = () => {
                 <MonitorPlay size={18} />
               </div>
               Book a Demo
-            </button>
-
-          </div>
+              <motion.span
+                animate={{ x: [0, 4, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <ArrowRight size={16} style={{ opacity: 0.7 }} />
+              </motion.span>
+            </motion.button>
+          </motion.div>
         </div>
 
-        <div className="hero-visualization">
+        <motion.div
+          className="hero-visualization"
+          initial={{ opacity: 0, x: 60, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ delay: 0.6, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
           <HeroVisualization />
-        </div>
+        </motion.div>
       </div>
 
       <style>{`
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
         .hero-grid {
           display: grid;
           grid-template-columns: 1.2fr 1fr;
-          gap: 48px;
+          gap: 40px;
           align-items: center;
+          width: 100%;
+        }
+        .hero-title {
+          font-size: clamp(32px, 4.5vw, 64px);
+          line-height: 1.15;
+        }
+        .hero-subtitle {
+          font-size: clamp(15px, 1.8vw, 20px);
         }
         @media (max-width: 1024px) {
           .hero-grid {
             grid-template-columns: 1fr;
+            gap: 32px;
+          }
+          .hero-section {
+            padding-top: 100px !important;
+            align-items: flex-start !important;
           }
         }
         @media (max-width: 768px) {
@@ -102,11 +389,26 @@ const HeroSection = () => {
           .hero-content button {
             width: 100%;
           }
+          .hero-section {
+            height: auto !important;
+            min-height: 100vh;
+            padding-top: 100px !important;
+            padding-bottom: 32px !important;
+          }
+          .hero-visualization {
+            max-width: 100% !important;
+          }
         }
-        @media (max-height: 800px) and (min-width: 1025px) {
-          .hero-title { font-size: 52px !important; margin-bottom: 16px !important; }
-          .hero-subtitle { font-size: 18px !important; margin-bottom: 24px !important; }
-          .hero-visualization { transform: scale(0.85); transform-origin: center right; }
+        @media (max-height: 700px) and (min-width: 1025px) {
+          .hero-title { font-size: 40px !important; margin-bottom: 10px !important; }
+          .hero-subtitle { font-size: 16px !important; margin-bottom: 12px !important; }
+          .hero-visualization { transform: scale(0.7); transform-origin: center right; }
+          .hero-section { padding-top: 100px !important; }
+        }
+        @media (min-height: 701px) and (max-height: 900px) and (min-width: 1025px) {
+          .hero-title { font-size: 48px !important; margin-bottom: 14px !important; }
+          .hero-subtitle { font-size: 17px !important; margin-bottom: 16px !important; }
+          .hero-visualization { transform: scale(0.82); transform-origin: center right; }
         }
       `}</style>
     </section>
