@@ -63,7 +63,9 @@ const NavBar = () => {
           width: isScrolled ? '100%' : '95%',
           maxWidth: isScrolled ? '100%' : '1200px',
           transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-          background: isScrolled ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+          background: isScrolled 
+            ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15))' 
+            : 'linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.3))',
           backdropFilter: isScrolled ? 'blur(32px) saturate(200%)' : 'blur(40px) saturate(250%)',
           WebkitBackdropFilter: isScrolled ? 'blur(32px) saturate(200%)' : 'blur(40px) saturate(250%)',
           border: '1px solid rgba(255, 255, 255, 0.15)',
