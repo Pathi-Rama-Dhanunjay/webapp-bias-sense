@@ -62,15 +62,17 @@ const NavBar = () => {
           marginTop: isScrolled ? '0px' : '24px',
           width: isScrolled ? '100%' : '95%',
           maxWidth: isScrolled ? '100%' : '1200px',
-          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-          background: isScrolled ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.3)',
-          backdropFilter: 'blur(32px) saturate(200%)',
-          WebkitBackdropFilter: 'blur(32px) saturate(200%)',
-          border: isScrolled ? 'none' : '1px solid rgba(255, 255, 255, 0.2)',
-          borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid rgba(255, 255, 255, 0.2)',
-          boxShadow: isScrolled ? '0 16px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4)' : '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-          borderRadius: isScrolled ? '0px' : '40px',
-          padding: isScrolled ? '12px 24px' : '8px 24px',
+          transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+          background: isScrolled ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+          backdropFilter: isScrolled ? 'blur(32px) saturate(200%)' : 'blur(40px) saturate(250%)',
+          WebkitBackdropFilter: isScrolled ? 'blur(32px) saturate(200%)' : 'blur(40px) saturate(250%)',
+          border: '1px solid rgba(255, 255, 255, 0.15)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: isScrolled 
+            ? '0 16px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4)' 
+            : '0 12px 40px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3)',
+          borderRadius: isScrolled ? '0px' : '50px',
+          padding: isScrolled ? '12px 24px' : '10px 32px',
         }}
       >
         <div className="container" style={{
