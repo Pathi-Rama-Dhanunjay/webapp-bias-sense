@@ -177,8 +177,6 @@ const HeroSection = () => {
               fontWeight: 600,
               color: '#0D9488',
               letterSpacing: '0.5px',
-              flexDirection: 'row',
-              whiteSpace: 'nowrap',
             }}
           >
             <motion.span
@@ -190,7 +188,6 @@ const HeroSection = () => {
                 borderRadius: '50%',
                 background: '#0D9488',
                 display: 'inline-block',
-                flexShrink: 0,
               }}
             />
             AI Fairness Platform

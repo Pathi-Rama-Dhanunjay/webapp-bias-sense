@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import logoImg from '../../assets/biassenselogo.png';
 
 
@@ -9,6 +9,7 @@ const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkText, setIsDarkText] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -46,7 +47,16 @@ const NavBar = () => {
 
   const navLinks = [
     { name: 'Product', href: '/product' },
-    { name: 'Solutions', href: '/#solutions' },
+    { 
+      name: 'Solutions', 
+      isDropdown: true,
+      items: [
+        { name: 'Financial Services', href: '/solutions/financial-services' },
+        { name: 'Healthcare', href: '/solutions/healthcare' },
+        { name: 'Hiring & HR', href: '/solutions/hiring' },
+        { name: 'Public Sector', href: '/solutions/public-sector' }
+      ]
+    },
     { name: 'Pricing', href: '/#pricing' },
     { name: 'Company', href: '/#company' }
   ];
@@ -118,61 +128,104 @@ const NavBar = () => {
           {/* Desktop Nav */}
           <div className="desktop-nav" role="menubar" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
             {navLinks.map((link) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (link.href === '/product') {
-                    navigate('/product');
-                    window.scrollTo(0, 0);
-                  } else if (link.href.startsWith('/#')) {
-                    const targetId = link.href.split('#')[1];
-                    if (location.pathname === '/') {
-                      // Already on home, just scroll
-                      const element = document.getElementById(targetId);
-                      if (element) {
-                        const navHeight = 80; // approximate height of navbar
-                        const elementPosition = element.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-                        window.scrollTo({
-                          top: offsetPosition,
-                          behavior: "smooth"
-                        });
-                      }
-                    } else {
-                      // Navigate to home then browser handles hash
-                      navigate(link.href);
-                    }
-                  }
-                }}
-                role="menuitem"
-                tabIndex={0}
-                aria-label={link.name}
-                whileHover={{
-                  backgroundColor: isDarkText ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)',
-                  color: isDarkText ? 'var(--dark-slate)' : 'white',
-                  textShadow: isDarkText ? 'none' : '0 0 12px rgba(255,255,255,0.4)'
-                }}
-                style={{
-                  color: isDarkText ? 'var(--text-gray)' : 'rgba(255,255,255,0.85)',
-                  textDecoration: 'none',
-                  fontSize: '15px',
-                  fontWeight: 600,
-                  padding: '8px 16px',
-                  borderRadius: '20px',
-                  transition: 'all 0.3s',
-                  outline: 'none'
-                }}
-                onFocus={(e) => {
-                  e.target.style.boxShadow = '0 0 0 2px rgba(255, 255, 255, 0.6)';
-                }}
-                onBlur={(e) => {
-                  e.target.style.boxShadow = 'none';
-                }}
+              <div key={link.name} style={{ position: 'relative' }} 
+                onMouseEnter={() => link.isDropdown && setSolutionsOpen(true)}
+                onMouseLeave={() => link.isDropdown && setSolutionsOpen(false)}
               >
-                {link.name}
-              </motion.a>
+                <motion.a
+                  href={link.href || '#'}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (link.isDropdown) return;
+                    if (link.href === '/product') {
+                      navigate('/product');
+                      window.scrollTo(0, 0);
+                    } else if (link.href.startsWith('/#')) {
+                      const targetId = link.href.split('#')[1];
+                      if (location.pathname === '/') {
+                        const element = document.getElementById(targetId);
+                        if (element) {
+                          const navHeight = 80;
+                          const elementPosition = element.getBoundingClientRect().top;
+                          const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+                          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                        }
+                      } else {
+                        navigate(link.href);
+                      }
+                    }
+                  }}
+                  whileHover={{
+                    backgroundColor: isDarkText ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)',
+                    color: isDarkText ? 'var(--dark-slate)' : 'white',
+                  }}
+                  style={{
+                    color: isDarkText ? 'var(--text-gray)' : 'rgba(255,255,255,0.85)',
+                    textDecoration: 'none',
+                    fontSize: '15px',
+                    fontWeight: 600,
+                    padding: '8px 16px',
+                    borderRadius: '20px',
+                    transition: 'all 0.3s',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}
+                >
+                  {link.name}
+                </motion.a>
+
+                {link.isDropdown && (
+                  <AnimatePresence>
+                    {solutionsOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        style={{
+                          position: 'absolute',
+                          top: '100%',
+                          left: '0',
+                          width: '220px',
+                          background: 'white',
+                          borderRadius: '16px',
+                          padding: '12px',
+                          boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+                          border: '1px solid rgba(0,0,0,0.05)',
+                          marginTop: '8px',
+                          zIndex: 2000
+                        }}
+                      >
+                        {link.items.map(item => (
+                          <Link
+                            key={item.name}
+                            to={item.href}
+                            onClick={() => {
+                              setSolutionsOpen(false);
+                              window.scrollTo(0, 0);
+                            }}
+                            style={{
+                              display: 'block',
+                              padding: '12px 16px',
+                              color: 'var(--dark-slate)',
+                              textDecoration: 'none',
+                              fontSize: '14px',
+                              fontWeight: 600,
+                              borderRadius: '8px',
+                              transition: 'background 0.2s'
+                            }}
+                            onMouseEnter={(e) => e.target.style.background = 'var(--light-gray)'}
+                            onMouseLeave={(e) => e.target.style.background = 'transparent'}
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
+              </div>
             ))}
           </div>
 

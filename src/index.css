@@ -12,6 +12,12 @@
   --border-light: #E2E8F0;
   --text-gray: #64748B;
   
+  /* Industry-Specific Accent Colors */
+  --finance-accent: #0F4C8C;
+  --healthcare-accent: #059669;
+  --hiring-accent: #7C3AED;
+  --public-sector-accent: #DC2626;
+  
   /* Typography */
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -33,6 +39,7 @@ html, body {
   padding: 0;
   width: 100%;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
