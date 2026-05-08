@@ -160,12 +160,14 @@ const HeroSection = () => {
         <div className="hero-content">
           {/* Accent Badge */}
           <motion.div
+            className="accent-badge"
             custom={0}
             initial="hidden"
             animate="visible"
             variants={textReveal}
             style={{
               display: 'inline-flex',
+              flexDirection: 'row',
               alignItems: 'center',
               gap: '8px',
               background: '#F0FDFA',
@@ -177,6 +179,7 @@ const HeroSection = () => {
               fontWeight: 600,
               color: '#0D9488',
               letterSpacing: '0.5px',
+              whiteSpace: 'nowrap',
             }}
           >
             <motion.span
@@ -357,7 +360,7 @@ const HeroSection = () => {
           }
         }
         @media (max-width: 768px) {
-          .hero-content > div {
+          .hero-content > div:not(.accent-badge) {
             flex-direction: column;
             gap: 12px !important;
           }
