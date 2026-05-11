@@ -29,7 +29,7 @@ const HeroSection = () => {
       flexDirection: 'column',
       justifyContent: 'center',
       paddingTop: '144px',
-      paddingBottom: '0px',
+      paddingBottom: '80px',
       paddingLeft: '24px',
       paddingRight: '24px',
       position: 'relative',
@@ -82,50 +82,14 @@ const HeroSection = () => {
             className="hero-title"
             style={{ marginBottom: 'clamp(28px, 4.6vh, 55px)', position: 'relative', zIndex: 10 }}
           >
-            The Only Platform Senses & Proves Your AI Model Is{' '}
-            <motion.span
-              animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
-              style={{
-                fontFamily: '"Caveat", "Brush Script MT", "Lucida Handwriting", cursive',
-                fontStyle: 'italic',
-                fontWeight: 400,
-                fontSize: '1.3em',
-                padding: '0 2px',
-                background: 'linear-gradient(270deg, #FBBF24, #F97316, #E11D48, #FBBF24)',
-                backgroundSize: '200% auto',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
-              }}
-            >
-              Fair
-            </motion.span>{' '}
-            and{' '}
-            <motion.span
-              animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'linear', delay: 2.5 }}
-              style={{
-                fontFamily: '"Caveat", "Brush Script MT", "Lucida Handwriting", cursive',
-                fontStyle: 'italic',
-                fontWeight: 400,
-                fontSize: '1.3em',
-                padding: '0 2px',
-                background: 'linear-gradient(270deg, #F97316, #E11D48, #FBBF24, #F97316)',
-                backgroundSize: '200% auto',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
-              }}
-            >
-              Bias-Free
-            </motion.span>
-            .
+            The Only Platform That <span style={{ fontFamily: '"Caveat", "Brush Script MT", "Lucida Handwriting", cursive', fontStyle: 'italic', fontWeight: 400, fontSize: '1.17em', padding: '0 2px', color: '#000000' }}>Sense</span> & <span style={{ fontFamily: '"Caveat", "Brush Script MT", "Lucida Handwriting", cursive', fontStyle: 'italic', fontWeight: 400, fontSize: '1.17em', padding: '0 2px', color: '#000000' }}>Prove</span> Your AI Model Is <span style={{ fontFamily: '"Caveat", "Brush Script MT", "Lucida Handwriting", cursive', fontStyle: 'italic', fontWeight: 400, fontSize: '1.3em', padding: '0 2px', color: '#000000' }}>Fair</span>, Not Just Fast
           </motion.h1>
 
           <motion.p
             className="hero-subtitle body-large"
             style={{ color: '#64748B', marginBottom: 'clamp(35px, 5.5vh, 70px)', maxWidth: 'clamp(600px, 45vw, 900px)', fontSize: 'clamp(18px, 1.5vw, 24px)', lineHeight: 1.6, opacity: 1 }}
           >
-            Data health + Bias detection + Evidence = One Platform. One scorecard. One defensible answer.
+            Data health + Bias detection + Evidence = One system. One scorecard. One defensible answer.
           </motion.p>
 
           {/* CTA Button */}
@@ -339,7 +303,7 @@ const HeroSection = () => {
             height: auto !important;
             min-height: auto !important;
             padding-top: 112px !important;
-            padding-bottom: 0px !important;
+            padding-bottom: 60px !important;
           }
           .hero-visualization {
             max-width: 100% !important;

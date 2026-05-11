@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import HeroSection from '../components/Sections/HeroSection';
 import SolutionSection from '../components/Sections/SolutionSection';
-import ClientsSection from '../components/Sections/ClientsSection';
 import CapabilitiesSection from '../components/Sections/CapabilitiesSection';
 import WorkflowSection from '../components/Sections/WorkflowSection';
 import ProofSection from '../components/Sections/ProofSection';
@@ -63,7 +62,6 @@ const Home = () => {
       {/* Clean Content Layer */}
       <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>
         <HeroSection />
-        <ClientsSection />
         <div id="solutions" style={{ position: 'relative', zIndex: 1 }}><SolutionSection /></div>
         <CapabilitiesSection />
         <WorkflowSection />
