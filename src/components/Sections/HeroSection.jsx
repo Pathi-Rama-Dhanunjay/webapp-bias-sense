@@ -82,7 +82,7 @@ const HeroSection = () => {
             className="hero-title"
             style={{ marginBottom: 'clamp(28px, 4.6vh, 55px)', position: 'relative', zIndex: 10 }}
           >
-            The Only Platform That Senses & Proves Your AI Model Is <span style={{ fontFamily: '"Caveat", "Brush Script MT", "Lucida Handwriting", cursive', fontStyle: 'italic', fontWeight: 400, fontSize: '1.3em', padding: '0 2px', color: '#000000' }}>Fair</span>, Not Just Fast
+            The Only Platform That <span style={{ fontFamily: '"Caveat", "Brush Script MT", "Lucida Handwriting", cursive', fontStyle: 'italic', fontWeight: 400, fontSize: '1.17em', padding: '0 2px', color: '#000000' }}>Sense</span> & <span style={{ fontFamily: '"Caveat", "Brush Script MT", "Lucida Handwriting", cursive', fontStyle: 'italic', fontWeight: 400, fontSize: '1.17em', padding: '0 2px', color: '#000000' }}>Prove</span> Your AI Model Is <span style={{ fontFamily: '"Caveat", "Brush Script MT", "Lucida Handwriting", cursive', fontStyle: 'italic', fontWeight: 400, fontSize: '1.3em', padding: '0 2px', color: '#000000' }}>Fair</span>, Not Just Fast
           </motion.h1>
 
           <motion.p
@@ -270,7 +270,7 @@ const HeroSection = () => {
           width: 100%;
         }
         .hero-title {
-          font-size: clamp(36px, 5vw, 88px);
+          font-size: clamp(32px, 4.5vw, 79px);
           line-height: 1.15;
           color: #0F172A !important;
           font-family: "Roboto Slab", "Rockwell", "Courier New", Courier, serif;
@@ -310,13 +310,13 @@ const HeroSection = () => {
           }
         }
         @media (max-height: 700px) and (min-width: 1025px) {
-          .hero-title { font-size: 40px !important; margin-bottom: 18px !important; }
+          .hero-title { font-size: 36px !important; margin-bottom: 18px !important; }
           .hero-subtitle { font-size: 16px !important; margin-bottom: 22px !important; }
           .hero-visualization { transform: scale(0.7); transform-origin: center right; }
           .hero-section { padding-top: 80px !important; }
         }
         @media (min-height: 701px) and (max-height: 900px) and (min-width: 1025px) {
-          .hero-title { font-size: 52px !important; margin-bottom: 28px !important; }
+          .hero-title { font-size: 47px !important; margin-bottom: 28px !important; }
           .hero-subtitle { font-size: 18px !important; margin-bottom: 35px !important; }
           .hero-visualization { transform: scale(0.82); transform-origin: center right; }
         }
