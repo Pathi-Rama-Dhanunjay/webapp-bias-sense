@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import logoImg from '../../assets/biassenselogo.png';
-
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,7 +27,7 @@ const NavBar = () => {
       });
       setIsDarkText(foundLight);
     };
-    
+
     // Call once to set initial state
     handleScroll();
 
@@ -47,8 +45,8 @@ const NavBar = () => {
 
   const navLinks = [
     { name: 'Product', href: '/product' },
-    { 
-      name: 'Solutions', 
+    {
+      name: 'Solutions',
       isDropdown: true,
       items: [
         { name: 'Financial Services', href: '/solutions/financial-services' },
@@ -57,7 +55,6 @@ const NavBar = () => {
         { name: 'Public Sector', href: '/solutions/public-sector' }
       ]
     },
-    { name: 'Pricing', href: '/#pricing' },
     { name: 'Company', href: '/#company' }
   ];
 
@@ -74,15 +71,15 @@ const NavBar = () => {
           width: isScrolled ? '100%' : '95%',
           maxWidth: isScrolled ? '100%' : '1200px',
           transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-          background: isScrolled 
-            ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15))' 
+          background: isScrolled
+            ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15))'
             : 'linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.3))',
           backdropFilter: isScrolled ? 'blur(32px) saturate(200%)' : 'blur(40px) saturate(250%)',
           WebkitBackdropFilter: isScrolled ? 'blur(32px) saturate(200%)' : 'blur(40px) saturate(250%)',
           border: '1px solid rgba(255, 255, 255, 0.15)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
-          boxShadow: isScrolled 
-            ? '0 16px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4)' 
+          boxShadow: isScrolled
+            ? '0 16px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
             : '0 12px 40px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3)',
           borderRadius: isScrolled ? '0px' : '50px',
           padding: isScrolled ? '8px 24px' : '8px 32px',
@@ -106,29 +103,27 @@ const NavBar = () => {
               alignItems: 'center',
               cursor: 'pointer',
               textDecoration: 'none',
-              height: '40px'
+              height: '40px',
+              gap: '10px'
             }}
           >
-            <img
-              src={logoImg}
-              alt="BiasSense Logo"
-              style={{
-                height: '100%',
-                width: 'auto',
-                objectFit: 'contain',
-                transform: 'scaleX(1.1) scaleY(0.97)',
-                transformOrigin: 'left center',
-                mixBlendMode: 'multiply',
-                filter: 'none',
-                transition: 'filter 0.3s, mix-blend-mode 0.3s'
-              }}
-            />
+
+            <span style={{
+              fontSize: '24px',
+              color: isDarkText ? '#0F172A' : '#FFFFFF',
+              letterSpacing: '-0.5px',
+              transition: 'color 0.3s',
+              display: 'flex',
+            }}>
+              <span style={{ fontWeight: 800 }}>Bias</span>
+              <span style={{ fontWeight: 300 }}>Sense</span>
+            </span>
           </a>
 
           {/* Desktop Nav */}
           <div className="desktop-nav" role="menubar" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
             {navLinks.map((link) => (
-              <div key={link.name} style={{ position: 'relative' }} 
+              <div key={link.name} style={{ position: 'relative' }}
                 onMouseEnter={() => link.isDropdown && setSolutionsOpen(true)}
                 onMouseLeave={() => link.isDropdown && setSolutionsOpen(false)}
               >
@@ -237,14 +232,14 @@ const NavBar = () => {
               whileTap={{ scale: 0.95 }}
               onClick={() => window.location.href = '/contact'}
               style={{
-                background: 'linear-gradient(135deg, rgba(0, 169, 157, 0.8), rgba(99, 102, 241, 0.8))',
-                color: 'white',
+                background: '#0F172A',
+                color: '#FFFFFF',
                 padding: '10px 24px',
                 borderRadius: '20px',
                 fontSize: '15px',
                 fontWeight: 600,
-                border: '1px solid rgba(255,255,255,0.3)',
-                boxShadow: '0 4px 16px rgba(0, 169, 157, 0.3), inset 0 1px 0 rgba(255,255,255,0.2)'
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
               }}
             >
               Book a Demo
@@ -304,15 +299,15 @@ const NavBar = () => {
               <button
                 onClick={() => window.location.href = '/contact'}
                 style={{
-                  background: 'linear-gradient(135deg, rgba(0, 169, 157, 0.8), rgba(99, 102, 241, 0.8))',
-                  color: 'white',
+                  background: '#0F172A',
+                  color: '#FFFFFF',
                   padding: '14px',
                   borderRadius: '16px',
                   fontSize: '16px',
                   fontWeight: 600,
-                  border: '1px solid rgba(255,255,255,0.3)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
                   width: '100%',
-                  boxShadow: '0 4px 16px rgba(0, 169, 157, 0.3)'
+                  boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)'
                 }}
               >
                 Book a Demo
