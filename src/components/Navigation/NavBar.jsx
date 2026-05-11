@@ -72,23 +72,33 @@ const NavBar = () => {
           maxWidth: isScrolled ? '100%' : '1200px',
           transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
           background: isScrolled
-            ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15))'
+            ? 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.8) 100%)'
             : 'linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.3))',
-          backdropFilter: isScrolled ? 'blur(32px) saturate(200%)' : 'blur(40px) saturate(250%)',
-          WebkitBackdropFilter: isScrolled ? 'blur(32px) saturate(200%)' : 'blur(40px) saturate(250%)',
-          border: '1px solid rgba(255, 255, 255, 0.15)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+          backdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(40px) saturate(250%)',
+          WebkitBackdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(40px) saturate(250%)',
+          border: isScrolled ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(255, 255, 255, 0.15)',
+          borderTop: isScrolled ? '1px solid rgba(255, 255, 255, 0.25)' : '1px solid rgba(255, 255, 255, 0.4)',
+          borderLeft: isScrolled ? '1px solid rgba(255, 255, 255, 0.25)' : '1px solid rgba(255, 255, 255, 0.4)',
           boxShadow: isScrolled
-            ? '0 16px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
+            ? '0 20px 40px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
             : '0 12px 40px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3)',
           borderRadius: isScrolled ? '0px' : '50px',
           padding: isScrolled ? '8px 24px' : '8px 32px',
+          position: 'relative',
+          overflow: 'hidden'
         }}
       >
+        {/* Liquid Glare Reflection */}
+        {isScrolled && (
+          <div style={{ position: 'absolute', top: 0, left: '-100%', width: '50%', height: '100%', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)', transform: 'skewX(-20deg)', animation: 'navbar-glass-glare 6s infinite', zIndex: 0, pointerEvents: 'none' }} />
+        )}
+
         <div className="container" style={{
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center'
+          alignItems: 'center',
+          position: 'relative',
+          zIndex: 1
         }}>
           {/* Logo */}
           <a
@@ -110,7 +120,7 @@ const NavBar = () => {
 
             <span style={{
               fontSize: '24px',
-              color: isDarkText ? '#0F172A' : '#FFFFFF',
+              color: isScrolled ? '#FFFFFF' : '#0F172A',
               letterSpacing: '-0.5px',
               transition: 'color 0.3s',
               display: 'flex',
@@ -151,11 +161,11 @@ const NavBar = () => {
                     }
                   }}
                   whileHover={{
-                    backgroundColor: isDarkText ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)',
-                    color: isDarkText ? 'var(--dark-slate)' : 'white',
+                    backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
+                    color: isScrolled ? '#FFFFFF' : '#0F172A',
                   }}
                   style={{
-                    color: isDarkText ? 'var(--text-gray)' : 'rgba(255,255,255,0.85)',
+                    color: isScrolled ? 'rgba(255, 255, 255, 0.85)' : '#0F172A',
                     textDecoration: 'none',
                     fontSize: '15px',
                     fontWeight: 600,
@@ -183,11 +193,11 @@ const NavBar = () => {
                           top: '100%',
                           left: '0',
                           width: '220px',
-                          background: 'white',
+                          background: '#0F172A',
                           borderRadius: '16px',
                           padding: '12px',
-                          boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
-                          border: '1px solid rgba(0,0,0,0.05)',
+                          boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+                          border: '1px solid rgba(255, 255, 255, 0.1)',
                           marginTop: '8px',
                           zIndex: 2000
                         }}
@@ -203,14 +213,14 @@ const NavBar = () => {
                             style={{
                               display: 'block',
                               padding: '12px 16px',
-                              color: 'var(--dark-slate)',
+                              color: '#FFFFFF',
                               textDecoration: 'none',
                               fontSize: '14px',
                               fontWeight: 600,
                               borderRadius: '8px',
                               transition: 'background 0.2s'
                             }}
-                            onMouseEnter={(e) => e.target.style.background = 'var(--light-gray)'}
+                            onMouseEnter={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.1)'}
                             onMouseLeave={(e) => e.target.style.background = 'transparent'}
                           >
                             {item.name}
@@ -232,14 +242,16 @@ const NavBar = () => {
               whileTap={{ scale: 0.95 }}
               onClick={() => window.location.href = '/contact'}
               style={{
-                background: '#0F172A',
-                color: '#FFFFFF',
+                background: isScrolled ? '#FFFFFF' : '#0F172A',
+                color: isScrolled ? '#0F172A' : '#FFFFFF',
                 padding: '10px 24px',
                 borderRadius: '20px',
                 fontSize: '15px',
                 fontWeight: 600,
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                border: isScrolled ? '1px solid rgba(0, 0, 0, 0.1)' : '1px solid rgba(255, 255, 255, 0.1)',
+                boxShadow: isScrolled
+                  ? '0 4px 14px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                  : '0 4px 14px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
               }}
             >
               Book a Demo
@@ -250,7 +262,7 @@ const NavBar = () => {
           <div className="mobile-toggle" style={{ display: 'none' }}>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              style={{ color: isDarkText ? 'var(--dark-slate)' : 'white', padding: '4px', transition: 'color 0.3s' }}
+              style={{ color: isScrolled ? '#FFFFFF' : '#0F172A', padding: '4px', transition: 'color 0.3s' }}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -270,13 +282,13 @@ const NavBar = () => {
                 top: 'calc(100% + 8px)',
                 left: '16px',
                 right: '16px',
-                background: '#FFFFFF',
+                background: '#0F172A',
                 backdropFilter: 'none',
                 WebkitBackdropFilter: 'none',
                 padding: '24px',
-                border: '1px solid #E2E8F0',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
                 borderRadius: '24px',
-                boxShadow: '0 16px 40px rgba(0,0,0,0.12)',
+                boxShadow: '0 16px 40px rgba(0,0,0,0.2)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '16px'
@@ -286,7 +298,7 @@ const NavBar = () => {
                   key={link.name}
                   href={link.href}
                   style={{
-                    color: 'var(--dark-slate)',
+                    color: '#FFFFFF',
                     textDecoration: 'none',
                     fontSize: '16px',
                     fontWeight: 500
@@ -295,17 +307,17 @@ const NavBar = () => {
                   {link.name}
                 </a>
               ))}
-              <div style={{ height: '1px', background: '#E2E8F0', margin: '8px 0' }}></div>
+              <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.1)', margin: '8px 0' }}></div>
               <button
                 onClick={() => window.location.href = '/contact'}
                 style={{
-                  background: '#0F172A',
-                  color: '#FFFFFF',
+                  background: '#FFFFFF',
+                  color: '#0F172A',
                   padding: '14px',
                   borderRadius: '16px',
                   fontSize: '16px',
                   fontWeight: 600,
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  border: '1px solid rgba(0, 0, 0, 0.1)',
                   width: '100%',
                   boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)'
                 }}
@@ -317,6 +329,11 @@ const NavBar = () => {
         </AnimatePresence>
 
         <style>{`
+        @keyframes navbar-glass-glare {
+          0% { left: -100%; }
+          15% { left: 200%; }
+          100% { left: 200%; }
+        }
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
           .mobile-toggle { display: block !important; }
