@@ -45,6 +45,7 @@ const NavBar = () => {
 
   const navLinks = [
     { name: 'Product', href: '/product' },
+    { name: 'Use Cases', href: '/use-cases' },
     {
       name: 'Solutions',
       isDropdown: true,
@@ -55,7 +56,7 @@ const NavBar = () => {
         { name: 'Public Sector', href: '/solutions/public-sector' }
       ]
     },
-    { name: 'Company', href: '/#company' }
+    { name: 'About Us', href: '/about' }
   ];
 
   return (
@@ -95,7 +96,7 @@ const NavBar = () => {
 
         <div className="container" style={{
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-start',
           alignItems: 'center',
           position: 'relative',
           zIndex: 1
@@ -131,7 +132,7 @@ const NavBar = () => {
           </a>
 
           {/* Desktop Nav */}
-          <div className="desktop-nav" role="menubar" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <div className="desktop-nav" role="menubar" style={{ display: 'flex', gap: '8px', alignItems: 'center', marginLeft: 'auto' }}>
             {navLinks.map((link) => (
               <div key={link.name} style={{ position: 'relative' }}
                 onMouseEnter={() => link.isDropdown && setSolutionsOpen(true)}
@@ -235,7 +236,7 @@ const NavBar = () => {
           </div>
 
           {/* Desktop CTA */}
-          <div className="desktop-nav" style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+          <div className="desktop-nav" style={{ display: 'flex', gap: '16px', alignItems: 'center', marginLeft: '32px' }}>
 
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -259,7 +260,7 @@ const NavBar = () => {
           </div>
 
           {/* Mobile Toggle */}
-          <div className="mobile-toggle" style={{ display: 'none' }}>
+          <div className="mobile-toggle" style={{ display: 'none', marginLeft: 'auto' }}>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               style={{ color: isScrolled ? '#FFFFFF' : '#0F172A', padding: '4px', transition: 'color 0.3s' }}
