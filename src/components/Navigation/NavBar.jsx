@@ -72,9 +72,9 @@ const NavBar = () => {
           width: isScrolled ? '75%' : '95%',
           maxWidth: '1200px',
           transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-          background: isScrolled
+          background: /* isScrolled
             ? 'linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%)'
-            : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%)',
+            : */ 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%)',
           backdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(40px) saturate(250%)',
           WebkitBackdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(40px) saturate(250%)',
           border: isScrolled ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(255, 255, 255, 0.15)',
@@ -85,14 +85,15 @@ const NavBar = () => {
             : '0 12px 40px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3)',
           borderRadius: '50px',
           padding: isScrolled ? '4px 32px' : '10px 32px',
-          position: 'relative',
-          overflow: 'hidden'
+          position: 'relative'
         }}
       >
         {/* Liquid Glare Reflection */}
-        {isScrolled && (
-          <div style={{ position: 'absolute', top: 0, left: '-100%', width: '50%', height: '100%', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)', transform: 'skewX(-20deg)', animation: 'navbar-glass-glare 6s infinite', zIndex: 0, pointerEvents: 'none' }} />
-        )}
+        <div style={{ position: 'absolute', inset: 0, borderRadius: '50px', overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }}>
+          {isScrolled && (
+            <div style={{ position: 'absolute', top: 0, left: '-100%', width: '50%', height: '100%', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)', transform: 'skewX(-20deg)', animation: 'navbar-glass-glare 6s infinite' }} />
+          )}
+        </div>
 
         <div className="container" style={{
           display: 'flex',
@@ -121,7 +122,7 @@ const NavBar = () => {
 
             <span style={{
               fontSize: '24px',
-              color: isScrolled ? '#FFFFFF' : '#0F172A',
+              color: /* isScrolled ? '#FFFFFF' : */ '#0F172A',
               letterSpacing: '-0.5px',
               transition: 'color 0.3s',
               display: 'flex',
@@ -164,11 +165,11 @@ const NavBar = () => {
                     }
                   }}
                   whileHover={{
-                    backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
-                    color: isScrolled ? '#FFFFFF' : '#0F172A',
+                    backgroundColor: /* isScrolled ? 'rgba(255, 255, 255, 0.1)' : */ 'rgba(0, 0, 0, 0.05)',
+                    color: /* isScrolled ? '#FFFFFF' : */ '#0F172A',
                   }}
                   style={{
-                    color: isScrolled ? 'rgba(255, 255, 255, 0.85)' : '#0F172A',
+                    color: /* isScrolled ? 'rgba(255, 255, 255, 0.85)' : */ '#0F172A',
                     textDecoration: 'none',
                     fontSize: '15px',
                     fontWeight: 600,
@@ -246,16 +247,16 @@ const NavBar = () => {
               whileTap={{ scale: 0.95 }}
               onClick={() => window.location.href = '/contact'}
               style={{
-                background: isScrolled ? '#FFFFFF' : '#0F172A',
-                color: isScrolled ? '#0F172A' : '#FFFFFF',
+                background: /* isScrolled ? '#FFFFFF' : */ '#0F172A',
+                color: /* isScrolled ? '#0F172A' : */ '#FFFFFF',
                 padding: '10px 24px',
                 borderRadius: '20px',
                 fontSize: '15px',
                 fontWeight: 600,
-                border: isScrolled ? '1px solid rgba(0, 0, 0, 0.1)' : '1px solid rgba(255, 255, 255, 0.1)',
-                boxShadow: isScrolled
+                border: /* isScrolled ? '1px solid rgba(0, 0, 0, 0.1)' : */ '1px solid rgba(255, 255, 255, 0.1)',
+                boxShadow: /* isScrolled
                   ? '0 4px 14px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-                  : '0 4px 14px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                  : */ '0 4px 14px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
               }}
             >
               Get Early Access
@@ -263,10 +264,10 @@ const NavBar = () => {
           </div>
 
           {/* Mobile Toggle */}
-          <div className="mobile-toggle" style={{ display: 'none' }}>
+          <div className="mobile-toggle">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              style={{ color: isScrolled ? '#FFFFFF' : '#0F172A', padding: '4px', transition: 'color 0.3s' }}
+              style={{ color: /* isScrolled ? '#FFFFFF' : */ '#0F172A', padding: '4px', transition: 'color 0.3s', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -295,25 +296,50 @@ const NavBar = () => {
                 boxShadow: '0 16px 40px rgba(0,0,0,0.2)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '16px'
+                gap: '16px',
+                zIndex: 2000,
+                pointerEvents: 'auto'
               }}>
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  style={{
-                    color: '#FFFFFF',
-                    textDecoration: 'none',
-                    fontSize: '16px',
-                    fontWeight: 500
-                  }}
-                >
-                  {link.name}
-                </a>
+                <div key={link.name}>
+                  {link.isDropdown ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                      <div style={{ color: '#FFFFFF', fontSize: '16px', fontWeight: 500, opacity: 0.6 }}>
+                        {link.name}
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', paddingLeft: '12px' }}>
+                        {link.items.map(item => (
+                          <Link
+                            key={item.name}
+                            to={item.href}
+                            onClick={() => setMobileMenuOpen(false)}
+                            style={{ color: '#FFFFFF', textDecoration: 'none', fontSize: '15px', fontWeight: 500 }}
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <Link
+                      to={link.href || '#'}
+                      onClick={() => setMobileMenuOpen(false)}
+                      style={{
+                        color: '#FFFFFF',
+                        textDecoration: 'none',
+                        fontSize: '16px',
+                        fontWeight: 500,
+                        display: 'block'
+                      }}
+                    >
+                      {link.name}
+                    </Link>
+                  )}
+                </div>
               ))}
               <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.1)', margin: '8px 0' }}></div>
               <button
-                onClick={() => window.location.href = '/contact'}
+                onClick={() => { setMobileMenuOpen(false); window.location.href = '/contact'; }}
                 style={{
                   background: '#FFFFFF',
                   color: '#0F172A',
@@ -323,7 +349,8 @@ const NavBar = () => {
                   fontWeight: 600,
                   border: '1px solid rgba(0, 0, 0, 0.1)',
                   width: '100%',
-                  boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)'
+                  boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)',
+                  cursor: 'pointer'
                 }}
               >
                 Get Early Access
@@ -338,9 +365,10 @@ const NavBar = () => {
           15% { left: 200%; }
           100% { left: 200%; }
         }
+        .mobile-toggle { display: none; }
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
-          .mobile-toggle { display: block !important; }
+          .mobile-toggle { display: block; }
         }
       `}</style>
       </motion.nav>
