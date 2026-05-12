@@ -2,15 +2,14 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import HeroSection from '../components/Sections/HeroSection';
+import ArchitectureFlow from '../components/Product/Sections/ArchitectureFlow';
 import SolutionSection from '../components/Sections/SolutionSection';
-import ClientsSection from '../components/Sections/ClientsSection';
 import CapabilitiesSection from '../components/Sections/CapabilitiesSection';
 import WorkflowSection from '../components/Sections/WorkflowSection';
 import ProofSection from '../components/Sections/ProofSection';
 import BenchmarkSection from '../components/Sections/BenchmarkSection';
 import TrustSection from '../components/Sections/TrustSection';
 import CTASection from '../components/Sections/CTASection';
-
 
 const Home = () => {
   const location = useLocation();
@@ -23,10 +22,11 @@ const Home = () => {
         if (element) {
           const navHeight = 80;
           const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+          const offsetPosition =
+            elementPosition + window.pageYOffset - navHeight;
           window.scrollTo({
             top: offsetPosition,
-            behavior: "smooth"
+            behavior: 'smooth',
           });
         }
       }, 100);
@@ -48,29 +48,35 @@ const Home = () => {
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        overflow: 'hidden'
+        overflow: 'hidden',
       }}
     >
       {/* Elegant SaaS Background - Subtle Top Glow */}
-      <div style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'radial-gradient(circle at 50% 0%, rgba(45, 212, 191, 0.08) 0%, rgba(255, 255, 255, 0) 70%)',
-        pointerEvents: 'none',
-        zIndex: 0
-      }} />
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          background:
+            'radial-gradient(circle at 50% 0%, rgba(45, 212, 191, 0.08) 0%, rgba(255, 255, 255, 0) 70%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
 
       {/* Clean Content Layer */}
       <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>
         <HeroSection />
-        {/* Restored Clients Marquee */}
-        <ClientsSection />
-        <div id="solutions" style={{ position: 'relative', zIndex: 1 }}><SolutionSection /></div>
+        <ArchitectureFlow />
+        <div id="solutions" style={{ position: 'relative', zIndex: 1 }}>
+          <SolutionSection />
+        </div>
         <CapabilitiesSection />
         <WorkflowSection />
         <ProofSection />
         <BenchmarkSection />
-        <div id="company"><TrustSection /></div>
+        <div id="company">
+          <TrustSection />
+        </div>
         <CTASection />
       </div>
 

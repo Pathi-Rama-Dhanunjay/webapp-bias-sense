@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 
@@ -47,7 +47,7 @@ const NavBar = () => {
     { name: 'Product', href: '/product' },
     { name: 'Use Cases', href: '/use-cases' },
     {
-      name: 'Solutions',
+      name: 'Integrations',
       isDropdown: true,
       items: [
         { name: 'Financial Services', href: '/solutions/financial-services' },
@@ -68,13 +68,13 @@ const NavBar = () => {
         transition={{ duration: 0.4, ease: 'easeOut' }}
         style={{
           pointerEvents: 'auto',
-          marginTop: isScrolled ? '0px' : '24px',
-          width: isScrolled ? '100%' : '95%',
-          maxWidth: isScrolled ? '100%' : '1200px',
+          marginTop: isScrolled ? '2px' : '24px',
+          width: isScrolled ? '75%' : '95%',
+          maxWidth: '1200px',
           transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
           background: isScrolled
-            ? 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.8) 100%)'
-            : 'linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.3))',
+            ? 'linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%)'
+            : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%)',
           backdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(40px) saturate(250%)',
           WebkitBackdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(40px) saturate(250%)',
           border: isScrolled ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(255, 255, 255, 0.15)',
@@ -83,8 +83,8 @@ const NavBar = () => {
           boxShadow: isScrolled
             ? '0 20px 40px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
             : '0 12px 40px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3)',
-          borderRadius: isScrolled ? '0px' : '50px',
-          padding: isScrolled ? '8px 24px' : '8px 32px',
+          borderRadius: '50px',
+          padding: isScrolled ? '4px 32px' : '10px 32px',
           position: 'relative',
           overflow: 'hidden'
         }}
@@ -96,7 +96,7 @@ const NavBar = () => {
 
         <div className="container" style={{
           display: 'flex',
-          justifyContent: 'flex-start',
+          justifyContent: 'space-between',
           alignItems: 'center',
           position: 'relative',
           zIndex: 1
@@ -125,14 +125,16 @@ const NavBar = () => {
               letterSpacing: '-0.5px',
               transition: 'color 0.3s',
               display: 'flex',
+              alignItems: 'flex-start',
             }}>
               <span style={{ fontWeight: 800 }}>Bias</span>
               <span style={{ fontWeight: 300 }}>Sense</span>
+              <ArrowRight size={14} strokeWidth={3} style={{ marginLeft: '2px', marginTop: '4px' }} />
             </span>
           </a>
 
           {/* Desktop Nav */}
-          <div className="desktop-nav" role="menubar" style={{ display: 'flex', gap: '8px', alignItems: 'center', marginLeft: 'auto' }}>
+          <div className="desktop-nav" role="menubar" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px', alignItems: 'center' }}>
             {navLinks.map((link) => (
               <div key={link.name} style={{ position: 'relative' }}
                 onMouseEnter={() => link.isDropdown && setSolutionsOpen(true)}
@@ -176,7 +178,8 @@ const NavBar = () => {
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '4px'
+                    gap: '4px',
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   {link.name}
@@ -236,7 +239,7 @@ const NavBar = () => {
           </div>
 
           {/* Desktop CTA */}
-          <div className="desktop-nav" style={{ display: 'flex', gap: '16px', alignItems: 'center', marginLeft: '32px' }}>
+          <div className="desktop-nav" style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
 
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -255,12 +258,12 @@ const NavBar = () => {
                   : '0 4px 14px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
               }}
             >
-              Book a Demo
+              Get Early Access
             </motion.button>
           </div>
 
           {/* Mobile Toggle */}
-          <div className="mobile-toggle" style={{ display: 'none', marginLeft: 'auto' }}>
+          <div className="mobile-toggle" style={{ display: 'none' }}>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               style={{ color: isScrolled ? '#FFFFFF' : '#0F172A', padding: '4px', transition: 'color 0.3s' }}
@@ -323,7 +326,7 @@ const NavBar = () => {
                   boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)'
                 }}
               >
-                Book a Demo
+                Get Early Access
               </button>
             </motion.div>
           )}
