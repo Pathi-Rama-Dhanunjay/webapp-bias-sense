@@ -8,7 +8,6 @@ import {
   FileCheck,
   Sparkles,
   Layers,
-  MessageSquare,
   Briefcase,
   Cpu,
 } from 'lucide-react';
@@ -56,6 +55,17 @@ const features = [
   },
 ];
 
+const diagramNodes = [
+  { title: 'Ingest', icon: <Database />, x: 8, y: 18 },
+  { title: 'Clean', icon: <Cpu />, x: 34, y: 34 },
+  { title: 'Measure', icon: <Scale />, x: 64, y: 18 },
+  { title: 'Explain', icon: <Search />, x: 82, y: 46 },
+  { title: 'Monitor', icon: <Network />, x: 58, y: 72 },
+  { title: 'Report', icon: <FileCheck />, x: 26, y: 70 },
+  { title: 'Insights', icon: <Sparkles />, x: 12, y: 48 },
+  { title: 'Deploy', icon: <Layers />, x: 82, y: 78 },
+];
+
 const ArchitectureFlow = () => {
   const accent = '#0F4C8C';
   const black = '#1A1A1A';
@@ -73,7 +83,7 @@ const ArchitectureFlow = () => {
     >
       <div className="container">
         {/* Top Header Section */}
-        <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 64px' }}>
+        <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 34px' }}>
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -87,7 +97,7 @@ const ArchitectureFlow = () => {
               marginBottom: '16px',
             }}
           >
-            Enterprise System Architecture
+            AI Governance Architecture
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -101,7 +111,7 @@ const ArchitectureFlow = () => {
               lineHeight: 1.2,
             }}
           >
-            End-to-End <span style={{ color: accent }}>Algorithmic De-biasing</span>
+            Find Bias. Explain Risk. <span style={{ color: accent }}>Ship Fairer AI.</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -114,9 +124,8 @@ const ArchitectureFlow = () => {
               lineHeight: 1.6,
             }}
           >
-            Detect, measure, and mitigate algorithmic and dataset biases in structured
-            or semi-structured data. Leverage fairness metrics, clustering, 
-            explainability models, and LLMs for robust compliance.
+            BiasSense helps teams spot unfair model behavior, understand what is driving it,
+            and create audit-ready evidence before decisions reach production.
           </motion.p>
         </div>
 
@@ -195,144 +204,77 @@ const ArchitectureFlow = () => {
 
         {/* Right Column */}
         <div className="architecture-right">
-          <div className="iso-container">
-            {/* Ambient Pulse Glow */}
-            <div className="iso-glow" />
-            
-            {/* Isometric Grid Background */}
-            <div className="iso-grid" />
-
-            {/* Floating Icons */}
-            <div style={{ position: 'absolute', top: '20%', left: '75%', transform: 'translate(-50%, -50%)', zIndex: 5 }}>
-              <motion.div
-                className="floating-icon"
-                animate={{ y: [0, -12, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <MessageSquare size={22} color={accent} />
-              </motion.div>
-            </div>
-            <div style={{ position: 'absolute', top: '75%', left: '15%', transform: 'translate(-50%, -50%)', zIndex: 5 }}>
-              <motion.div
-                className="floating-icon"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              >
-                <Briefcase size={22} color={accent} />
-              </motion.div>
-            </div>
-
-            {/* SVG Lines */}
-            <svg
-              className="iso-lines"
-              viewBox="0 0 400 450"
-              preserveAspectRatio="none"
-            >
+          <div className="flow-canvas">
+            <svg className="flow-lines" viewBox="0 0 760 520" preserveAspectRatio="none" aria-hidden="true">
               <defs>
-                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="3" result="blur" />
-                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                </filter>
-                <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor={accent} />
-                  <stop offset="100%" stopColor="#00A99D" />
+                <linearGradient id="pleasantFlow" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#0F4C8C" stopOpacity="0.2" />
+                  <stop offset="50%" stopColor="#14B8A6" stopOpacity="0.55" />
+                  <stop offset="100%" stopColor="#0F4C8C" stopOpacity="0.18" />
                 </linearGradient>
               </defs>
               <motion.path
-                d="M 60 20 L 160 70"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
+                d="M72 118 C190 38, 300 156, 392 250 C490 350, 594 428, 694 324"
+                fill="none"
+                stroke="url(#pleasantFlow)"
+                strokeWidth="4"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: 'easeOut' }}
               />
               <motion.path
-                d="M 160 70 L 260 120"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-              />
-              <motion.path
-                d="M 260 120 L 160 170"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.7, duration: 0.8 }}
-              />
-              <motion.path
-                d="M 160 170 L 60 220"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.8 }}
-              />
-              <motion.path
-                d="M 60 220 L 160 270"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.9, duration: 0.8 }}
-              />
-              <motion.path
-                d="M 160 270 L 260 320"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 1.0, duration: 0.8 }}
-              />
-              <motion.path
-                d="M 260 320 L 160 370"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 1.1, duration: 0.8 }}
-              />
-              <motion.path
-                d="M 160 370 L 60 420"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 1.2, duration: 0.8 }}
+                d="M78 382 C198 486, 280 356, 392 250 C506 142, 596 94, 692 162"
+                fill="none"
+                stroke="url(#pleasantFlow)"
+                strokeWidth="2"
+                strokeDasharray="8 12"
+                strokeLinecap="round"
+                animate={{ strokeDashoffset: [0, -40] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
               />
             </svg>
 
-            {/* Nodes */}
-            <div style={{ position: 'absolute', top: '5%', left: '15%', transform: 'translate(-50%, -50%)', zIndex: 10 }}>
-              <motion.div className="iso-card" initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} animate={{ y: [0, -8, 0] }} transition={{ opacity: { duration: 0.5, delay: 0.2 }, scale: { duration: 0.5, delay: 0.2 }, y: { duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.2 } }}>
-                <Database size={18} color={accent} /> Data Ingestion (S3/APIs)
+            <motion.div
+              className="flow-hub"
+              initial={{ opacity: 0, scale: 0.92 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              animate={{ y: [0, -6, 0] }}
+              transition={{ opacity: { duration: 0.4 }, scale: { duration: 0.4 }, y: { duration: 5, repeat: Infinity, ease: 'easeInOut' } }}
+            >
+              <Cpu size={24} color={accent} />
+              <span>BiasSense</span>
+              <small>Governance Core</small>
+            </motion.div>
+
+            {diagramNodes.map((node, i) => (
+              <motion.div
+                key={node.title}
+                className="flow-node"
+                style={{ left: `${node.x}%`, top: `${node.y}%` }}
+                initial={{ opacity: 0, y: 12, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                animate={{ y: [0, i % 2 === 0 ? -4 : 4, 0] }}
+                transition={{
+                  opacity: { delay: 0.12 + i * 0.05, duration: 0.35 },
+                  scale: { delay: 0.12 + i * 0.05, duration: 0.35 },
+                  y: { duration: 4 + i * 0.18, repeat: Infinity, ease: 'easeInOut' },
+                }}
+              >
+                <div className="flow-node-icon">
+                  {React.cloneElement(node.icon, { size: 17, color: accent })}
+                </div>
+                <span>{node.title}</span>
               </motion.div>
-            </div>
-            <div style={{ position: 'absolute', top: '16.25%', left: '40%', transform: 'translate(-50%, -50%)', zIndex: 10 }}>
-              <motion.div className="iso-card" initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} animate={{ y: [0, -10, 0] }} transition={{ opacity: { duration: 0.5, delay: 0.3 }, scale: { duration: 0.5, delay: 0.3 }, y: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 } }}>
-                <Cpu size={18} color={accent} /> Preprocessing
-              </motion.div>
-            </div>
-            <div style={{ position: 'absolute', top: '27.5%', left: '65%', transform: 'translate(-50%, -50%)', zIndex: 10 }}>
-              <motion.div className="iso-card" initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} animate={{ y: [0, -9, 0] }} transition={{ opacity: { duration: 0.5, delay: 0.4 }, scale: { duration: 0.5, delay: 0.4 }, y: { duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.4 } }}>
-                <Scale size={18} color={accent} /> Bias Engine (Fairlearn)
-              </motion.div>
-            </div>
-            <div style={{ position: 'absolute', top: '38.75%', left: '40%', transform: 'translate(-50%, -50%)', zIndex: 10 }}>
-              <motion.div className="iso-card" style={{ padding: '16px 24px', border: `2px solid ${accent}` }} initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} animate={{ y: [0, -12, 0] }} transition={{ opacity: { duration: 0.5, delay: 0.5 }, scale: { duration: 0.5, delay: 0.5 }, y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 } }}>
-                <Search size={20} color={accent} /> Explainability (SHAP)
-              </motion.div>
-            </div>
-            <div style={{ position: 'absolute', top: '50%', left: '15%', transform: 'translate(-50%, -50%)', zIndex: 10 }}>
-              <motion.div className="iso-card" initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} animate={{ y: [0, -8, 0] }} transition={{ opacity: { duration: 0.5, delay: 0.6 }, scale: { duration: 0.5, delay: 0.6 }, y: { duration: 3.1, repeat: Infinity, ease: "easeInOut", delay: 0.6 } }}>
-                <Network size={18} color={accent} /> Clustering & Drift
-              </motion.div>
-            </div>
-            <div style={{ position: 'absolute', top: '61.25%', left: '40%', transform: 'translate(-50%, -50%)', zIndex: 10 }}>
-              <motion.div className="iso-card" initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} animate={{ y: [0, -10, 0] }} transition={{ opacity: { duration: 0.5, delay: 0.7 }, scale: { duration: 0.5, delay: 0.7 }, y: { duration: 3.6, repeat: Infinity, ease: "easeInOut", delay: 0.7 } }}>
-                <FileCheck size={18} color={accent} /> Scorecards (JSON/PDF)
-              </motion.div>
-            </div>
-            <div style={{ position: 'absolute', top: '72.5%', left: '65%', transform: 'translate(-50%, -50%)', zIndex: 10 }}>
-              <motion.div className="iso-card" initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} animate={{ y: [0, -11, 0] }} transition={{ opacity: { duration: 0.5, delay: 0.8 }, scale: { duration: 0.5, delay: 0.8 }, y: { duration: 3.9, repeat: Infinity, ease: "easeInOut", delay: 0.8 } }}>
-                <Sparkles size={18} color={accent} /> LLM Engine (Gemini)
-              </motion.div>
-            </div>
-            <div style={{ position: 'absolute', top: '83.75%', left: '40%', transform: 'translate(-50%, -50%)', zIndex: 10 }}>
-              <motion.div className="iso-card" initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} animate={{ y: [0, -9, 0] }} transition={{ opacity: { duration: 0.5, delay: 0.9 }, scale: { duration: 0.5, delay: 0.9 }, y: { duration: 3.7, repeat: Infinity, ease: "easeInOut", delay: 0.9 } }}>
-                <Layers size={18} color={accent} /> CI/CD & Audit Logs
-              </motion.div>
-            </div>
-            <div style={{ position: 'absolute', top: '95%', left: '15%', transform: 'translate(-50%, -50%)', zIndex: 10 }}>
-              <motion.div className="iso-card" initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} animate={{ y: [0, -8, 0] }} transition={{ opacity: { duration: 0.5, delay: 1.0 }, scale: { duration: 0.5, delay: 1.0 }, y: { duration: 3.4, repeat: Infinity, ease: "easeInOut", delay: 1.0 } }}>
-                <Briefcase size={18} color={accent} /> Multi-Sector Extensible
-              </motion.div>
+            ))}
+
+            <div className="flow-metrics">
+              <div><strong>8</strong><span>stages</span></div>
+              <div><strong>3</strong><span>evidence outputs</span></div>
+              <div><strong>1</strong><span>deployment gate</span></div>
             </div>
           </div>
         </div>
@@ -348,21 +290,104 @@ const ArchitectureFlow = () => {
         }
         .architecture-right {
           position: relative;
-          min-height: 550px;
+          min-height: 590px;
+        }
+        .architecture-right::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(15, 76, 140, 0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(15, 76, 140, 0.08) 1px, transparent 1px);
+          background-size: 36px 36px;
+          mask-image: linear-gradient(180deg, black, transparent 88%);
+          pointer-events: none;
+        }
+        .architecture-visual-header {
+          position: absolute;
+          top: 18px;
+          left: 18px;
+          right: 18px;
+          z-index: 20;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          padding: 14px 16px;
+          border-radius: 18px;
+          background: rgba(255, 255, 255, 0.82);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          border: 1px solid rgba(148, 163, 184, 0.25);
+          box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+        }
+        .architecture-visual-header strong {
+          display: block;
+          color: ${black};
+          font-size: 15px;
+          letter-spacing: 0;
+        }
+        .visual-kicker {
+          display: block;
+          margin-bottom: 2px;
+          color: ${accent};
+          font-size: 11px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.4px;
+        }
+        .visual-status {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          color: #0F766E;
+          background: rgba(20, 184, 166, 0.1);
+          border: 1px solid rgba(20, 184, 166, 0.22);
+          padding: 7px 10px;
+          border-radius: 999px;
+          font-size: 12px;
+          font-weight: 700;
+          white-space: nowrap;
+        }
+        .visual-status span {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #14B8A6;
+          box-shadow: 0 0 0 5px rgba(20, 184, 166, 0.14);
+        }
+        .architecture-core-badge {
+          position: absolute;
+          left: 50%;
+          top: 49%;
+          transform: translate(-50%, -50%);
+          z-index: 8;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 16px;
+          border-radius: 999px;
+          color: ${black};
+          background: rgba(255, 255, 255, 0.9);
+          border: 1px solid rgba(15, 76, 140, 0.18);
+          box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12), 0 0 0 10px rgba(15, 76, 140, 0.04);
+          font-size: 13px;
+          font-weight: 800;
+          pointer-events: none;
         }
         .iso-container {
           position: absolute;
-          inset: 0;
-          transform: rotateX(50deg) rotateZ(45deg) scale(0.8);
+          inset: 34px 0 0 0;
+          transform: rotateX(48deg) rotateZ(40deg) scale(0.76);
           transform-style: preserve-3d;
         }
         .iso-glow {
           position: absolute;
           top: 50%;
           left: 50%;
-          width: 400px;
-          height: 400px;
-          background: radial-gradient(circle, rgba(15, 76, 140, 0.08) 0%, transparent 60%);
+          width: 430px;
+          height: 430px;
+          background: radial-gradient(circle, rgba(15, 76, 140, 0.12) 0%, rgba(0, 169, 157, 0.08) 34%, transparent 64%);
           transform: translate(-50%, -50%);
           animation: pulseOrb 6s ease-in-out infinite;
           pointer-events: none;
@@ -385,14 +410,14 @@ const ArchitectureFlow = () => {
         }
         .iso-card {
           padding: 12px 16px;
-          border-radius: 12px;
-          background: rgba(255, 255, 255, 0.75);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          border: 1px solid rgba(15, 76, 140, 0.3);
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+          border-radius: 16px;
+          background: rgba(255, 255, 255, 0.88);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          border: 1px solid rgba(15, 76, 140, 0.22);
+          box-shadow: 0 14px 34px rgba(15, 23, 42, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.65);
           font-size: 14px;
-          font-weight: 600;
+          font-weight: 700;
           color: ${black};
           display: flex;
           align-items: center;
@@ -403,7 +428,8 @@ const ArchitectureFlow = () => {
         }
         .iso-card:hover {
           background: rgba(255, 255, 255, 0.95);
-          box-shadow: 0 0 25px rgba(15, 76, 140, 0.4), 0 15px 35px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+          transform: translateZ(16px);
+          box-shadow: 0 0 25px rgba(15, 76, 140, 0.28), 0 18px 38px rgba(15, 23, 42, 0.13), inset 0 0 0 1px rgba(255, 255, 255, 0.8);
         }
         .iso-lines {
           position: absolute;
@@ -434,16 +460,130 @@ const ArchitectureFlow = () => {
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
           border: 1px solid rgba(15, 76, 140, 0.2);
         }
+        .architecture-right {
+          min-height: 520px;
+        }
+        .flow-canvas {
+          position: relative;
+          min-height: 430px;
+          margin-top: -20px;
+          overflow: visible;
+          background: transparent;
+        }
+        .flow-lines {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+        }
+        .flow-hub {
+          position: absolute;
+          left: 50%;
+          top: 43%;
+          transform: translate(-50%, -50%);
+          width: 142px;
+          height: 142px;
+          border-radius: 999px;
+          background: #FFFFFF;
+          border: 1px solid rgba(148, 163, 184, 0.24);
+          box-shadow: 0 0 0 14px rgba(20, 184, 166, 0.06), 0 20px 48px rgba(15, 23, 42, 0.12);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 3px;
+          z-index: 2;
+        }
+        .flow-hub span {
+          color: ${black};
+          font-size: 16px;
+          font-weight: 900;
+          letter-spacing: 0;
+        }
+        .flow-hub small {
+          color: ${gray};
+          font-size: 11px;
+          font-weight: 700;
+        }
+        .flow-node {
+          position: absolute;
+          transform: translate(-50%, -50%);
+          z-index: 3;
+          min-width: 108px;
+          padding: 9px 10px;
+          border-radius: 16px;
+          background: rgba(255, 255, 255, 0.92);
+          border: 1px solid rgba(148, 163, 184, 0.24);
+          box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: ${black};
+          font-size: 12px;
+          font-weight: 800;
+          white-space: nowrap;
+        }
+        .flow-node-icon {
+          width: 30px;
+          height: 30px;
+          border-radius: 11px;
+          background: rgba(15, 76, 140, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+        .flow-metrics {
+          position: absolute;
+          left: 18px;
+          right: 18px;
+          bottom: -28px;
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 10px;
+          z-index: 4;
+        }
+        .flow-metrics div {
+          padding: 10px;
+          border-radius: 14px;
+          background: rgba(255, 255, 255, 0.82);
+          border: 1px solid rgba(148, 163, 184, 0.22);
+          text-align: center;
+        }
+        .flow-metrics strong {
+          display: block;
+          color: ${accent};
+          font-size: 20px;
+          line-height: 1;
+        }
+        .flow-metrics span {
+          display: block;
+          color: ${gray};
+          font-size: 11px;
+          margin-top: 4px;
+        }
         @media (max-width: 900px) {
           .architecture-grid {
             grid-template-columns: 1fr;
           }
           .architecture-right {
             margin-top: 64px;
-            min-height: 400px;
+            min-height: auto;
           }
-          .iso-container {
-            transform: rotateX(50deg) rotateZ(45deg) scale(0.7);
+          .flow-canvas {
+            min-height: 390px;
+            margin-top: 0;
+          }
+          .flow-node {
+            min-width: auto;
+          }
+          .flow-metrics {
+            grid-template-columns: 1fr;
+            position: relative;
+            left: auto;
+            right: auto;
+            bottom: auto;
+            margin: 280px 14px 14px;
           }
         }
       `}</style>

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Cpu, Sparkles } from 'lucide-react';
 
-const leftIntegrations = [
+const integrations = [
   { name: 'HubSpot', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hubspot/hubspot-original.svg' },
   { name: 'Slack', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/slack/slack-original.svg' },
   { name: 'Zoom', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/zoom/zoom-original.svg' },
@@ -19,32 +19,41 @@ const leftIntegrations = [
   { name: 'Kafka', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg' },
 ];
 
-const orbitLogos = [
-  { name: 'Salesforce', label: 'SF', color: '#00A1E0', angle: 15, radius: 148 },
-  { name: 'Gmail', label: 'GM', color: '#EA4335', angle: 70, radius: 164 },
-  { name: 'Notion', label: 'NO', color: '#111827', angle: 128, radius: 154 },
-  { name: 'Slack', label: 'SL', color: '#611F69', angle: 184, radius: 168 },
-  { name: 'HubSpot', label: 'HS', color: '#FF7A59', angle: 240, radius: 158 },
-  { name: 'Zoom', label: 'ZM', color: '#2D8CFF', angle: 300, radius: 166 },
+const networkNodes = [
+  { name: 'Salesforce', label: 'SF', color: '#00A1E0', x: 58, y: 78 },
+  { name: 'Gmail', label: 'GM', color: '#EA4335', x: 308, y: 66 },
+  { name: 'Notion', label: 'NO', color: '#111827', x: 346, y: 232 },
+  { name: 'Slack', label: 'SL', color: '#611F69', x: 52, y: 248 },
+  { name: 'HubSpot', label: 'HS', color: '#FF7A59', x: 118, y: 342 },
+  { name: 'Zoom', label: 'ZM', color: '#2D8CFF', x: 292, y: 352 },
+];
+
+const curvePaths = [
+  'M210 210 C165 112 112 96 58 78',
+  'M210 210 C248 104 274 82 308 66',
+  'M210 210 C284 180 322 196 346 232',
+  'M210 210 C136 184 92 208 52 248',
+  'M210 210 C162 270 142 314 118 342',
+  'M210 210 C252 276 276 318 292 352',
 ];
 
 const IntegrationsOrbitSection = () => {
   return (
-    <section className="light-section" style={{ padding: 'clamp(54px, 6vh, 88px) 24px' }}>
+    <section className="light-section" style={{ padding: 'clamp(58px, 7vh, 92px) 24px' }}>
       <div className="container">
-        <motion.section
-          initial={{ opacity: 0, y: 14 }}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.45 }}
           style={{
             position: 'relative',
-            borderRadius: '22px',
             overflow: 'hidden',
-            border: '1px solid rgba(148,163,184,0.2)',
-            background: 'linear-gradient(145deg, #091225 0%, #0F172A 55%, #10274C 100%)',
-            boxShadow: '0 22px 60px rgba(2, 6, 23, 0.38)',
-            padding: '22px',
+            borderRadius: '36px',
+            border: '1px solid rgba(15, 23, 42, 0.08)',
+            background: 'linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)',
+            boxShadow: '0 24px 70px rgba(15, 23, 42, 0.08)',
+            padding: 'clamp(22px, 3vw, 36px)',
           }}
         >
           <div
@@ -52,97 +61,137 @@ const IntegrationsOrbitSection = () => {
               position: 'absolute',
               inset: 0,
               backgroundImage:
-                'linear-gradient(rgba(148,163,184,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.12) 1px, transparent 1px)',
-              backgroundSize: '28px 28px',
-              opacity: 0.18,
-              pointerEvents: 'none',
-            }}
-          />
-          <motion.div
-            animate={{ x: [0, 18, 0], y: [0, -10, 0] }}
-            transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-            style={{
-              position: 'absolute',
-              top: '-90px',
-              right: '-60px',
-              width: '300px',
-              height: '300px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(45,212,191,0.2) 0%, rgba(45,212,191,0) 70%)',
-              filter: 'blur(8px)',
+                'linear-gradient(rgba(148,163,184,0.11) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.11) 1px, transparent 1px)',
+              backgroundSize: '32px 32px',
+              maskImage: 'linear-gradient(180deg, black, transparent 92%)',
               pointerEvents: 'none',
             }}
           />
 
-          <div className="stack-layout" style={{ position: 'relative', zIndex: 2, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
+          <div
+            className="integration-layout"
+            style={{
+              position: 'relative',
+              zIndex: 1,
+              display: 'grid',
+              gridTemplateColumns: '0.95fr 1.05fr',
+              gap: 'clamp(22px, 4vw, 56px)',
+              alignItems: 'center',
+            }}
+          >
             <div>
-              <div
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
-                  color: '#2DD4BF',
-                  border: '1px solid rgba(45,212,191,0.35)',
+                  color: '#0F4C8C',
+                  background: '#E6F1FB',
+                  border: '1px solid rgba(15, 76, 140, 0.14)',
                   borderRadius: '999px',
-                  padding: '6px 12px',
+                  padding: '7px 12px',
                   fontSize: '12px',
-                  letterSpacing: '1px',
+                  letterSpacing: '0.4px',
                   textTransform: 'uppercase',
-                  fontWeight: 700,
-                  marginBottom: '10px',
+                  fontWeight: 800,
+                  marginBottom: '14px',
                 }}
               >
                 <Sparkles size={14} /> Integrations
-              </div>
-              <h2 style={{ marginBottom: '10px', color: '#FFFFFF' }}>Connect BiasSense to Your Stack</h2>
-              <p className="body-large" style={{ color: '#9CA3AF', maxWidth: '560px', marginBottom: '16px' }}>
+              </motion.div>
+
+              <h2 style={{ marginBottom: '12px', color: '#0F172A', letterSpacing: 0 }}>
+                Connect BiasSense to Your Stack
+              </h2>
+              <p className="body-large" style={{ color: '#64748B', maxWidth: '590px', marginBottom: '22px' }}>
                 Integrate with your data and software ecosystem in minutes. Keep governance centralized while teams continue working in the tools they already know.
               </p>
 
-              <div className="left-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '10px' }}>
-                {leftIntegrations.map((logo, idx) => (
+              <div
+                className="integration-grid"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(5, minmax(0, 1fr))',
+                  gap: '10px',
+                }}
+              >
+                {integrations.map((logo, idx) => (
                   <motion.div
                     key={logo.name}
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: idx * 0.02 }}
-                    whileHover={{ y: -2, borderColor: 'rgba(45,212,191,0.45)' }}
+                    transition={{ delay: idx * 0.025 }}
+                    whileHover={{ y: -3, boxShadow: '0 14px 26px rgba(15, 23, 42, 0.12)' }}
                     style={{
-                      borderRadius: '10px',
-                      border: '1px solid rgba(148,163,184,0.32)',
-                      background: 'rgba(255,255,255,0.05)',
-                      backdropFilter: 'blur(6px)',
-                      height: '58px',
+                      height: '60px',
+                      borderRadius: '18px',
+                      border: '1px solid rgba(148, 163, 184, 0.26)',
+                      background: 'rgba(255,255,255,0.86)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      boxShadow: '0 6px 14px rgba(2, 6, 23, 0.2)',
+                      boxShadow: '0 8px 18px rgba(15, 23, 42, 0.05)',
                     }}
                     title={logo.name}
                   >
-                    <img src={logo.src} alt={logo.name} style={{ maxWidth: '34px', maxHeight: '34px', objectFit: 'contain', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.2))' }} loading="lazy" />
+                    <img
+                      src={logo.src}
+                      alt={logo.name}
+                      loading="lazy"
+                      style={{ maxWidth: '34px', maxHeight: '34px', objectFit: 'contain' }}
+                    />
                   </motion.div>
                 ))}
               </div>
             </div>
 
-            <div style={{ position: 'relative', minHeight: '420px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg viewBox="0 0 420 420" style={{ position: 'absolute', width: '100%', height: '100%' }} aria-hidden="true">
-                {orbitLogos.map((logo) => {
-                  const x = 210 + Math.cos((logo.angle * Math.PI) / 180) * logo.radius;
-                  const y = 210 + Math.sin((logo.angle * Math.PI) / 180) * logo.radius;
-                  return <line key={`line-${logo.name}`} x1="210" y1="210" x2={x} y2={y} stroke="rgba(203,213,225,0.55)" strokeWidth="1.6" strokeDasharray="3 6" />;
-                })}
+            <div className="curve-stage" style={{ position: 'relative', minHeight: '430px' }}>
+              <svg
+                viewBox="0 0 420 420"
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient id="integrationCurve" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#0F4C8C" stopOpacity="0.28" />
+                    <stop offset="100%" stopColor="#14B8A6" stopOpacity="0.52" />
+                  </linearGradient>
+                </defs>
+                {curvePaths.map((path, idx) => (
+                  <motion.path
+                    key={path}
+                    d={path}
+                    fill="none"
+                    stroke="url(#integrationCurve)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeDasharray="6 12"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    whileInView={{ pathLength: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.9, delay: idx * 0.08 }}
+                  />
+                ))}
               </svg>
 
-              <div
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
                 style={{
-                  width: '172px',
-                  height: '172px',
-                  borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.72) 58%, rgba(255,255,255,0.08) 100%)',
-                  boxShadow: '0 0 70px rgba(45,212,191,0.32), 0 0 26px rgba(255,255,255,0.45)',
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '150px',
+                  height: '150px',
+                  borderRadius: '999px',
+                  background: '#FFFFFF',
+                  border: '1px solid rgba(148, 163, 184, 0.28)',
+                  boxShadow: '0 0 0 14px rgba(20,184,166,0.08), 0 28px 55px rgba(15, 23, 42, 0.14)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -151,85 +200,84 @@ const IntegrationsOrbitSection = () => {
               >
                 <div
                   style={{
-                    width: '98px',
-                    height: '98px',
-                    borderRadius: '24px',
+                    width: '92px',
+                    height: '92px',
+                    borderRadius: '28px',
                     border: '1px solid #E2E8F0',
-                    background: '#FFFFFF',
-                    boxShadow: '0 10px 24px rgba(15, 23, 42, 0.15)',
+                    background: 'linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexDirection: 'column',
-                    gap: '2px',
+                    gap: '3px',
+                    boxShadow: '0 16px 34px rgba(15, 23, 42, 0.12)',
                   }}
                 >
                   <Cpu size={20} color="#0F4C8C" />
-                  <span style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.2px' }}>BiasSense</span>
+                  <span style={{ color: '#0F172A', fontSize: '14px', fontWeight: 800 }}>BiasSense</span>
                 </div>
-              </div>
-
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 58, repeat: Infinity, ease: 'linear' }}
-                style={{ position: 'absolute', inset: 0 }}
-              >
-                {orbitLogos.map((logo) => {
-                  const x = 210 + Math.cos((logo.angle * Math.PI) / 180) * logo.radius;
-                  const y = 210 + Math.sin((logo.angle * Math.PI) / 180) * logo.radius;
-                  return (
-                    <div
-                      key={logo.name}
-                      style={{
-                        position: 'absolute',
-                        left: `${x}px`,
-                        top: `${y}px`,
-                        transform: 'translate(-50%, -50%)',
-                        width: '58px',
-                        height: '58px',
-                        borderRadius: '14px',
-                        border: '1px solid rgba(148,163,184,0.35)',
-                        background: 'rgba(255,255,255,0.14)',
-                        backdropFilter: 'blur(10px)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: '0 8px 16px rgba(2, 6, 23, 0.24)',
-                      }}
-                      title={logo.name}
-                    >
-                      <div
-                        style={{
-                          width: '30px',
-                          height: '30px',
-                          borderRadius: '9px',
-                          background: logo.color,
-                          color: '#FFFFFF',
-                          fontWeight: 800,
-                          fontSize: '11px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        {logo.label}
-                      </div>
-                    </div>
-                  );
-                })}
               </motion.div>
+
+              {networkNodes.map((node, idx) => (
+                <motion.div
+                  key={node.name}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  animate={{ y: [0, idx % 2 === 0 ? -5 : 5, 0] }}
+                  transition={{
+                    opacity: { delay: 0.25 + idx * 0.06 },
+                    scale: { delay: 0.25 + idx * 0.06 },
+                    y: { duration: 4 + idx * 0.25, repeat: Infinity, ease: 'easeInOut' },
+                  }}
+                  style={{
+                    position: 'absolute',
+                    left: `${(node.x / 420) * 100}%`,
+                    top: `${(node.y / 420) * 100}%`,
+                    transform: 'translate(-50%, -50%)',
+                    width: '62px',
+                    height: '62px',
+                    borderRadius: '22px',
+                    border: '1px solid rgba(148, 163, 184, 0.28)',
+                    background: 'rgba(255,255,255,0.9)',
+                    boxShadow: '0 12px 28px rgba(15, 23, 42, 0.12)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  title={node.name}
+                >
+                  <div
+                    style={{
+                      width: '34px',
+                      height: '34px',
+                      borderRadius: '12px',
+                      background: node.color,
+                      color: '#FFFFFF',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '11px',
+                      fontWeight: 900,
+                    }}
+                  >
+                    {node.label}
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
-        </motion.section>
+        </motion.div>
       </div>
 
       <style>{`
         @media (max-width: 1100px) {
-          .stack-layout { grid-template-columns: 1fr !important; }
-          .left-grid { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; }
+          .integration-layout { grid-template-columns: 1fr !important; }
+          .curve-stage { min-height: 380px !important; }
         }
-        @media (max-width: 768px) {
-          .left-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+        @media (max-width: 760px) {
+          .integration-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+          .curve-stage { min-height: 330px !important; }
         }
       `}</style>
     </section>
