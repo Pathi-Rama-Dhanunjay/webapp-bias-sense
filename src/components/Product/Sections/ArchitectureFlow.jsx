@@ -7,12 +7,9 @@ import {
   Network,
   FileCheck,
   Sparkles,
-  ClipboardList,
   Layers,
-  Users,
   MessageSquare,
   Briefcase,
-  ShieldCheck,
   Cpu,
 } from 'lucide-react';
 

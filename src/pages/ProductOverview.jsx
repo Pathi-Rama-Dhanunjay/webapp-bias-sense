@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import ProductHero from '../components/Product/Sections/ProductHero';
 import DataHealth from '../components/Product/Sections/DataHealth';

@@ -1,6 +1,4 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import HeroVisualization from '../Interactive/HeroVisualization';
 
 const textReveal = {
   hidden: { opacity: 0, y: 40 },
@@ -35,27 +33,39 @@ const HeroSection = () => {
       overflow: 'hidden',
       boxSizing: 'border-box',
     }}>
-      {/* Dark Matte Surface with Laser-Etched Geometric Grid */}
+      {/* Atmospheric Dark Surface */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: '#020617', // Deep matte dark slate
+        background: 'radial-gradient(1200px 600px at 10% -10%, rgba(45, 212, 191, 0.12), transparent 60%), radial-gradient(900px 500px at 90% 0%, rgba(59, 130, 246, 0.12), transparent 55%), linear-gradient(180deg, #020617 0%, #081125 55%, #020617 100%)',
         zIndex: 0,
       }}>
         <svg
-          style={{ width: '100%', height: '100%', opacity: 0.7 }}
+          style={{ width: '100%', height: '100%', opacity: 0.45 }}
           preserveAspectRatio="xMidYMid slice"
           viewBox="0 0 1440 800"
         >
           <defs>
             <radialGradient id="center-glow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.12" />
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.14" />
               <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
             </radialGradient>
+            <linearGradient id="grid-line" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.08" />
+              <stop offset="100%" stopColor="#2DD4BF" stopOpacity="0.03" />
+            </linearGradient>
           </defs>
           
           {/* Subtle Center Glow */}
           <circle cx="720" cy="400" r="500" fill="url(#center-glow)" />
+          <g stroke="url(#grid-line)" strokeWidth="1">
+            {Array.from({ length: 22 }).map((_, i) => (
+              <line key={`v-${i}`} x1={i * 70} y1="0" x2={i * 70} y2="800" />
+            ))}
+            {Array.from({ length: 14 }).map((_, i) => (
+              <line key={`h-${i}`} x1="0" y1={i * 62} x2="1440" y2={i * 62} />
+            ))}
+          </g>
         </svg>
       </div>
 
@@ -77,15 +87,17 @@ const HeroSection = () => {
               alignItems: 'center',
               gap: '8px',
               background: 'rgba(249, 115, 22, 0.1)',
-              border: '1px solid rgba(249, 115, 22, 0.2)',
+              border: '1px solid rgba(45, 212, 191, 0.35)',
               padding: 'clamp(6px, 1vh, 12px) clamp(16px, 1.5vw, 24px)',
               borderRadius: '30px',
               marginBottom: 'clamp(38px, 5.7vh, 69px)',
               fontSize: 'clamp(13px, 1vw, 18px)',
               fontWeight: 600,
-              color: '#F97316',
+              color: '#2DD4BF',
               letterSpacing: '0.5px',
               whiteSpace: 'nowrap',
+              backdropFilter: 'blur(8px)',
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.12), 0 10px 30px rgba(0,0,0,0.2)'
             }}
           >
             <motion.span
@@ -95,7 +107,7 @@ const HeroSection = () => {
                 width: '6px',
                 height: '6px',
                 borderRadius: '50%',
-                background: '#F97316',
+                background: '#2DD4BF',
                 display: 'inline-block',
               }}
             />
@@ -106,16 +118,16 @@ const HeroSection = () => {
             className="hero-title"
             style={{ marginBottom: 'clamp(28px, 4.6vh, 55px)', position: 'relative', zIndex: 10, color: '#FFFFFF' }}
           >
-            One Platform<br />
-            Six Bias Metrics<br />
+            Enterprise AI Governance<br />
+            Without Blind Spots<br />
             <span
               style={{
-                fontFamily: '"Inter", system-ui, sans-serif',
+                fontFamily: '"Roboto Slab", "Rockwell", "Courier New", Courier, serif',
                 fontWeight: 800,
-                color: '#FFFFFF',
+                color: '#E2E8F0',
               }}
             >
-              Zero Discrimination
+              Fair. Explainable. Defensible.
             </span>
           </motion.h1>
 
@@ -123,7 +135,7 @@ const HeroSection = () => {
             className="hero-subtitle body-large"
             style={{ color: '#94A3B8', marginBottom: 'clamp(35px, 5.5vh, 70px)', maxWidth: 'clamp(600px, 45vw, 900px)', fontSize: 'clamp(18px, 1.5vw, 24px)', lineHeight: 1.6, opacity: 1 }}
           >
-            Data health + Bias detection + Evidence = One platform. One scorecard. One defensible answer.
+            Unify data quality, bias detection, explainability, and enforcement in one workflow your risk, legal, and ML teams can trust.
           </motion.p>
 
           {/* CTA Button */}
@@ -143,14 +155,14 @@ const HeroSection = () => {
               }}
               whileTap={{ scale: 0.97 }}
               style={{
-                background: '#FFFFFF',
-                color: '#0F172A',
+                background: 'linear-gradient(90deg, #FFFFFF 0%, #E2E8F0 100%)',
+                color: '#0B1220',
                 padding: 'clamp(11px, 1.35vh, 18px) clamp(25px, 2.25vw, 43px)',
                 fontSize: 'clamp(14px, 1.1vw, 18px)',
                 fontWeight: 700,
                 borderRadius: 'clamp(32px, 4vw, 48px)',
                 border: 'none',
-                boxShadow: '0 10px 20px rgba(255, 255, 255, 0.05)',
+                boxShadow: '0 16px 40px rgba(148, 163, 184, 0.25)',
                 transition: 'all 0.3s',
                 display: 'flex',
                 alignItems: 'center',
@@ -190,7 +202,7 @@ const HeroSection = () => {
               opacity: 0.9
             }}>
               {['GDPR', 'CCPA', 'ECOA', 'HIPAA', 'Title VII', 'EEOC', 'Federal AI EO', 'EU AI Act', 'FHA', 'ADA'].map((reg) => (
-                <span key={reg} style={{ border: '1px solid rgba(255, 255, 255, 0.2)', padding: '6px 16px', borderRadius: '100px', background: 'rgba(255, 255, 255, 0.05)' }}>
+                <span key={reg} style={{ border: '1px solid rgba(255, 255, 255, 0.22)', padding: '6px 16px', borderRadius: '100px', background: 'rgba(255, 255, 255, 0.04)', backdropFilter: 'blur(3px)' }}>
                   {reg}
                 </span>
               ))}

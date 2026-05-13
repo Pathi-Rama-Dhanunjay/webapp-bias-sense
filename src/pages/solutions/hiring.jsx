@@ -1,4 +1,3 @@
-import React from 'react';
 import SolutionPageTemplate from '../../components/SolutionPageTemplate';
 import { HiringHero } from '../../components/Solutions/IndustryHeroes';
 

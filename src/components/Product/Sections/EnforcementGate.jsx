@@ -1,4 +1,3 @@
-import React from 'react';
 import CodeSampleTabs from '../Interactive/CodeSampleTabs';
 import { useView } from '../../../context/ViewContext';
 

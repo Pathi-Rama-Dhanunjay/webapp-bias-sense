@@ -1,4 +1,3 @@
-import React from 'react';
 import BenchmarkSelector from '../Interactive/BenchmarkSelector';
 
 const BenchmarkSection = () => {

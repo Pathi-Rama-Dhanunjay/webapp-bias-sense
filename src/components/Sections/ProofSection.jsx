@@ -1,4 +1,3 @@
-import React from 'react';
 import TestimonialCarousel from '../Interactive/TestimonialCarousel';
 
 const StatCard = ({ number, label, subtext }) => (

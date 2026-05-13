@@ -1,6 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, AlertCircle, BarChart3, TrendingUp, ShieldCheck, Activity, Users, Scale } from 'lucide-react';
+import { CheckCircle2, TrendingUp, ShieldCheck, Scale } from 'lucide-react';
 
 const DashboardCard = ({ children, title, delay = 0 }) => (
   <motion.div

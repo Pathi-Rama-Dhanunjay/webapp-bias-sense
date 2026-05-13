@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 
 const generateData = () => {
@@ -45,11 +45,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const DriftMonitoringChart = () => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    setData(generateData());
-  }, []);
+  const [data] = useState(generateData);
 
   return (
     <div style={{ width: '100%', height: 400, background: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #E2E8F0' }}>

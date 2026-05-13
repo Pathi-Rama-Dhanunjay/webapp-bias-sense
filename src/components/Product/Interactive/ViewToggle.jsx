@@ -1,13 +1,10 @@
-import React from 'react';
 import { useView } from '../../../context/ViewContext';
-import { motion } from 'framer-motion';
 
 const ViewToggle = () => {
   const { view, setView } = useView();
 
   return (
     <div style={{
-      display: 'flex',
       gap: '4px',
       justifyContent: 'center',
       marginBottom: '48px',

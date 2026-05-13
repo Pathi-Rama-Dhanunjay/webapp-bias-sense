@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const MetricCard = ({ name, value, status, range, riskZones, description, delay }) => {
+const MetricCard = ({ name, value, status, range, description, delay }) => {
   const [currentValue, setCurrentValue] = useState(0);
 
   useEffect(() => {

@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isDarkText, setIsDarkText] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const navigate = useNavigate();
@@ -23,16 +22,6 @@ const NavBar = () => {
         setIsScrolled(currentScrollY > 50);
       }
 
-      const lightSections = document.querySelectorAll('.light-section');
-      const navCenter = 40; // Approx Y center of navbar
-      let foundLight = false;
-      lightSections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= navCenter && rect.bottom >= navCenter) {
-          foundLight = true;
-        }
-      });
-      setIsDarkText(foundLight);
     };
 
     // Call once to set initial state
@@ -62,8 +51,7 @@ const NavBar = () => {
         { name: 'Hiring & HR', href: '/solutions/hiring' },
         { name: 'Public Sector', href: '/solutions/public-sector' }
       ]
-    },
-    { name: 'About Us', href: '/about' }
+    }
   ];
 
   return (
@@ -169,6 +157,9 @@ const NavBar = () => {
                       } else {
                         navigate(link.href);
                       }
+                    } else if (link.href) {
+                      navigate(link.href);
+                      window.scrollTo(0, 0);
                     }
                   }}
                   whileHover={{

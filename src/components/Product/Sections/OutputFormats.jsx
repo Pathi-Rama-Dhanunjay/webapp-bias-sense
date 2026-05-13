@@ -1,4 +1,3 @@
-import React from 'react';
 import { useView } from '../../../context/ViewContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, Code } from 'lucide-react';

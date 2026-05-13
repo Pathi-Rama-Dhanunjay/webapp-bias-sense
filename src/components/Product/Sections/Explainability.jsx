@@ -1,4 +1,3 @@
-import React from 'react';
 import { useView } from '../../../context/ViewContext';
 import SHAPChart from '../Interactive/SHAPChart';
 import { motion, AnimatePresence } from 'framer-motion';

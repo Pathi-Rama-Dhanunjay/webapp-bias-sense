@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import ViewToggle from '../Interactive/ViewToggle';
 
@@ -9,27 +8,38 @@ const ProductHero = () => {
   };
 
   return (
-    <section className="light-section" style={{
+    <section className="hero-section" style={{
       minHeight: 'auto',
       padding: '150px 24px 96px',
-      background: '#F8FAFC',
+      background: '#020617',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      textAlign: 'center'
+      textAlign: 'center',
+      position: 'relative',
+      overflow: 'hidden'
     }}>
-      <div className="container" style={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'radial-gradient(circle at 50% 18%, rgba(45, 212, 191, 0.18) 0%, rgba(2, 6, 23, 0) 60%)',
+          pointerEvents: 'none'
+        }}
+      />
+      <div className="container" style={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', zIndex: 1 }}>
         
         {/* Breadcrumb */}
-        <div style={{ fontSize: '12px', color: '#64748B', marginBottom: '16px' }}>
+        <div style={{ fontSize: '12px', color: '#94A3B8', marginBottom: '16px' }}>
           Home / Product Overview
         </div>
 
         {/* Accent Badge */}
         <div style={{
-          background: '#E6F1FB',
-          border: '1px solid #0F4C8C',
-          color: '#0F4C8C',
+          background: 'rgba(45, 212, 191, 0.12)',
+          border: '1px solid rgba(45, 212, 191, 0.45)',
+          color: '#2DD4BF',
           padding: '8px 16px',
           borderRadius: '20px',
           fontSize: '12px',
@@ -43,7 +53,7 @@ const ProductHero = () => {
         <h1 style={{
           fontSize: 'clamp(40px, 5vw, 56px)',
           fontWeight: 'bold',
-          color: '#1E293B',
+          color: '#FFFFFF',
           lineHeight: 1.2,
           letterSpacing: '-0.02em',
           marginBottom: '24px',
@@ -55,7 +65,7 @@ const ProductHero = () => {
 
         {/* Subheadline */}
         <p className="body-large" style={{
-          color: '#64748B',
+          color: '#94A3B8',
           maxWidth: '700px',
           margin: '0 auto 48px'
         }}>

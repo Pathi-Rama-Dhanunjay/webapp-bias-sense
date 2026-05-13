@@ -7,6 +7,7 @@ import FinancialServices from './pages/solutions/financial-services';
 import Healthcare from './pages/solutions/healthcare';
 import Hiring from './pages/solutions/hiring';
 import PublicSector from './pages/solutions/public-sector';
+import UseCases from './pages/UseCases';
 import { ViewProvider } from './context/ViewContext';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path="/solutions/healthcare" element={<Healthcare />} />
             <Route path="/solutions/hiring" element={<Hiring />} />
             <Route path="/solutions/public-sector" element={<PublicSector />} />
+            <Route path="/use-cases" element={<UseCases />} />
           </Routes>
         </ViewProvider>
       </div>

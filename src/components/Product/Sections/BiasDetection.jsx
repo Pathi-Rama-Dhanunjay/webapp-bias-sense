@@ -1,4 +1,3 @@
-import React from 'react';
 import { useView } from '../../../context/ViewContext';
 import BiasDetectionMetricsVisualization from '../Interactive/BiasDetectionMetricsVisualization';
 import { motion, AnimatePresence } from 'framer-motion';

@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { ChevronRight, ArrowRight, CheckCircle2, AlertCircle, Play, Download, Building2, ShieldCheck, BarChart3, Users2, Scale, ArrowLeftRight } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { ChevronRight, ArrowRight, CheckCircle2, Building2, ShieldCheck } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const SolutionPageTemplate = ({ industryData }) => {
-  const { pathname } = useLocation();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -39,15 +38,6 @@ const SolutionPageTemplate = ({ industryData }) => {
       transition: {
         staggerChildren: 0.2
       }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut" }
     }
   };
 

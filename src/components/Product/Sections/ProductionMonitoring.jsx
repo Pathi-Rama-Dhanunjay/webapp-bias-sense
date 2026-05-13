@@ -1,4 +1,3 @@
-import React from 'react';
 import DriftMonitoringChart from '../Interactive/DriftMonitoringChart';
 
 const ProductionMonitoring = () => {

@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import HeroSection from '../components/Sections/HeroSection';
 import ArchitectureFlow from '../components/Product/Sections/ArchitectureFlow';
-import SolutionSection from '../components/Sections/SolutionSection';
 import CapabilitiesSection from '../components/Sections/CapabilitiesSection';
+import UseCasesAerialOverview from '../components/Sections/UseCasesAerialOverview';
 import WorkflowSection from '../components/Sections/WorkflowSection';
 import ProofSection from '../components/Sections/ProofSection';
 import BenchmarkSection from '../components/Sections/BenchmarkSection';
@@ -67,9 +67,7 @@ const Home = () => {
       <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>
         <HeroSection />
         <ArchitectureFlow />
-        <div id="solutions" style={{ position: 'relative', zIndex: 1 }}>
-          <SolutionSection />
-        </div>
+        <UseCasesAerialOverview />
         <CapabilitiesSection />
         <WorkflowSection />
         <ProofSection />

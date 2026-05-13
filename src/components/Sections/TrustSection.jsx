@@ -1,4 +1,3 @@
-import React from 'react';
 import { Shield, Users, ClipboardCheck } from 'lucide-react';
 
 const TrustCard = ({ icon: Icon, title, features }) => (

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, Search, Target, Brain, FileText } from 'lucide-react';
 
-const TimelineStep = ({ number, title, description, icon: Icon, position, isExpanded, onToggle, interactiveContent }) => {
+const TimelineStep = ({ title, description, icon: Icon, position, isExpanded, onToggle, interactiveContent }) => {
   const isLeft = position === 'left';
   
   return (

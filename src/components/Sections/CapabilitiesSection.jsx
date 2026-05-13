@@ -1,4 +1,3 @@
-import React from 'react';
 import CapabilitiesCards from '../Interactive/CapabilitiesCards';
 
 const CapabilitiesSection = () => {
