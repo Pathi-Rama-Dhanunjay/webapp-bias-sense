@@ -4,7 +4,7 @@ import ViewToggle from '../Interactive/ViewToggle';
 const ProductHero = () => {
   const handleDemoClick = () => {
     console.log("GA Event: cta_click", { button_name: 'schedule_technical_demo', section: 'final_cta' });
-    window.location.href = '/contact';
+    window.location.href = '/early-access';
   };
 
   return (
@@ -112,3 +112,4 @@ const ProductHero = () => {
 };
 
 export default ProductHero;
+

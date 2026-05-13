@@ -5,11 +5,9 @@ import HeroSection from '../components/Sections/HeroSection';
 import ArchitectureFlow from '../components/Product/Sections/ArchitectureFlow';
 import CapabilitiesSection from '../components/Sections/CapabilitiesSection';
 import UseCasesAerialOverview from '../components/Sections/UseCasesAerialOverview';
-import WorkflowSection from '../components/Sections/WorkflowSection';
-import ProofSection from '../components/Sections/ProofSection';
-import BenchmarkSection from '../components/Sections/BenchmarkSection';
-import TrustSection from '../components/Sections/TrustSection';
-import CTASection from '../components/Sections/CTASection';
+import IntegrationsOrbitSection from '../components/Sections/IntegrationsOrbitSection';
+import OutcomesSection from '../components/Sections/OutcomesSection';
+import HomeFinalCTASection from '../components/Sections/HomeFinalCTASection';
 
 const Home = () => {
   const location = useLocation();
@@ -68,14 +66,10 @@ const Home = () => {
         <HeroSection />
         <ArchitectureFlow />
         <UseCasesAerialOverview />
+        <IntegrationsOrbitSection />
         <CapabilitiesSection />
-        <WorkflowSection />
-        <ProofSection />
-        <BenchmarkSection />
-        <div id="company">
-          <TrustSection />
-        </div>
-        <CTASection />
+        <OutcomesSection />
+        <HomeFinalCTASection />
       </div>
 
       {/* Global overrides to make all sections fluid and transparent */}

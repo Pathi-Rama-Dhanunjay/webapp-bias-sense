@@ -16,7 +16,7 @@ const textReveal = {
 const HeroSection = () => {
   const handleDemoClick = () => {
     console.log("GA Event: hero_cta_click", { button_name: 'book_demo', section: 'hero', page: 'home' });
-    window.location.href = '/contact';
+    window.location.href = '/early-access';
   };
 
   return (
@@ -276,3 +276,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+

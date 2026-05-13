@@ -131,7 +131,7 @@ const BiasDetection = () => {
             <p style={{ fontSize: '16px', color: 'white', marginBottom: '16px' }}>
               Ready to see these metrics for your model?
             </p>
-            <a href="/contact" style={{
+            <a href="/early-access" style={{
               fontSize: '16px',
               fontWeight: 600,
               color: '#00A99D',
@@ -151,3 +151,4 @@ const BiasDetection = () => {
 };
 
 export default BiasDetection;
+

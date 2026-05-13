@@ -8,6 +8,8 @@ import Healthcare from './pages/solutions/healthcare';
 import Hiring from './pages/solutions/hiring';
 import PublicSector from './pages/solutions/public-sector';
 import UseCases from './pages/UseCases';
+import EarlyAccess from './pages/EarlyAccess';
+import About from './pages/About';
 import { ViewProvider } from './context/ViewContext';
 
 function App() {
@@ -37,6 +39,9 @@ function App() {
             <Route path="/solutions/hiring" element={<Hiring />} />
             <Route path="/solutions/public-sector" element={<PublicSector />} />
             <Route path="/use-cases" element={<UseCases />} />
+            <Route path="/early-access" element={<EarlyAccess />} />
+            <Route path="/contact" element={<EarlyAccess />} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </ViewProvider>
       </div>

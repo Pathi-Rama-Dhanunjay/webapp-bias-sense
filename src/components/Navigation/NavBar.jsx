@@ -1,14 +1,32 @@
-import { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Menu, X, ArrowRight, Landmark, Activity, Shield, ShoppingCart, Users, Scale, GraduationCap, Home, Briefcase, Truck, Building2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const closeTimerRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const openMenu = (name) => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    setOpenDropdown(name);
+  };
+
+  const closeMenuWithDelay = () => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+    }
+    closeTimerRef.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, 140);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,17 +59,34 @@ const NavBar = () => {
 
   const navLinks = [
     { name: 'Product', href: '/product' },
-    { name: 'Use Cases', href: '/use-cases' },
+    {
+      name: 'Use Cases',
+      href: '/use-cases',
+      isDropdown: true,
+      items: [
+        { name: 'Finance & Consumer Credit', href: '/use-cases?industry=finance', icon: Landmark },
+        { name: 'Healthcare & Patient Care', href: '/use-cases?industry=healthcare', icon: Activity },
+        { name: 'Insurance & Underwriting', href: '/use-cases?industry=insurance', icon: Shield },
+        { name: 'Retail & E-commerce', href: '/use-cases?industry=retail', icon: ShoppingCart },
+        { name: 'HR & Recruitment', href: '/use-cases?industry=hr', icon: Users },
+        { name: 'Criminal Justice', href: '/use-cases?industry=criminal-justice', icon: Scale },
+        { name: 'Education & Admissions', href: '/use-cases?industry=education', icon: GraduationCap },
+        { name: 'Mortgage & Real Estate', href: '/use-cases?industry=mortgage', icon: Home },
+        { name: 'Workforce Management', href: '/use-cases?industry=employment', icon: Briefcase },
+        { name: 'Supply Chain & Logistics', href: '/use-cases?industry=supply-chain', icon: Truck }
+      ]
+    },
     {
       name: 'Integrations',
       isDropdown: true,
       items: [
-        { name: 'Financial Services', href: '/solutions/financial-services' },
-        { name: 'Healthcare', href: '/solutions/healthcare' },
-        { name: 'Hiring & HR', href: '/solutions/hiring' },
-        { name: 'Public Sector', href: '/solutions/public-sector' }
+        { name: 'Financial Services', href: '/solutions/financial-services', icon: Landmark },
+        { name: 'Healthcare', href: '/solutions/healthcare', icon: Activity },
+        { name: 'Hiring & HR', href: '/solutions/hiring', icon: Users },
+        { name: 'Public Sector', href: '/solutions/public-sector', icon: Building2 }
       ]
-    }
+    },
+    { name: 'About Us', href: '/about' }
   ];
 
   return (
@@ -133,17 +168,24 @@ const NavBar = () => {
           <div className="desktop-nav" role="menubar" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px', alignItems: 'center' }}>
             {navLinks.map((link) => (
               <div key={link.name} style={{ position: 'relative' }}
-                onMouseEnter={() => link.isDropdown && setSolutionsOpen(true)}
-                onMouseLeave={() => link.isDropdown && setSolutionsOpen(false)}
+                onMouseEnter={() => link.isDropdown && openMenu(link.name)}
+                onMouseLeave={() => link.isDropdown && closeMenuWithDelay()}
               >
                 <motion.a
                   href={link.href || '#'}
                   onClick={(e) => {
+                    if (link.isDropdown && !link.href) {
+                      e.preventDefault();
+                      return;
+                    }
                     e.preventDefault();
-                    if (link.isDropdown) return;
                     if (link.href === '/product') {
                       navigate('/product');
                       window.scrollTo(0, 0);
+                    } else if (link.href === '/use-cases') {
+                      navigate('/use-cases');
+                      window.scrollTo(0, 0);
+                      setOpenDropdown(null);
                     } else if (link.href.startsWith('/#')) {
                       const targetId = link.href.split('#')[1];
                       if (location.pathname === '/') {
@@ -186,49 +228,64 @@ const NavBar = () => {
 
                 {link.isDropdown && (
                   <AnimatePresence>
-                    {solutionsOpen && (
+                    {openDropdown === link.name && (
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
+                        onMouseEnter={() => openMenu(link.name)}
+                        onMouseLeave={closeMenuWithDelay}
                         style={{
                           position: 'absolute',
                           top: '100%',
                           left: '0',
-                          width: '220px',
+                          width: link.name === 'Use Cases' ? '640px' : '240px',
                           background: '#0F172A',
                           borderRadius: '16px',
                           padding: '12px',
                           boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
                           border: '1px solid rgba(255, 255, 255, 0.1)',
-                          marginTop: '8px',
+                          marginTop: '0',
+                          transform: 'translateY(8px)',
                           zIndex: 2000
                         }}
                       >
-                        {link.items.map(item => (
-                          <Link
-                            key={item.name}
-                            to={item.href}
-                            onClick={() => {
-                              setSolutionsOpen(false);
-                              window.scrollTo(0, 0);
-                            }}
-                            style={{
-                              display: 'block',
-                              padding: '12px 16px',
-                              color: '#FFFFFF',
-                              textDecoration: 'none',
-                              fontSize: '14px',
-                              fontWeight: 600,
-                              borderRadius: '8px',
-                              transition: 'background 0.2s'
-                            }}
-                            onMouseEnter={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.1)'}
-                            onMouseLeave={(e) => e.target.style.background = 'transparent'}
-                          >
-                            {item.name}
-                          </Link>
-                        ))}
+                        <div style={{
+                          display: 'grid',
+                          gridTemplateColumns: link.name === 'Use Cases' ? '1fr 1fr' : '1fr',
+                          gap: '8px'
+                        }}>
+                          {link.items.map(item => {
+                            const ItemIcon = item.icon;
+                            return (
+                              <Link
+                                key={item.name}
+                                to={item.href}
+                                onClick={() => {
+                                  setOpenDropdown(null);
+                                  window.scrollTo(0, 0);
+                                }}
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '10px',
+                                  padding: '12px 14px',
+                                  color: '#FFFFFF',
+                                  textDecoration: 'none',
+                                  fontSize: '14px',
+                                  fontWeight: 600,
+                                  borderRadius: '8px',
+                                  transition: 'background 0.2s'
+                                }}
+                                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'}
+                                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                              >
+                                {ItemIcon && <ItemIcon size={16} style={{ color: 'rgba(255,255,255,0.8)' }} />}
+                                <span>{item.name}</span>
+                              </Link>
+                            );
+                          })}
+                        </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -243,7 +300,7 @@ const NavBar = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => window.location.href = '/contact'}
+              onClick={() => window.location.href = '/early-access'}
               style={{
                 background: isScrolled ? '#0F172A' : '#FFFFFF',
                 color: isScrolled ? '#FFFFFF' : '#0F172A',
@@ -310,7 +367,10 @@ const NavBar = () => {
                           <Link
                             key={item.name}
                             to={item.href}
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={() => {
+                              setMobileMenuOpen(false);
+                              window.scrollTo(0, 0);
+                            }}
                             style={{ color: '#FFFFFF', textDecoration: 'none', fontSize: '15px', fontWeight: 500 }}
                           >
                             {item.name}
@@ -337,7 +397,7 @@ const NavBar = () => {
               ))}
               <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.1)', margin: '8px 0' }}></div>
               <button
-                onClick={() => { setMobileMenuOpen(false); window.location.href = '/contact'; }}
+                onClick={() => { setMobileMenuOpen(false); window.location.href = '/early-access'; }}
                 style={{
                   background: '#FFFFFF',
                   color: '#0F172A',

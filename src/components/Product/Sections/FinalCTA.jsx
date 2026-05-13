@@ -26,7 +26,7 @@ const FinalCTA = () => {
         }}>
           <motion.button
             whileHover={{ scale: 1.02 }}
-            onClick={() => window.location.href = '/contact'}
+            onClick={() => window.location.href = '/early-access'}
             style={{
               background: 'white',
               color: '#0F4C8C',
@@ -68,3 +68,4 @@ const FinalCTA = () => {
 };
 
 export default FinalCTA;
+

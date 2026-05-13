@@ -301,55 +301,124 @@ const UseCases = () => {
     <div className="use-cases-page" style={{ background: '#F8FAFC', minHeight: '100vh' }}>
       
       {/* Hero Section */}
-      <section
-        className="hero-section"
-        style={{
-          minHeight: '70vh',
-          background: '#020617',
-          position: 'relative',
-          overflow: 'hidden',
-          display: 'flex',
-          alignItems: 'center',
-          padding: '180px 24px 72px',
-          marginBottom: '64px'
-        }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background:
-              'radial-gradient(circle at 50% 20%, rgba(45, 212, 191, 0.18) 0%, rgba(2, 6, 23, 0) 60%)',
-            pointerEvents: 'none'
-          }}
-        />
-        <div className="container" style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={{ color: '#2DD4BF', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '16px' }}
-        >
-          Industry Use Cases
-        </motion.p>
-        <motion.h1
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          style={{ fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 800, color: '#FFFFFF', marginBottom: '24px', lineHeight: 1.1 }}
-        >
-          Algorithmic Bias Happens Everywhere.<br />
-          <span style={{ color: '#2DD4BF' }}>BiasSense Fixes It.</span>
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="body-large"
-          style={{ color: '#94A3B8', maxWidth: '800px', margin: '0 auto', fontSize: '18px' }}
-        >
-          From financial lending and healthcare readmissions to recruitment and supply chain logic. 
-          Explore how top enterprises use BiasSense to ensure fairness, transparency, and compliance across 10 major industries.
-        </motion.p>
+      <section className="hero-section" style={{
+        minHeight: '50vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        paddingTop: '216px',
+        paddingBottom: '72px',
+        paddingLeft: '24px',
+        paddingRight: '24px',
+        position: 'relative',
+        overflow: 'hidden',
+        boxSizing: 'border-box',
+        marginBottom: '64px',
+      }}>
+        {/* Atmospheric Dark Surface */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(1200px 600px at 10% -10%, rgba(45, 212, 191, 0.12), transparent 60%), radial-gradient(900px 500px at 90% 0%, rgba(59, 130, 246, 0.12), transparent 55%), linear-gradient(180deg, #020617 0%, #081125 55%, #020617 100%)',
+          zIndex: 0,
+        }}>
+          <svg
+            style={{ width: '100%', height: '100%', opacity: 0.45 }}
+            preserveAspectRatio="xMidYMid slice"
+            viewBox="0 0 1440 800"
+          >
+            <defs>
+              <radialGradient id="uc-center-glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.14" />
+                <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+              </radialGradient>
+              <linearGradient id="uc-grid-line" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.08" />
+                <stop offset="100%" stopColor="#2DD4BF" stopOpacity="0.03" />
+              </linearGradient>
+            </defs>
+            <circle cx="720" cy="400" r="500" fill="url(#uc-center-glow)" />
+            <g stroke="url(#uc-grid-line)" strokeWidth="1">
+              {Array.from({ length: 22 }).map((_, i) => (
+                <line key={`v-${i}`} x1={i * 70} y1="0" x2={i * 70} y2="800" />
+              ))}
+              {Array.from({ length: 14 }).map((_, i) => (
+                <line key={`h-${i}`} x1="0" y1={i * 62} x2="1440" y2={i * 62} />
+              ))}
+            </g>
+          </svg>
+        </div>
+
+        <div className="container" style={{ position: 'relative', zIndex: 10, textAlign: 'center' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              display: 'inline-flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(249, 115, 22, 0.1)',
+              border: '1px solid rgba(45, 212, 191, 0.35)',
+              padding: 'clamp(6px, 1vh, 12px) clamp(16px, 1.5vw, 24px)',
+              borderRadius: '30px',
+              marginBottom: 'clamp(38px, 5.7vh, 69px)',
+              fontSize: 'clamp(13px, 1vw, 18px)',
+              fontWeight: 600,
+              color: '#2DD4BF',
+              letterSpacing: '0.5px',
+              backdropFilter: 'blur(8px)',
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.12), 0 10px 30px rgba(0,0,0,0.2)'
+            }}
+          >
+            <motion.span
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                background: '#2DD4BF',
+                display: 'inline-block',
+              }}
+            />
+            Industry Use Cases
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontSize: 'clamp(32px, 4.5vw, 79px)',
+              lineHeight: 1.15,
+              fontFamily: '"Roboto Slab", "Rockwell", "Courier New", Courier, serif',
+              fontWeight: 700,
+              color: '#FFFFFF',
+              marginBottom: 'clamp(28px, 4.6vh, 55px)'
+            }}
+          >
+            Algorithmic Bias Happens Everywhere.<br />
+            <span style={{ color: '#E2E8F0', fontWeight: 800 }}>BiasSense Fixes It.</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="body-large"
+            style={{
+              color: '#94A3B8',
+              maxWidth: 'clamp(600px, 45vw, 900px)',
+              margin: '0 auto',
+              fontSize: 'clamp(16px, 1.8vw, 24px)',
+              lineHeight: 1.6
+            }}
+          >
+            From financial lending and healthcare readmissions to recruitment and supply chain logic. 
+            Explore how top enterprises use BiasSense to ensure fairness, transparency, and compliance across 10 major industries.
+          </motion.p>
         </div>
       </section>
 
@@ -531,15 +600,15 @@ const UseCases = () => {
                 Move from reactive risk to proactive governance. BiasSense delivers payback in days to weeks by preventing massive regulatory penalties and saving hundreds of hours of manual audit time.
               </p>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>
-                <li style={{ display: 'flex', gap: '12px', alignItems: 'center', fontSize: '16px', fontWeight: 500 }}><CheckCircle2 size={20} color="#FFFFFF" /> <b>Phase 1 (Week 1-2):</b> Audit & identify bias hot spots</li>
-                <li style={{ display: 'flex', gap: '12px', alignItems: 'center', fontSize: '16px', fontWeight: 500 }}><CheckCircle2 size={20} color="#FFFFFF" /> <b>Phase 2 (Week 3-8):</b> Rebalance & implement monitoring</li>
-                <li style={{ display: 'flex', gap: '12px', alignItems: 'center', fontSize: '16px', fontWeight: 500 }}><CheckCircle2 size={20} color="#FFFFFF" /> <b>Phase 3 (Ongoing):</b> Continuous real-time tracking</li>
+                <li style={{ display: 'flex', gap: '12px', alignItems: 'center', fontSize: '16px', fontWeight: 500 }}><CheckCircle2 size={20} color="#FFFFFF" /> <b>Phase 1:</b> Audit & identify bias hot spots</li>
+                <li style={{ display: 'flex', gap: '12px', alignItems: 'center', fontSize: '16px', fontWeight: 500 }}><CheckCircle2 size={20} color="#FFFFFF" /> <b>Phase 2:</b> Rebalance & implement monitoring</li>
+                <li style={{ display: 'flex', gap: '12px', alignItems: 'center', fontSize: '16px', fontWeight: 500 }}><CheckCircle2 size={20} color="#FFFFFF" /> <b>Phase 3:</b> Continuous real-time tracking</li>
               </ul>
               <button 
-                onClick={() => window.location.href = '/contact'}
+                onClick={() => window.location.href = '/early-access'}
                 style={{ background: '#FFFFFF', color: '#0F4C8C', padding: '16px 32px', borderRadius: '8px', fontSize: '16px', fontWeight: 700, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(0,0,0,0.2)' }}
               >
-                Schedule a Use Case Demo
+                Early Access
               </button>
             </div>
             <div style={{ flex: '1 1 300px', background: 'rgba(0,0,0,0.2)', padding: '32px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' }}>
@@ -593,3 +662,4 @@ const UseCases = () => {
 };
 
 export default UseCases;
+
