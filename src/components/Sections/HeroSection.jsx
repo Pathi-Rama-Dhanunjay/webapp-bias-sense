@@ -35,53 +35,27 @@ const HeroSection = () => {
       overflow: 'hidden',
       boxSizing: 'border-box',
     }}>
-      {/* Ethereal Light Blue Gradient with Flowing White Lines */}
+      {/* Dark Matte Surface with Laser-Etched Geometric Grid */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'linear-gradient(135deg, #bae6fd 0%, #ffffff 55%, #e0f2fe 100%)',
+        background: '#020617', // Deep matte dark slate
         zIndex: 0,
       }}>
         <svg
-          style={{ width: '100%', height: '100%', opacity: 0.8 }}
-          preserveAspectRatio="none"
+          style={{ width: '100%', height: '100%', opacity: 0.7 }}
+          preserveAspectRatio="xMidYMid slice"
           viewBox="0 0 1440 800"
         >
-          {/* Soft Glow */}
           <defs>
-            <radialGradient id="hero-glow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
+            <radialGradient id="center-glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.12" />
               <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
             </radialGradient>
           </defs>
           
-          <circle cx="720" cy="400" r="400" fill="url(#hero-glow)" opacity="0.45" />
-          
-          {/* Flowing Lines */}
-          <motion.path
-            d="M-100,350 C300,250 800,550 1540,400"
-            fill="none"
-            stroke="rgba(255, 255, 255, 0.9)"
-            strokeWidth="1.5"
-            animate={{ d: ["M-100,350 C300,250 800,550 1540,400", "M-100,450 C400,350 600,450 1540,450", "M-100,350 C300,250 800,550 1540,400"] }}
-            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.path
-            d="M-100,450 C400,350 700,600 1540,450"
-            fill="none"
-            stroke="rgba(255, 255, 255, 0.5)"
-            strokeWidth="3"
-            animate={{ d: ["M-100,450 C400,350 700,600 1540,450", "M-100,400 C200,400 900,500 1540,400", "M-100,450 C400,350 700,600 1540,450"] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          />
-          <motion.path
-            d="M-100,550 C300,450 800,500 1540,550"
-            fill="none"
-            stroke="rgba(255, 255, 255, 0.2)"
-            strokeWidth="5"
-            animate={{ d: ["M-100,550 C300,450 800,500 1540,550", "M-100,500 C400,550 700,450 1540,500", "M-100,550 C300,450 800,500 1540,550"] }}
-            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          />
+          {/* Subtle Center Glow */}
+          <circle cx="720" cy="400" r="500" fill="url(#center-glow)" />
         </svg>
       </div>
 
@@ -130,7 +104,7 @@ const HeroSection = () => {
 
           <motion.h1
             className="hero-title"
-            style={{ marginBottom: 'clamp(28px, 4.6vh, 55px)', position: 'relative', zIndex: 10 }}
+            style={{ marginBottom: 'clamp(28px, 4.6vh, 55px)', position: 'relative', zIndex: 10, color: '#FFFFFF' }}
           >
             One Platform<br />
             Six Bias Metrics<br />
@@ -138,7 +112,7 @@ const HeroSection = () => {
               style={{
                 fontFamily: '"Inter", system-ui, sans-serif',
                 fontWeight: 800,
-                color: '#000000',
+                color: '#FFFFFF',
               }}
             >
               Zero Discrimination
@@ -147,7 +121,7 @@ const HeroSection = () => {
 
           <motion.p
             className="hero-subtitle body-large"
-            style={{ color: '#64748B', marginBottom: 'clamp(35px, 5.5vh, 70px)', maxWidth: 'clamp(600px, 45vw, 900px)', fontSize: 'clamp(18px, 1.5vw, 24px)', lineHeight: 1.6, opacity: 1 }}
+            style={{ color: '#94A3B8', marginBottom: 'clamp(35px, 5.5vh, 70px)', maxWidth: 'clamp(600px, 45vw, 900px)', fontSize: 'clamp(18px, 1.5vw, 24px)', lineHeight: 1.6, opacity: 1 }}
           >
             Data health + Bias detection + Evidence = One platform. One scorecard. One defensible answer.
           </motion.p>
@@ -165,18 +139,18 @@ const HeroSection = () => {
               whileHover={{
                 y: -4,
                 scale: 1.03,
-                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.05)',
+                boxShadow: '0 20px 40px rgba(255, 255, 255, 0.15)',
               }}
               whileTap={{ scale: 0.97 }}
               style={{
-                background: '#0F172A',
-                color: '#FFFFFF',
+                background: '#FFFFFF',
+                color: '#0F172A',
                 padding: 'clamp(11px, 1.35vh, 18px) clamp(25px, 2.25vw, 43px)',
                 fontSize: 'clamp(14px, 1.1vw, 18px)',
                 fontWeight: 700,
                 borderRadius: 'clamp(32px, 4vw, 48px)',
                 border: 'none',
-                boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
+                boxShadow: '0 10px 20px rgba(255, 255, 255, 0.05)',
                 transition: 'all 0.3s',
                 display: 'flex',
                 alignItems: 'center',
@@ -210,13 +184,13 @@ const HeroSection = () => {
               justifyContent: 'center',
               alignItems: 'center',
               gap: '12px',
-              color: '#64748B',
+              color: '#F8FAFC',
               fontSize: 'clamp(13px, 1.1vw, 15px)',
               fontWeight: 600,
               opacity: 0.9
             }}>
               {['GDPR', 'CCPA', 'ECOA', 'HIPAA', 'Title VII', 'EEOC', 'Federal AI EO', 'EU AI Act', 'FHA', 'ADA'].map((reg) => (
-                <span key={reg} style={{ border: '1px solid #CBD5E1', padding: '6px 16px', borderRadius: '100px', background: '#FFFFFF' }}>
+                <span key={reg} style={{ border: '1px solid rgba(255, 255, 255, 0.2)', padding: '6px 16px', borderRadius: '100px', background: 'rgba(255, 255, 255, 0.05)' }}>
                   {reg}
                 </span>
               ))}
@@ -236,7 +210,7 @@ const HeroSection = () => {
         .hero-title {
           font-size: clamp(32px, 4.5vw, 79px);
           line-height: 1.15;
-          color: #0F172A !important;
+          color: #FFFFFF !important;
           font-family: "Roboto Slab", "Rockwell", "Courier New", Courier, serif;
           font-weight: 700;
           opacity: 1 !important;
