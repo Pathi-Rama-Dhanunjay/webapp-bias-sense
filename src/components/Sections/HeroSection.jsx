@@ -33,37 +33,59 @@ const HeroSection = () => {
       overflow: 'hidden',
       boxSizing: 'border-box',
     }}>
-      {/* Atmospheric Dark Surface */}
+      {/* BiasSense Decision Intelligence Surface */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'radial-gradient(1200px 600px at 10% -10%, rgba(45, 212, 191, 0.12), transparent 60%), radial-gradient(900px 500px at 90% 0%, rgba(59, 130, 246, 0.12), transparent 55%), linear-gradient(180deg, #020617 0%, #081125 55%, #020617 100%)',
+        background: 'linear-gradient(180deg, #020617 0%, #071426 46%, #0A1B2E 100%)',
         zIndex: 0,
       }}>
         <svg
-          style={{ width: '100%', height: '100%', opacity: 0.45 }}
+          style={{ width: '100%', height: '100%', opacity: 0.96 }}
           preserveAspectRatio="xMidYMid slice"
           viewBox="0 0 1440 800"
         >
           <defs>
-            <radialGradient id="center-glow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.14" />
-              <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+            <radialGradient id="hero-center-glow" cx="50%" cy="38%" r="58%">
+              <stop offset="0%" stopColor="#E0F2FE" stopOpacity="0.18" />
+              <stop offset="55%" stopColor="#2DD4BF" stopOpacity="0.06" />
+              <stop offset="100%" stopColor="#020617" stopOpacity="0" />
             </radialGradient>
-            <linearGradient id="grid-line" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.08" />
-              <stop offset="100%" stopColor="#2DD4BF" stopOpacity="0.03" />
+            <linearGradient id="hero-grid-line" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.09" />
+              <stop offset="52%" stopColor="#38BDF8" stopOpacity="0.08" />
+              <stop offset="100%" stopColor="#2DD4BF" stopOpacity="0.04" />
             </linearGradient>
+            <linearGradient id="fairness-signal" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#38BDF8" stopOpacity="0" />
+              <stop offset="35%" stopColor="#38BDF8" stopOpacity="0.55" />
+              <stop offset="70%" stopColor="#2DD4BF" stopOpacity="0.65" />
+              <stop offset="100%" stopColor="#2DD4BF" stopOpacity="0" />
+            </linearGradient>
+            <filter id="hero-soft-glow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
           </defs>
-          
-          {/* Subtle Center Glow */}
-          <circle cx="720" cy="400" r="500" fill="url(#center-glow)" />
-          <g stroke="url(#grid-line)" strokeWidth="1">
-            {Array.from({ length: 22 }).map((_, i) => (
-              <line key={`v-${i}`} x1={i * 70} y1="0" x2={i * 70} y2="800" />
-            ))}
-            {Array.from({ length: 14 }).map((_, i) => (
-              <line key={`h-${i}`} x1="0" y1={i * 62} x2="1440" y2={i * 62} />
+
+          <rect width="1440" height="800" fill="url(#hero-center-glow)" />
+
+          <g>
+            {[
+              [258, 246, '#38BDF8'],
+              [460, 420, '#2DD4BF'],
+              [706, 284, '#E0F2FE'],
+              [928, 398, '#2DD4BF'],
+              [1110, 224, '#38BDF8'],
+              [1198, 520, '#E0F2FE'],
+            ].map(([cx, cy, fill], index) => (
+              <g
+                key={`${cx}-${cy}`}
+                style={{ transformOrigin: `${cx}px ${cy}px` }}
+              >
+                <circle cx={cx} cy={cy} r="18" fill={fill} opacity="0.06" />
+                <circle cx={cx} cy={cy} r="4" fill={fill} opacity="0.8" />
+              </g>
             ))}
           </g>
         </svg>
@@ -276,4 +298,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
