@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integrations | BiasSense</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ══════════════════════════════════════════
+       DESIGN TOKENS
+       ══════════════════════════════════════════ */
+    :root {
+      --ink: #0F172A;
+      --secondary: #64748B;
+      --indigo: #4F46E5;
+      --indigo-soft: rgba(79, 70, 229, 0.08);
+      --teal: #14B8A6;
+      --border: rgba(0, 0, 0, 0.07);
+      --card-bg: #FFFFFF;
+      --page-bg: #FBFCFF;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --center-pop: cubic-bezier(0.34, 1.4, 0.64, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--page-bg);
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION WRAPPER
+       ══════════════════════════════════════════ */
+    .integrations-section {
+      position: relative;
+      isolation: isolate;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 40px;
+      overflow: hidden;
+    }
+
+    /* ── Dot grid background ── */
+    .integrations-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(79, 70, 229, 0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 20%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 20%, transparent 80%);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1.5s var(--ease);
+    }
+
+    .integrations-section.loaded::before { opacity: 1; }
+
+    /* ── Ambient orbs ── */
+    .amb-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 0;
+      transition: opacity 2s var(--ease);
+    }
+
+    .amb-orb-1 {
+      width: 420px; height: 420px;
+      background: rgba(79, 70, 229, 0.09);
+      top: -5%; left: -5%;
+      animation: floatA 16s ease-in-out infinite;
+    }
+
+    .amb-orb-2 {
+      width: 380px; height: 380px;
+      background: rgba(20, 184, 166, 0.07);
+      bottom: -10%; right: -8%;
+      animation: floatB 18s ease-in-out infinite;
+    }
+
+    .integrations-section.loaded .amb-orb { opacity: 1; }
+
+    @keyframes floatA {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(18px, -14px); }
+    }
+    @keyframes floatB {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-16px, 12px); }
+    }
+
+    /* ══════════════════════════════════════════
+       TWO-COLUMN GRID
+       ══════════════════════════════════════════ */
+    .int-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ══════════════════════════════════════════
+       LEFT COLUMN — TEXT & CHIPS
+       ══════════════════════════════════════════ */
+    .int-left { display: flex; flex-direction: column; gap: 0; }
+
+    /* Eyebrow */
+    .int-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 1s var(--ease), transform 1s var(--ease);
+    }
+
+    .integrations-section.loaded .int-eyebrow {
+      opacity: 1; transform: translateY(0);
+    }
+
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--indigo);
+      animation: pulseDot 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 0.4; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .eyebrow-text {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--indigo);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    /* Headline */
+    .int-headline {
+      font-size: clamp(30px, 3.6vw, 38px);
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .int-headline .hw {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(22px);
+      filter: blur(6px);
+      transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+    }
+
+    .integrations-section.loaded .int-headline .hw {
+      opacity: 1; transform: translateY(0); filter: blur(0);
+    }
+
+    .accent-word { color: var(--indigo); }
+
+    /* Subtitle */
+    .int-subtitle {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--secondary);
+      line-height: 1.65;
+      max-width: 460px;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 1s var(--ease), transform 1s var(--ease);
+    }
+
+    .integrations-section.loaded .int-subtitle {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* ── Chip grid ── */
+    .chip-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--card-bg);
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: default;
+      opacity: 0;
+      transform: translateY(10px);
+      transition:
+        opacity 0.6s var(--ease),
+        transform 0.5s var(--ease),
+        background-color 0.5s var(--ease),
+        border-color 0.5s var(--ease),
+        box-shadow 0.5s var(--ease);
+    }
+
+    .integrations-section.loaded .chip {
+      opacity: 1; transform: translateY(0);
+    }
+
+    .chip:hover {
+      transform: translateY(-2px);
+      border-color: rgba(79, 70, 229, 0.2);
+      background-color: rgba(79, 70, 229, 0.03);
+    }
+
+    .chip-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition: transform 0.5s var(--ease);
+    }
+
+    .chip:hover .chip-dot { transform: scale(1.3); }
+
+    .chip-name {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chip-more {
+      background: var(--indigo-soft);
+      border-color: rgba(79, 70, 229, 0.12);
+    }
+
+    .chip-more .chip-name {
+      color: var(--indigo);
+      font-weight: 500;
+    }
+
+    /* ══════════════════════════════════════════
+       RIGHT COLUMN — SVG ORBIT
+       ══════════════════════════════════════════ */
+    .int-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .orbit-stage {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      aspect-ratio: 1 / 1;
+    }
+
+    .orbit-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Orbit rings */
+    .orbit-ring {
+      fill: none;
+      stroke: rgba(79, 70, 229, 0.10);
+      stroke-dasharray: 2 4;
+      opacity: 0;
+      transition: opacity 1.2s var(--ease);
+    }
+
+    .integrations-section.loaded .orbit-ring { opacity: 1; }
+
+    .ring-1 { animation: spinCW 100s linear infinite; transform-origin: 50% 50%; }
+    .ring-2 { animation: spinCCW 80s linear infinite; transform-origin: 50% 50%; }
+    .ring-3 { animation: spinCW 60s linear infinite; transform-origin: 50% 50%; }
+
+    @keyframes spinCW { to { transform: rotate(360deg); } }
+    @keyframes spinCCW { to { transform: rotate(-360deg); } }
+
+    /* Connection lines */
+    .conn-line {
+      stroke: url(#lineGrad);
+      stroke-width: 1;
+      fill: none;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      transition: stroke-dashoffset 1.2s var(--ease);
+    }
+
+    .integrations-section.loaded .conn-line {
+      stroke-dashoffset: 0;
+    }
+
+    /* Center node */
+    .center-node {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 1px solid rgba(79, 70, 229, 0.18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      z-index: 10;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.8s var(--center-pop);
+    }
+
+    .integrations-section.loaded .center-node {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .center-node::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .center-icon {
+      width: 28px; height: 28px;
+      stroke: var(--indigo);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .center-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--indigo);
+      letter-spacing: 0.03em;
+    }
+
+    /* Sonar pulse rings */
+    .sonar-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      border: 1px solid rgba(79, 70, 229, 0.15);
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .integrations-section.loaded .sonar-ring {
+      animation: sonar 3s var(--ease) infinite;
+    }
+
+    .sonar-ring:nth-child(2) { animation-delay: 1s; }
+    .sonar-ring:nth-child(3) { animation-delay: 2s; }
+
+    @keyframes sonar {
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+      100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+    }
+
+    /* Planet pills */
+    .planet {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--card-bg);
+      border: 0.5px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 12px 6px 6px;
+      white-space: nowrap;
+      z-index: 8;
+      cursor: default;
+      opacity: 0;
+      transform: scale(0.7);
+      transition:
+        opacity 0.6s var(--ease),
+        transform 0.5s var(--ease),
+        border-color 0.5s var(--ease),
+        box-shadow 0.5s var(--ease);
+    }
+
+    .integrations-section.loaded .planet {
+      opacity: 1; transform: scale(1);
+    }
+
+    .planet:hover {
+      transform: scale(1.08) translateY(-2px);
+      z-index: 20;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .planet-icon {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .planet-icon svg {
+      width: 14px; height: 14px;
+      fill: white;
+    }
+
+    .planet-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* Traveling pulse dots */
+    .pulse-traveler {
+      fill: var(--indigo);
+      opacity: 0;
+    }
+
+    .integrations-section.loaded .pulse-traveler {
+      opacity: 1;
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+       ══════════════════════════════════════════ */
+    @media (max-width: 760px) {
+      .integrations-section { padding: 48px 20px; }
+      .int-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .int-left { align-items: center; text-align: center; }
+      .int-subtitle { max-width: 100%; }
+      .chip-grid { grid-template-columns: repeat(2, 1fr); }
+      .orbit-stage { max-width: 360px; }
+      .planet { padding: 5px 9px 5px 5px; }
+      .planet-name { font-size: 11px; }
+      .planet-icon { width: 22px; height: 22px; }
+    }
+
+    @media (max-width: 480px) {
+      .chip-grid { grid-template-columns: repeat(2, 1fr); }
+      .orbit-stage { max-width: 300px; }
+      .center-node { width: 90px; height: 90px; }
+      .center-icon { width: 22px; height: 22px; }
+      .center-label { font-size: 9px; }
+      .sonar-ring { width: 90px; height: 90px; }
+    }
+
+    /* ══════════════════════════════════════════
+       PREFERS REDUCED MOTION
+       ══════════════════════════════════════════ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .int-eyebrow, .int-headline .hw, .int-subtitle, .chip,
+      .orbit-ring, .conn-line, .center-node, .planet, .sonar-ring,
+      .amb-orb, .integrations-section::before {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        stroke-dashoffset: 0 !important;
+      }
+      .center-node {
+        transform: translate(-50%, -50%) scale(1) !important;
+      }
+      .sonar-ring { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="integrations-section" id="intSection">
+    <!-- Ambient orbs -->
+    <div class="amb-orb amb-orb-1" aria-hidden="true"></div>
+    <div class="amb-orb amb-orb-2" aria-hidden="true"></div>
+
+    <div class="int-grid">
+      <!-- ═══ LEFT COLUMN ═══ -->
+      <div class="int-left">
+        <div class="int-eyebrow">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          <span class="eyebrow-text">Integrations</span>
+        </div>
+
+        <h2 class="int-headline" id="intHeadline">Connect BiasSense with your stack.</h2>
+
+        <p class="int-subtitle" id="intSubtitle">
+          BiasSense plugs into the tools your data, engineering, and compliance teams already use — no rip-and-replace, just drop-in fairness intelligence.
+        </p>
+
+        <div class="chip-grid" id="chipGrid">
+          <!-- Chips injected by JS -->
+        </div>
+      </div>
+
+      <!-- ═══ RIGHT COLUMN ═══ -->
+      <div class="int-right">
+        <div class="orbit-stage" id="orbitStage">
+          <!-- SVG orbit lines & rings -->
+          <svg class="orbit-svg" viewBox="0 0 500 500" id="orbitSvg">
+            <defs>
+              <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="rgba(79,70,229,0)" />
+                <stop offset="50%" stop-color="rgba(79,70,229,0.25)" />
+                <stop offset="100%" stop-color="rgba(79,70,229,0)" />
+              </linearGradient>
+            </defs>
+
+            <!-- Orbit rings -->
+            <circle class="orbit-ring ring-1" cx="250" cy="250" r="110" />
+            <circle class="orbit-ring ring-2" cx="250" cy="250" r="170" />
+            <circle class="orbit-ring ring-3" cx="250" cy="250" r="220" />
+
+            <!-- Connection lines injected by JS -->
+            <g id="connLines"></g>
+
+            <!-- Traveling pulse dots -->
+            <g id="travelers"></g>
+          </svg>
+
+          <!-- Center node -->
+          <div class="center-node" id="centerNode">
+            <svg class="center-icon" viewBox="0 0 24 24">
+              <rect x="4" y="4" width="16" height="16" rx="2" />
+              <path d="M9 9h6M9 13h6M9 17h2" />
+              <circle cx="12" cy="2" r="1" />
+              <circle cx="12" cy="22" r="1" />
+              <circle cx="2" cy="12" r="1" />
+              <circle cx="22" cy="12" r="1" />
+            </svg>
+            <span class="center-label">BiasSense</span>
+          </div>
+
+          <!-- Sonar pulse rings -->
+          <div class="sonar-ring" aria-hidden="true"></div>
+          <div class="sonar-ring" aria-hidden="true"></div>
+          <div class="sonar-ring" aria-hidden="true"></div>
+
+          <!-- Planet pills injected by JS -->
+          <div id="planetsContainer"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const prefersRM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const section = document.getElementById('intSection');
+
+    /* ══════════════════════════════════════════
+       DATA: Integrations & Planets
+       ══════════════════════════════════════════ */
+    const integrations = [
+      { name: 'HubSpot',      color: '#FF7A59' },
+      { name: 'MongoDB',      color: '#13AA52' },
+      { name: 'PostgreSQL',   color: '#336791' },
+      { name: 'Snowflake',    color: '#29B5E8' },
+      { name: 'Docker',       color: '#2496ED' },
+      { name: 'GitHub',       color: '#181717' },
+      { name: 'Stripe',       color: '#635BFF' },
+      { name: 'Slack',        color: '#E01E5A' },
+      { name: 'AWS',          color: '#FF9900' },
+      { name: 'GCP',          color: '#4285F4' },
+      { name: 'Azure',        color: '#0078D4' },
+      { name: 'Databricks',   color: '#FF3621' },
+      { name: 'Terraform',    color: '#7B42BC' },
+      { name: 'Kubernetes',   color: '#326CE5' },
+      { name: 'Grafana',      color: '#F46800' },
+      { name: 'Datadog',      color: '#632CA6' },
+      { name: 'Jira',         color: '#0052CC' },
+      { name: 'Salesforce',   color: '#00A1E0' },
+      { name: 'Tableau',      color: '#E97627' },
+      { name: 'BigQuery',     color: '#4386FA' },
+      { name: 'Kafka',        color: '#231F20' },
+      { name: 'Redis',        color: '#DC382D' },
+      { name: 'Airflow',      color: '#017CEE' },
+    ];
+
+    const planets = [
+      { name: 'Snowflake',   color: '#29B5E8', angle: 0,   ring: 2 },
+      { name: 'PostgreSQL',  color: '#336791', angle: 30,  ring: 3 },
+      { name: 'AWS',         color: '#FF9900', angle: 60,  ring: 2 },
+      { name: 'GitHub',      color: '#181717', angle: 90,  ring: 1 },
+      { name: 'Docker',      color: '#2496ED', angle: 120, ring: 3 },
+      { name: 'Slack',       color: '#E01E5A', angle: 150, ring: 2 },
+      { name: 'Stripe',      color: '#635BFF', angle: 180, ring: 1 },
+      { name: 'Databricks',  color: '#FF3621', angle: 210, ring: 3 },
+      { name: 'Kubernetes',  color: '#326CE5', angle: 240, ring: 2 },
+      { name: 'Grafana',     color: '#F46800', angle: 270, ring: 1 },
+      { name: 'Kafka',       color: '#231F20', angle: 300, ring: 3 },
+      { name: 'MongoDB',     color: '#13AA52', angle: 330, ring: 2 },
+    ];
+
+    const ringRadii = { 1: 110, 2: 170, 3: 220 };
+    const cx = 250, cy = 250;
+
+    /* ══════════════════════════════════════════
+       HEADLINE WORD SPLITTING
+       ══════════════════════════════════════════ */
+    const headlineEl = document.getElementById('intHeadline');
+    if (headlineEl && !prefersRM) {
+      const raw = headlineEl.textContent.trim();
+      const words = raw.split(' ');
+      headlineEl.innerHTML = '';
+      words.forEach((w, i) => {
+        const s = document.createElement('span');
+        s.className = 'hw';
+        // Mark "stack." with accent
+        if (w.replace(/[^a-zA-Z]/g, '').toLowerCase() === 'stack') {
+          s.classList.add('accent-word');
+        }
+        s.textContent = w;
+        s.style.transitionDelay = `${250 + i * 80}ms`;
+        headlineEl.appendChild(s);
+        if (i < words.length - 1) headlineEl.appendChild(document.createTextNode(' '));
+      });
+    }
+
+    /* ══════════════════════════════════════════
+       SUBTITLE DELAY
+       ══════════════════════════════════════════ */
+    const subtitleEl = document.getElementById('intSubtitle');
+    if (subtitleEl && !prefersRM) {
+      subtitleEl.style.transitionDelay = '900ms';
+    }
+
+    /* ══════════════════════════════════════════
+       BUILD CHIP GRID
+       ══════════════════════════════════════════ */
+    const chipGrid = document.getElementById('chipGrid');
+    integrations.forEach((it, i) => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      if (!prefersRM) chip.style.transitionDelay = `${1400 + i * 50}ms`;
+      chip.innerHTML = `
+        <span class="chip-dot" style="background:${it.color}"></span>
+        <span class="chip-name">${it.name}</span>
+      `;
+      chipGrid.appendChild(chip);
+    });
+
+    // "+40 more" chip
+    const moreChip = document.createElement('div');
+    moreChip.className = 'chip chip-more';
+    if (!prefersRM) moreChip.style.transitionDelay = `${1400 + integrations.length * 50}ms`;
+    moreChip.innerHTML = `
+      <span class="chip-dot" style="background:var(--indigo)"></span>
+      <span class="chip-name">+40 more</span>
+    `;
+    chipGrid.appendChild(moreChip);
+
+    /* ══════════════════════════════════════════
+       BUILD SVG CONNECTION LINES
+       ══════════════════════════════════════════ */
+    const connG = document.getElementById('connLines');
+    const svgNS = 'http://www.w3.org/2000/svg';
+
+    planets.forEach((p, i) => {
+      const rad = (p.angle * Math.PI) / 180;
+      const r = ringRadii[p.ring];
+      const ex = cx + r * Math.cos(rad);
+      const ey = cy + r * Math.sin(rad);
+
+      const line = document.createElementNS(svgNS, 'line');
+      line.setAttribute('x1', cx);
+      line.setAttribute('y1', cy);
+      line.setAttribute('x2', ex);
+      line.setAttribute('y2', ey);
+      line.setAttribute('class', 'conn-line');
+      if (!prefersRM) line.style.transitionDelay = `${800 + i * 80}ms`;
+      connG.appendChild(line);
+    });
+
+    /* ══════════════════════════════════════════
+       BUILD PLANET PILLS (HTML overlaid on SVG)
+       ══════════════════════════════════════════ */
+    const planetsContainer = document.getElementById('planetsContainer');
+
+    planets.forEach((p, i) => {
+      const rad = (p.angle * Math.PI) / 180;
+      const r = ringRadii[p.ring];
+      // Percentage positioning within the orbit-stage
+      const px = 50 + (r / 500) * 100 * Math.cos(rad);
+      const py = 50 + (r / 500) * 100 * Math.sin(rad);
+
+      const pill = document.createElement('div');
+      pill.className = 'planet';
+      pill.style.left = `${px}%`;
+      pill.style.top = `${py}%`;
+      pill.style.transform = 'translate(-50%, -50%) scale(0.7)';
+      if (!prefersRM) {
+        pill.style.transitionDelay = `${1000 + i * 100}ms`;
+      }
+
+      // Breathing float animation (staggered)
+      const floatDur = 6 + (i % 3) * 0.5;
+      const floatDelay = (i * 0.6).toFixed(1);
+
+      pill.innerHTML = `
+        <span class="planet-icon" style="background:${p.color}">
+          <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" fill="white" stroke="none"/></svg>
+        </span>
+        <span class="planet-name">${p.name}</span>
+      `;
+
+      // Store breathing params as data attributes
+      pill.dataset.floatDur = floatDur;
+      pill.dataset.floatDelay = floatDelay;
+      pill.dataset.px = px;
+      pill.dataset.py = py;
+
+      pill.addEventListener('mouseenter', () => {
+        pill.style.borderColor = p.color;
+      });
+      pill.addEventListener('mouseleave', () => {
+        pill.style.borderColor = '';
+      });
+
+      planetsContainer.appendChild(pill);
+    });
+
+    /* ══════════════════════════════════════════
+       TRAVELING PULSE DOTS
+       ══════════════════════════════════════════ */
+    const travelersG = document.getElementById('travelers');
+    const travelerPlanets = [0, 3, 6, 9]; // indices of planets for traveling dots
+
+    travelerPlanets.forEach((pi, ti) => {
+      const p = planets[pi];
+      const rad = (p.angle * Math.PI) / 180;
+      const r = ringRadii[p.ring];
+      const ex = cx + r * Math.cos(rad);
+      const ey = cy + r * Math.sin(rad);
+
+      const circle = document.createElementNS(svgNS, 'circle');
+      circle.setAttribute('r', '3');
+      circle.setAttribute('class', 'pulse-traveler');
+      circle.setAttribute('cx', cx);
+      circle.setAttribute('cy', cy);
+
+      // Create animateMotion for traveling along the line
+      const animMotion = document.createElementNS(svgNS, 'animateMotion');
+      animMotion.setAttribute('path', `M${cx},${cy} L${ex},${ey}`);
+      animMotion.setAttribute('dur', '2.5s');
+      animMotion.setAttribute('repeatCount', 'indefinite');
+      animMotion.setAttribute('begin', `${2 + ti * 1.2}s`);
+      animMotion.setAttribute('fill', 'freeze');
+      animMotion.setAttribute('calcMode', 'spline');
+      animMotion.setAttribute('keySplines', '0.22 1 0.36 1');
+      animMotion.setAttribute('keyTimes', '0;1');
+
+      const animOpacity = document.createElementNS(svgNS, 'animate');
+      animOpacity.setAttribute('attributeName', 'opacity');
+      animOpacity.setAttribute('values', '0;0.8;0.8;0');
+      animOpacity.setAttribute('keyTimes', '0;0.1;0.7;1');
+      animOpacity.setAttribute('dur', '2.5s');
+      animOpacity.setAttribute('repeatCount', 'indefinite');
+      animOpacity.setAttribute('begin', `${2 + ti * 1.2}s`);
+
+      circle.appendChild(animMotion);
+      circle.appendChild(animOpacity);
+      travelersG.appendChild(circle);
+    });
+
+    /* ══════════════════════════════════════════
+       EYEBROW DELAY
+       ══════════════════════════════════════════ */
+    const eyebrow = document.querySelector('.int-eyebrow');
+    if (eyebrow && !prefersRM) {
+      eyebrow.style.transitionDelay = '100ms';
+    }
+
+    /* ══════════════════════════════════════════
+       CENTER NODE DELAY
+       ══════════════════════════════════════════ */
+    const centerNode = document.getElementById('centerNode');
+    if (centerNode && !prefersRM) {
+      centerNode.style.transitionDelay = '600ms';
+    }
+
+    /* ══════════════════════════════════════════
+       TRIGGER — Add .loaded class
+       ══════════════════════════════════════════ */
+    requestAnimationFrame(() => {
+      section.classList.add('loaded');
+    });
+
+    /* ══════════════════════════════════════════
+       POST-ENTRANCE: Start breathing + clear delays
+       ══════════════════════════════════════════ */
+    if (!prefersRM) {
+      setTimeout(() => {
+        // Clear chip delays
+        document.querySelectorAll('.chip').forEach(c => { c.style.transitionDelay = ''; });
+
+        // Start planet breathing animations
+        document.querySelectorAll('.planet').forEach(pill => {
+          pill.style.transitionDelay = '';
+          const dur = pill.dataset.floatDur;
+          const delay = pill.dataset.floatDelay;
+          pill.style.animation = `breathe ${dur}s ${delay}s ease-in-out infinite`;
+        });
+      }, 3500);
+    }
+  });
+  </script>
+
+  <style>
+    /* Planet breathing — injected here so it can reference after JS */
+    @keyframes breathe {
+      0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+      50% { transform: translate(-50%, -50%) translateY(-6px); }
+    }
+  </style>
+
+</body>
+</html>
