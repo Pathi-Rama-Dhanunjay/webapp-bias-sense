@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/Navigation/NavBar';
+import Footer from './components/Navigation/Footer';
 import Home from './pages/Home';
 import ProductOverview from './pages/ProductOverview';
 import FinancialServices from './pages/solutions/financial-services';
@@ -44,6 +45,7 @@ function App() {
             <Route path="/about" element={<About />} />
           </Routes>
         </ViewProvider>
+        <Footer />
       </div>
     </Router>
   );

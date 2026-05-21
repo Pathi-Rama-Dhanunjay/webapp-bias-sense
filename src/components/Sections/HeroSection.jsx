@@ -20,7 +20,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="hero-section light-section" style={{
+    <section className="hero-section light-section" data-nav-theme="dark" style={{
       minHeight: '70vh',
       display: 'flex',
       flexDirection: 'column',
@@ -33,68 +33,13 @@ const HeroSection = () => {
       overflow: 'hidden',
       boxSizing: 'border-box',
     }}>
-      {/* BiasSense Decision Intelligence Surface */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        background: 'linear-gradient(180deg, #020617 0%, #071426 46%, #0A1B2E 100%)',
-        zIndex: 0,
-      }}>
-        <svg
-          style={{ width: '100%', height: '100%', opacity: 0.96 }}
-          preserveAspectRatio="xMidYMid slice"
-          viewBox="0 0 1440 800"
-        >
-          <defs>
-            <radialGradient id="hero-center-glow" cx="50%" cy="38%" r="58%">
-              <stop offset="0%" stopColor="#E0F2FE" stopOpacity="0.18" />
-              <stop offset="55%" stopColor="#2DD4BF" stopOpacity="0.06" />
-              <stop offset="100%" stopColor="#020617" stopOpacity="0" />
-            </radialGradient>
-            <linearGradient id="hero-grid-line" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.09" />
-              <stop offset="52%" stopColor="#38BDF8" stopOpacity="0.08" />
-              <stop offset="100%" stopColor="#2DD4BF" stopOpacity="0.04" />
-            </linearGradient>
-            <linearGradient id="fairness-signal" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#38BDF8" stopOpacity="0" />
-              <stop offset="35%" stopColor="#38BDF8" stopOpacity="0.55" />
-              <stop offset="70%" stopColor="#2DD4BF" stopOpacity="0.65" />
-              <stop offset="100%" stopColor="#2DD4BF" stopOpacity="0" />
-            </linearGradient>
-            <filter id="hero-soft-glow" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="6" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-          </defs>
-
-          <rect width="1440" height="800" fill="url(#hero-center-glow)" />
-
-          <g>
-            {[
-              [258, 246, '#38BDF8'],
-              [460, 420, '#2DD4BF'],
-              [706, 284, '#E0F2FE'],
-              [928, 398, '#2DD4BF'],
-              [1110, 224, '#38BDF8'],
-              [1198, 520, '#E0F2FE'],
-            ].map(([cx, cy, fill], index) => (
-              <g
-                key={`${cx}-${cy}`}
-                style={{ transformOrigin: `${cx}px ${cy}px` }}
-              >
-                <circle cx={cx} cy={cy} r="18" fill={fill} opacity="0.06" />
-                <circle cx={cx} cy={cy} r="4" fill={fill} opacity="0.8" />
-              </g>
-            ))}
-          </g>
-        </svg>
-      </div>
+      {/* Deep navy background */}
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(160deg, #020817 0%, #071222 50%, #0B1629 100%)', zIndex: 0 }} />
 
       <div className="container hero-grid" style={{ position: 'relative', zIndex: 10 }}>
 
-        {/* Center: Content */}
         <div className="hero-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', margin: '0 auto' }}>
+
           {/* Accent Badge */}
           <motion.div
             className="accent-badge"
@@ -108,8 +53,8 @@ const HeroSection = () => {
               flexDirection: 'row',
               alignItems: 'center',
               gap: '8px',
-              background: 'rgba(249, 115, 22, 0.1)',
-              border: '1px solid rgba(45, 212, 191, 0.35)',
+              background: 'rgba(45,212,191,0.10)',
+              border: '1px solid rgba(45,212,191,0.30)',
               padding: 'clamp(6px, 1vh, 12px) clamp(16px, 1.5vw, 24px)',
               borderRadius: '30px',
               marginBottom: 'clamp(38px, 5.7vh, 69px)',
@@ -119,19 +64,13 @@ const HeroSection = () => {
               letterSpacing: '0.5px',
               whiteSpace: 'nowrap',
               backdropFilter: 'blur(8px)',
-              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.12), 0 10px 30px rgba(0,0,0,0.2)'
+              boxShadow: '0 4px 20px rgba(45,212,191,0.10), inset 0 1px 0 rgba(255,255,255,0.08)',
             }}
           >
             <motion.span
               animate={{ scale: [1, 1.3, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
-              style={{
-                width: '6px',
-                height: '6px',
-                borderRadius: '50%',
-                background: '#2DD4BF',
-                display: 'inline-block',
-              }}
+              style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#2DD4BF', display: 'inline-block' }}
             />
             AI Fairness Platform
           </motion.div>
@@ -142,13 +81,11 @@ const HeroSection = () => {
           >
             Enterprise AI Governance<br />
             Without Blind Spots<br />
-            <span
-              style={{
-                fontFamily: '"Roboto Slab", "Rockwell", "Courier New", Courier, serif',
-                fontWeight: 800,
-                color: '#E2E8F0',
-              }}
-            >
+            <span style={{
+              fontFamily: '"Roboto Slab", "Rockwell", "Courier New", Courier, serif',
+              fontWeight: 800,
+              color: '#2DD4BF',
+            }}>
               Fair. Explainable. Defensible.
             </span>
           </motion.h1>
@@ -170,11 +107,7 @@ const HeroSection = () => {
           >
             <motion.button
               onClick={handleDemoClick}
-              whileHover={{
-                y: -4,
-                scale: 1.03,
-                boxShadow: '0 20px 40px rgba(255, 255, 255, 0.15)',
-              }}
+              whileHover={{ y: -4, scale: 1.03, boxShadow: '0 20px 40px rgba(255,255,255,0.15)' }}
               whileTap={{ scale: 0.97 }}
               style={{
                 background: 'linear-gradient(90deg, #FFFFFF 0%, #E2E8F0 100%)',
@@ -184,15 +117,16 @@ const HeroSection = () => {
                 fontWeight: 700,
                 borderRadius: 'clamp(32px, 4vw, 48px)',
                 border: 'none',
-                boxShadow: '0 16px 40px rgba(148, 163, 184, 0.25)',
+                boxShadow: '0 16px 40px rgba(148,163,184,0.20)',
                 transition: 'all 0.3s',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                cursor: 'pointer'
+                cursor: 'pointer',
               }}
             >
-              Get Early Access           </motion.button>
+              Get Early Access
+            </motion.button>
           </motion.div>
 
           {/* Regulatory & Compliance List */}
@@ -201,30 +135,17 @@ const HeroSection = () => {
             initial="hidden"
             animate="visible"
             variants={textReveal}
-            style={{
-              marginTop: 'clamp(43px, 7.2vh, 58px)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '16px'
-            }}
+            style={{ marginTop: 'clamp(43px, 7.2vh, 58px)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}
           >
-            <span style={{ fontSize: '13px', color: '#94A3B8', fontWeight: 600, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 600, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
               Compliant with leading regulatory frameworks
             </span>
             <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '12px',
-              color: '#F8FAFC',
-              fontSize: 'clamp(13px, 1.1vw, 15px)',
-              fontWeight: 600,
-              opacity: 0.9
+              display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center',
+              gap: '12px', color: '#F8FAFC', fontSize: 'clamp(13px, 1.1vw, 15px)', fontWeight: 600,
             }}>
               {['GDPR', 'CCPA', 'ECOA', 'HIPAA', 'Title VII', 'EEOC', 'Federal AI EO', 'EU AI Act', 'FHA', 'ADA'].map((reg) => (
-                <span key={reg} style={{ border: '1px solid rgba(255, 255, 255, 0.22)', padding: '6px 16px', borderRadius: '100px', background: 'rgba(255, 255, 255, 0.04)', backdropFilter: 'blur(3px)' }}>
+                <span key={reg} style={{ border: '1px solid rgba(255,255,255,0.14)', padding: '6px 16px', borderRadius: '100px', background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(3px)' }}>
                   {reg}
                 </span>
               ))}
@@ -250,47 +171,25 @@ const HeroSection = () => {
           opacity: 1 !important;
           visibility: visible !important;
         }
-        .hero-subtitle {
-          font-size: clamp(16px, 1.8vw, 24px);
-        }
+        .hero-subtitle { font-size: clamp(16px, 1.8vw, 24px); }
         @media (max-width: 1024px) {
-          .hero-grid {
-            grid-template-columns: 1fr;
-            gap: 32px;
-          }
-          .hero-section {
-        padding-top: 120px !important;
-            align-items: flex-start !important;
-          }
+          .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+          .hero-section { padding-top: 120px !important; align-items: flex-start !important; }
         }
         @media (max-width: 768px) {
-          .hero-content > div:not(.accent-badge) {
-            flex-direction: column;
-            gap: 12px !important;
-          }
-          .hero-content button {
-            width: 100%;
-          }
-          .hero-section {
-            height: auto !important;
-            min-height: auto !important;
-        padding-top: 168px !important;
-            padding-bottom: 54px !important;
-          }
-          .hero-visualization {
-            max-width: 100% !important;
-          }
+          .hero-content > div:not(.accent-badge) { flex-direction: column; gap: 12px !important; }
+          .hero-content button { width: 100%; }
+          .hero-section { height: auto !important; min-height: auto !important; padding-top: 168px !important; padding-bottom: 54px !important; }
+          .hero-visualization { max-width: 100% !important; }
         }
         @media (max-height: 700px) and (min-width: 1025px) {
           .hero-title { font-size: 36px !important; margin-bottom: 18px !important; }
           .hero-subtitle { font-size: 16px !important; margin-bottom: 22px !important; }
-          .hero-visualization { transform: scale(0.7); transform-origin: center right; }
-      .hero-section { padding-top: 120px !important; }
+          .hero-section { padding-top: 120px !important; }
         }
         @media (min-height: 701px) and (max-height: 900px) and (min-width: 1025px) {
           .hero-title { font-size: 47px !important; margin-bottom: 28px !important; }
           .hero-subtitle { font-size: 18px !important; margin-bottom: 35px !important; }
-          .hero-visualization { transform: scale(0.82); transform-origin: center right; }
         }
       `}</style>
     </section>

@@ -8,62 +8,42 @@ import {
   FileCheck,
   Sparkles,
   Layers,
-  Briefcase,
   Cpu,
 } from 'lucide-react';
 
 const features = [
   {
-    title: '1. Data Ingestion & Preprocessing',
-    desc: 'Seamlessly connect APIs, S3, databases, and parse schemas.',
+    title: 'Multi-Source Data Ingestion & Schema Normalization',
+    desc: 'Connect APIs, S3/GCS, and databases with automated schema inference and pipeline-ready preprocessing.',
     icon: <Database />,
   },
   {
-    title: '2. Bias Metric Engine',
-    desc: 'Calculate Disparate Impact, Equal Opportunity, and TPR gaps.',
+    title: 'Fairness Metric Engine & Distributional Drift Detection',
+    desc: 'Compute Disparate Impact, TPR/FPR parity, and Representation Ratios with real-time cluster-level drift alerts.',
     icon: <Scale />,
   },
   {
-    title: '3. Explainability (XAI)',
-    desc: 'SHAP, Feature Attribution, and Counterfactual Generator.',
+    title: 'Explainability & Counterfactual Analysis (XAI)',
+    desc: 'SHAP attributions and DiCE counterfactuals for decision-level transparency and regulatory defence.',
     icon: <Search />,
   },
   {
-    title: '4. Clustering & Drift',
-    desc: 'Monitor group underrepresentation and fairness by cluster.',
-    icon: <Network />,
-  },
-  {
-    title: '5. Scorecard Builder',
-    desc: 'Convert analysis to human-readable PDF/HTML/JSON reports.',
+    title: 'Compliance Artifact Generation & Pipeline Orchestration',
+    desc: 'Regulator-ready PDF, HTML, and signed JSON scorecards via Prefect/Airflow — mapped to GDPR, EU AI Act, and HIPAA.',
     icon: <FileCheck />,
   },
   {
-    title: '6. LLM Insights',
-    desc: 'Summarize risks and recommend fixes via LLM prompts.',
+    title: 'LLM Risk Intelligence & Multi-Sector Extensibility',
+    desc: 'LLM-powered risk summaries and fix recommendations — deployable across fintech, healthcare, HR, and lending.',
     icon: <Sparkles />,
-  },
-  {
-    title: '7. CI/CD & Auditing',
-    desc: 'Automate via Prefect/Airflow with exportable compliance logs.',
-    icon: <Layers />,
-  },
-  {
-    title: '8. Extensible to Multi Sectors',
-    desc: 'Modular structure for pharma, HR, Fintech, hiring data, lending pipelines & more.',
-    icon: <Briefcase />,
   },
 ];
 
 const diagramNodes = [
-  { title: 'Ingest', icon: <Database />, x: 8, y: 18 },
-  { title: 'Clean', icon: <Cpu />, x: 34, y: 34 },
-  { title: 'Measure', icon: <Scale />, x: 64, y: 18 },
-  { title: 'Explain', icon: <Search />, x: 82, y: 46 },
-  { title: 'Monitor', icon: <Network />, x: 58, y: 72 },
-  { title: 'Report', icon: <FileCheck />, x: 26, y: 70 },
-  { title: 'Insights', icon: <Sparkles />, x: 12, y: 48 },
-  { title: 'Deploy', icon: <Layers />, x: 82, y: 78 },
+  { title: 'Data Ingestion', icon: <Database />, x: 6, y: 5 },
+  { title: 'Fairness Engine', icon: <Scale />, x: 73, y: 5 },
+  { title: 'XAI Analysis', icon: <Search />, x: 73, y: 78 },
+  { title: 'Compliance Pipeline', icon: <FileCheck />, x: 2, y: 78 },
 ];
 
 const ArchitectureFlow = () => {
@@ -132,61 +112,151 @@ const ArchitectureFlow = () => {
         <div className="architecture-grid">
           {/* Left Column - Features & Button */}
           <div className="architecture-left" style={{ alignSelf: 'center' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {features.map((feature, i) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-              whileHover={{ x: 10, backgroundColor: 'rgba(15, 76, 140, 0.04)' }}
-                viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: 0.2 + i * 0.1 }}
-                style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '6px', borderRadius: '12px', marginLeft: '-6px', cursor: 'default' }}
-              >
-                <div
-                  style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: `${accent}20`,
-                    color: accent,
-                    flexShrink: 0,
-                  }}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {features.map((feature, i) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  whileHover={{ x: 10, backgroundColor: 'rgba(15, 76, 140, 0.04)' }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: 0.2 + i * 0.1 }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '6px', borderRadius: '12px', marginLeft: '-6px', cursor: 'default' }}
                 >
-                  {React.cloneElement(feature.icon, { size: 16 })}
-                </div>
-                <div>
-                  <h4
+                  <div
                     style={{
-                      margin: 0,
-                      color: black,
-                      fontSize: '13px',
-                      fontWeight: 600,
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: `${accent}20`,
+                      color: accent,
+                      flexShrink: 0,
                     }}
                   >
-                    {feature.title}
-                  </h4>
-                  <p style={{ margin: '2px 0 0', color: gray, fontSize: '11px' }}>
-                    {feature.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+                    {React.cloneElement(feature.icon, { size: 16 })}
+                  </div>
+                  <div>
+                    <h4
+                      style={{
+                        margin: 0,
+                        color: black,
+                        fontSize: '13px',
+                        fontWeight: 600,
+                      }}
+                    >
+                      {feature.title}
+                    </h4>
+                    <p style={{ margin: '2px 0 0', color: gray, fontSize: '11px' }}>
+                      {feature.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
+          {/* Right Column */}
+          <div className="architecture-right">
+            <div className="flow-canvas">
+
+              <svg className="flow-lines" viewBox="0 0 760 520" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="pleasantFlow" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#6366F1" stopOpacity="0.30" />
+                    <stop offset="35%" stopColor="#0EA5E9" stopOpacity="0.60" />
+                    <stop offset="65%" stopColor="#14B8A6" stopOpacity="0.65" />
+                    <stop offset="100%" stopColor="#10B981" stopOpacity="0.28" />
+                  </linearGradient>
+                </defs>
+                {/* Solid S-curve: top-left → bottom-right */}
+                <motion.path
+                  d="M 106 47 C 106 250, 654 250, 654 452"
+                  fill="none"
+                  stroke="url(#pleasantFlow)"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  whileInView={{ pathLength: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                />
+                {/* Dotted S-curve: top-right → bottom-left (mirror) */}
+                <motion.path
+                  d="M 654 47 C 654 250, 106 250, 106 452"
+                  fill="none"
+                  stroke="url(#pleasantFlow)"
+                  strokeWidth="2"
+                  strokeDasharray="10 14"
+                  strokeLinecap="round"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                />
+              </svg>
+
+              <motion.div
+                className="flow-hub"
+                initial={{ opacity: 0, scale: 0.92 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                animate={{ y: [0, -6, 0] }}
+                transition={{ opacity: { duration: 0.4 }, scale: { duration: 0.4 }, y: { duration: 5, repeat: Infinity, ease: 'easeInOut' } }}
+              >
+                <Cpu size={24} color={accent} />
+                <span>BiasSense</span>
+                <small>Governance Core</small>
+              </motion.div>
+
+              {diagramNodes.map((node, i) => (
+                <motion.div
+                  key={node.title}
+                  className="flow-node-wrapper"
+                  style={{ left: `${node.x}%`, top: `${node.y}%` }}
+                  initial={{ opacity: 0, y: 12, scale: 0.96 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    opacity: { delay: 0.12 + i * 0.05, duration: 0.35 },
+                    scale: { delay: 0.12 + i * 0.05, duration: 0.35 },
+                    y: { delay: 0.12 + i * 0.05, duration: 0.35 },
+                  }}
+                >
+                  <motion.div
+                    className="flow-node"
+                    animate={{ y: [0, i % 2 === 0 ? -6 : 6, 0] }}
+                    transition={{
+                      y: { duration: 5 + i * 0.2, repeat: Infinity, ease: 'easeInOut' },
+                    }}
+                  >
+                    <div className="flow-node-icon">
+                      {React.cloneElement(node.icon, { size: 17, color: accent })}
+                    </div>
+                    <span>{node.title}</span>
+                  </motion.div>
+                </motion.div>
+              ))}
+
+            </div>
+          </div>
+        </div>
+
+        {/* ── Bottom row: Know More  +  stat tiles ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1.0 }}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', marginTop: '0px', flexWrap: 'wrap' }}
+        >
           <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 1.0 }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => window.location.href = '/product'}
             style={{
-              marginTop: '32px',
               background: 'linear-gradient(90deg, #0F4C8C 0%, #00A99D 100%)',
               color: '#FFFFFF',
               padding: '12px 24px',
@@ -196,89 +266,34 @@ const ArchitectureFlow = () => {
               border: 'none',
               cursor: 'pointer',
               boxShadow: '0 4px 14px rgba(15, 76, 140, 0.3)',
+              whiteSpace: 'nowrap',
             }}
           >
             Know More
           </motion.button>
-        </div>
 
-        {/* Right Column */}
-        <div className="architecture-right">
-          <div className="flow-canvas">
-            <svg className="flow-lines" viewBox="0 0 760 520" preserveAspectRatio="none" aria-hidden="true">
-              <defs>
-                <linearGradient id="pleasantFlow" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#0F4C8C" stopOpacity="0.2" />
-                  <stop offset="50%" stopColor="#14B8A6" stopOpacity="0.55" />
-                  <stop offset="100%" stopColor="#0F4C8C" stopOpacity="0.18" />
-                </linearGradient>
-              </defs>
-              <motion.path
-                d="M72 118 C190 38, 300 156, 392 250 C490 350, 594 428, 694 324"
-                fill="none"
-                stroke="url(#pleasantFlow)"
-                strokeWidth="4"
-                strokeLinecap="round"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: 'easeOut' }}
-              />
-              <motion.path
-                d="M78 382 C198 486, 280 356, 392 250 C506 142, 596 94, 692 162"
-                fill="none"
-                stroke="url(#pleasantFlow)"
-                strokeWidth="2"
-                strokeDasharray="8 12"
-                strokeLinecap="round"
-                animate={{ strokeDashoffset: [0, -40] }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
-              />
-            </svg>
-
-            <motion.div
-              className="flow-hub"
-              initial={{ opacity: 0, scale: 0.92 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              animate={{ y: [0, -6, 0] }}
-              transition={{ opacity: { duration: 0.4 }, scale: { duration: 0.4 }, y: { duration: 5, repeat: Infinity, ease: 'easeInOut' } }}
-            >
-              <Cpu size={24} color={accent} />
-              <span>BiasSense</span>
-              <small>Governance Core</small>
-            </motion.div>
-
-            {diagramNodes.map((node, i) => (
-              <motion.div
-                key={node.title}
-                className="flow-node"
-                style={{ left: `${node.x}%`, top: `${node.y}%` }}
-                initial={{ opacity: 0, y: 12, scale: 0.96 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true }}
-                animate={{ y: [0, i % 2 === 0 ? -4 : 4, 0] }}
-                transition={{
-                  opacity: { delay: 0.12 + i * 0.05, duration: 0.35 },
-                  scale: { delay: 0.12 + i * 0.05, duration: 0.35 },
-                  y: { duration: 4 + i * 0.18, repeat: Infinity, ease: 'easeInOut' },
-                }}
-              >
-                <div className="flow-node-icon">
-                  {React.cloneElement(node.icon, { size: 17, color: accent })}
-                </div>
-                <span>{node.title}</span>
-              </motion.div>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginRight: '4%', transform: 'translateY(-6%)' }}>
+            {[
+              { value: '5', label: 'modules' },
+              { value: '3', label: 'evidence outputs' },
+              { value: '1', label: 'deployment gate' },
+            ].map(({ value, label }) => (
+              <div key={label} style={{
+                padding: '10px 20px',
+                borderRadius: '10px',
+                background: 'rgba(255,255,255,0.82)',
+                border: '1px solid rgba(148,163,184,0.22)',
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}>
+                <strong style={{ color: accent, fontSize: '21px', lineHeight: 1 }}>{value}</strong>
+                <span style={{ color: gray, fontSize: '13px' }}>{label}</span>
+              </div>
             ))}
-
-            <div className="flow-metrics">
-              <div><strong>8</strong><span>stages</span></div>
-              <div><strong>3</strong><span>evidence outputs</span></div>
-              <div><strong>1</strong><span>deployment gate</span></div>
-            </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
       </div>
 
       <style>{`
@@ -292,17 +307,7 @@ const ArchitectureFlow = () => {
           position: relative;
           min-height: 590px;
         }
-        .architecture-right::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background-image:
-            linear-gradient(rgba(15, 76, 140, 0.08) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(15, 76, 140, 0.08) 1px, transparent 1px);
-          background-size: 36px 36px;
-          mask-image: linear-gradient(180deg, black, transparent 88%);
-          pointer-events: none;
-        }
+
         .architecture-visual-header {
           position: absolute;
           top: 18px;
@@ -461,7 +466,7 @@ const ArchitectureFlow = () => {
           border: 1px solid rgba(15, 76, 140, 0.2);
         }
         .architecture-right {
-          min-height: 520px;
+          min-height: 415px;
         }
         .flow-canvas {
           position: relative;
@@ -478,8 +483,8 @@ const ArchitectureFlow = () => {
         }
         .flow-hub {
           position: absolute;
-          left: 50%;
-          top: 43%;
+          left: 38%;
+          top: 29%;
           transform: translate(-50%, -50%);
           width: 142px;
           height: 142px;
@@ -505,10 +510,12 @@ const ArchitectureFlow = () => {
           font-size: 11px;
           font-weight: 700;
         }
-        .flow-node {
+        .flow-node-wrapper {
           position: absolute;
           transform: translate(-50%, -50%);
           z-index: 3;
+        }
+        .flow-node {
           min-width: 108px;
           padding: 9px 10px;
           border-radius: 16px;
@@ -533,35 +540,6 @@ const ArchitectureFlow = () => {
           justify-content: center;
           flex-shrink: 0;
         }
-        .flow-metrics {
-          position: absolute;
-          left: 18px;
-          right: 18px;
-          bottom: -28px;
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 10px;
-          z-index: 4;
-        }
-        .flow-metrics div {
-          padding: 10px;
-          border-radius: 14px;
-          background: rgba(255, 255, 255, 0.82);
-          border: 1px solid rgba(148, 163, 184, 0.22);
-          text-align: center;
-        }
-        .flow-metrics strong {
-          display: block;
-          color: ${accent};
-          font-size: 20px;
-          line-height: 1;
-        }
-        .flow-metrics span {
-          display: block;
-          color: ${gray};
-          font-size: 11px;
-          margin-top: 4px;
-        }
         @media (max-width: 900px) {
           .architecture-grid {
             grid-template-columns: 1fr;
@@ -576,14 +554,6 @@ const ArchitectureFlow = () => {
           }
           .flow-node {
             min-width: auto;
-          }
-          .flow-metrics {
-            grid-template-columns: 1fr;
-            position: relative;
-            left: auto;
-            right: auto;
-            bottom: auto;
-            margin: 280px 14px 14px;
           }
         }
       `}</style>

@@ -75,7 +75,7 @@ const Footer = () => {
               <span style={{ fontWeight: 300 }}>Sense</span>
               <ArrowRight size={16} strokeWidth={3} style={{ marginLeft: '4px', marginTop: '1px' }} />
             </Link>
-            <p style={{ margin: '0 0 20px', color: 'rgba(241, 245, 249, 0.86)', fontSize: '26px', lineHeight: 1.2, fontWeight: 600 }}>Trustworthy AI, Proven With Evidence</p>
+
             <p style={{ margin: '0 0 22px', color: 'rgba(226, 232, 240, 0.76)', fontSize: '14px', lineHeight: 1.7 }}>
               BiasSense is the enterprise platform that unifies data health and bias detection into one defensible scorecard, then enforces go-live decisions, continuous monitoring, and regulator-ready audit evidence across your AI lifecycle.
             </p>

@@ -5,6 +5,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const closeTimerRef = useRef(null);
@@ -30,32 +31,28 @@ const NavBar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
       const heroSection = document.querySelector('.hero-section');
       if (heroSection) {
         const rect = heroSection.getBoundingClientRect();
-        setIsScrolled(rect.bottom <= 80); // 80px accounts for the approximate height of the navbar
+        setIsScrolled(rect.bottom <= 80);
       } else {
-        setIsScrolled(currentScrollY > 50);
+        setIsScrolled(window.scrollY > 50);
       }
 
+      // Detect which section sits under the navbar and update text theme
+      const sections = document.querySelectorAll('section');
+      let current = null;
+      for (const s of sections) {
+        if (s.getBoundingClientRect().top <= 80) current = s;
+      }
+      setIsDark(!current || current.dataset.navTheme === 'dark');
     };
 
-    // Call once to set initial state
     handleScroll();
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Force re-evaluation of navbar style on route change
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      window.dispatchEvent(new Event('scroll'));
-    }, 100);
-    return () => clearTimeout(timer);
   }, [location]);
+
 
   const navLinks = [
     { name: 'Product', href: '/product' },
@@ -102,17 +99,13 @@ const NavBar = () => {
           width: isScrolled ? '75%' : '95%',
           maxWidth: '1200px',
           transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-          background: isScrolled
-            ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%)'
-            : 'linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.02) 100%)',
-          backdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(40px) saturate(250%)',
-          WebkitBackdropFilter: isScrolled ? 'blur(24px) saturate(150%)' : 'blur(40px) saturate(250%)',
-          border: isScrolled ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(255, 255, 255, 0.15)',
-          borderTop: isScrolled ? '1px solid rgba(255, 255, 255, 0.25)' : '1px solid rgba(255, 255, 255, 0.4)',
-          borderLeft: isScrolled ? '1px solid rgba(255, 255, 255, 0.25)' : '1px solid rgba(255, 255, 255, 0.4)',
-          boxShadow: isScrolled
-            ? '0 20px 40px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
-            : '0 12px 40px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3)',
+          background: 'rgba(15, 23, 42, 0.20)',
+          backdropFilter: 'blur(24px) saturate(160%)',
+          WebkitBackdropFilter: 'blur(24px) saturate(160%)',
+          border: '1px solid rgba(255, 255, 255, 0.10)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.18)',
+          borderLeft: '1px solid rgba(255, 255, 255, 0.18)',
+          boxShadow: '0 16px 40px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
           borderRadius: '50px',
           padding: isScrolled ? '4px 32px' : '10px 32px',
           position: 'relative'
@@ -152,7 +145,7 @@ const NavBar = () => {
 
             <span style={{
               fontSize: '24px',
-              color: isScrolled ? '#0F172A' : '#FFFFFF',
+              color: isDark ? '#FFFFFF' : '#0F172A',
               letterSpacing: '-0.5px',
               transition: 'color 0.3s',
               display: 'flex',
@@ -160,7 +153,7 @@ const NavBar = () => {
             }}>
               <span style={{ fontWeight: 800 }}>Bias</span>
               <span style={{ fontWeight: 300 }}>Sense</span>
-              <ArrowRight size={14} strokeWidth={3} style={{ marginLeft: '2px', marginTop: '4px' }} />
+              <ArrowRight size={14} strokeWidth={3} style={{ marginLeft: '2px', marginTop: '1px' }} />
             </span>
           </a>
 
@@ -205,11 +198,11 @@ const NavBar = () => {
                     }
                   }}
                   whileHover={{
-                    backgroundColor: isScrolled ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)',
-                    color: isScrolled ? '#0F172A' : '#FFFFFF',
+                    backgroundColor: 'rgba(45, 212, 191, 0.12)',
+                    color: '#0D9488',
                   }}
                   style={{
-                    color: isScrolled ? '#0F172A' : 'rgba(255, 255, 255, 0.85)',
+                    color: isDark ? 'rgba(255,255,255,0.92)' : 'rgba(15,23,42,0.85)',
                     textDecoration: 'none',
                     fontSize: '15px',
                     fontWeight: 600,
@@ -302,16 +295,14 @@ const NavBar = () => {
               whileTap={{ scale: 0.95 }}
               onClick={() => window.location.href = '/early-access'}
               style={{
-                background: isScrolled ? '#0F172A' : '#FFFFFF',
-                color: isScrolled ? '#FFFFFF' : '#0F172A',
+                background: 'linear-gradient(135deg, #0D9488 0%, #0891B2 100%)',
+                color: '#FFFFFF',
                 padding: '10px 24px',
                 borderRadius: '20px',
                 fontSize: '15px',
                 fontWeight: 600,
-                border: isScrolled ? '1px solid rgba(0, 0, 0, 0.1)' : '1px solid rgba(255, 255, 255, 0.1)',
-                boxShadow: isScrolled
-                  ? '0 4px 14px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-                  : '0 4px 14px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                border: 'none',
+                boxShadow: '0 4px 18px rgba(13,148,136,0.35)',
               }}
             >
               Get Early Access
@@ -322,7 +313,7 @@ const NavBar = () => {
           <div className="mobile-toggle">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              style={{ color: isScrolled ? '#0F172A' : '#FFFFFF', padding: '4px', transition: 'color 0.3s', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              style={{ color: isDark ? '#FFFFFF' : '#0F172A', padding: '4px', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'color 0.3s' }}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -400,7 +391,7 @@ const NavBar = () => {
                 onClick={() => { setMobileMenuOpen(false); window.location.href = '/early-access'; }}
                 style={{
                   background: '#FFFFFF',
-                  color: '#0F172A',
+                  color: '#FFFFFF',
                   padding: '14px',
                   borderRadius: '16px',
                   fontSize: '16px',
